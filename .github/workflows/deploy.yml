@@ -1,13 +1,12 @@
-name: push images to docker registry
+name: Build and publish images
 
 on:
   push:
     branches: [main]
 
 jobs:
-  
   login:
-    name: Login to Docker Hub
+    name: Build and publish images
     runs-on: ubuntu-latest
     steps:
       -
