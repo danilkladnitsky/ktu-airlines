@@ -30,6 +30,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: backend
+          target: build
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines/backend:latest
 

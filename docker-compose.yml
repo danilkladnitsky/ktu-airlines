@@ -12,7 +12,7 @@ services:
     restart: always
     build: 
       context: backend
-      target: development
+      target: production
     command: npm run start:dev
     depends_on:
       - database
