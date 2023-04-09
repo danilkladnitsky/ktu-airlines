@@ -32,5 +32,5 @@ jobs:
           context: backend
           target: build
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines/backend:latest
+          tags: ktu-airlines/backend:latest
 

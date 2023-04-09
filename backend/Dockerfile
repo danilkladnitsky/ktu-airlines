@@ -9,6 +9,8 @@ RUN npm i -f  --silent
 
 COPY . .
 
+RUN npm run build
+
     ## PRODUCTION
 FROM node:16-alpine3.15 AS production
 
@@ -24,8 +26,6 @@ COPY package-lock.json ./
 RUN npm install -f
 
 COPY . .
-
-RUN npm run build
 
 COPY --from=development /usr/app/dist ./dist
 
