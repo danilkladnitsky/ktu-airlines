@@ -33,7 +33,7 @@ jobs:
         with:
           context: backend
           push: true
-          tags: ${{env.backend_rep}}:${{ env.SHORT_SHA }}
+          tags: ${{env.backend_rep}}:${{ github.sha }}
           platforms: linux/x86_64
           cache-from: type=registry,ref=${{env.backend_rep}}:latest
           cache-to: type=inline
@@ -43,7 +43,7 @@ jobs:
         with:
           context: frontend
           push: true
-          tags: ${{env.frontend_rep}}:${{ env.SHORT_SHA }}
+          tags: ${{env.frontend_rep}}:${{ github.sha }}
           platforms: linux/x86_64
           cache-from: type=registry,ref=${{env.frontend_rep}}:latest
           cache-to: type=inline
