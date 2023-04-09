@@ -31,5 +31,5 @@ jobs:
           context: backend
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.backend:latest
-          platforms: linux/arm64
+          platform: linux/x86_64
 
