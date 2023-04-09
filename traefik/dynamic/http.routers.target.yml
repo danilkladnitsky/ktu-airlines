@@ -2,4 +2,4 @@ http:
   routers:
     docker-localhost:
       rule: Host(`docker.localhost`)
-      service: nginx-blue@file
+      service: nginx-green@file

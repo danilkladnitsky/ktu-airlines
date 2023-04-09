@@ -3,4 +3,4 @@ http:
     nginx-green:
       loadBalancer:
         servers:
-          - url: 'http://nginx-green'
+          - url: 'http://nginx-green:81'
