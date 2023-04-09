@@ -2,6 +2,7 @@ version: "3.8"
 services:
   backend:
     container_name: backend
+    image: ktu-airlines/backend:latest
     ports:
       - ${APP_PORT}:${APP_PORT}
     environment:
