@@ -13,7 +13,7 @@ services:
     env_file:
       - .env
   backend:
-    image: danyakladnitsky/ktu-airlines.backend:main
+    image: danyakladnitsky/ktu-airlines.backend:latest
     ports:
       - ${APP_PORT}:${APP_PORT}
     environment:
@@ -31,7 +31,7 @@ services:
     command: npm run start:prod
   
   frontend:
-    image: danyakladnitsky/ktu-airlines.frontend:main
+    image: danyakladnitsky/ktu-airlines.frontend:latest
     restart: always
   
   nginx:

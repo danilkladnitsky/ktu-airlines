@@ -33,7 +33,7 @@ jobs:
         with:
           context: backend
           push: true
-          tags: ${{env.frontend_rep}}:latest
+          tags: ${{env.backend_rep}}:latest
           cache-from: type=registry,ref=${{env.backend_rep}}:latest
           cache-to: type=inline
       -
