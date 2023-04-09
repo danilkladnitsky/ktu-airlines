@@ -17,7 +17,7 @@ import {
   VkGroupResponse,
   PinMessageResponse,
   VkProfileResponse,
-} from 'common/bot.types';
+} from '@common/bot.types';
 import { generateRandomIntId } from '@utils/generateRandomIntId';
 
 @Injectable()

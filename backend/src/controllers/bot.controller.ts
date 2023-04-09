@@ -11,7 +11,7 @@ import {
 import { generateRandomIntId } from '@utils/generateRandomIntId';
 import { BotSendMessageDto } from '@dtos/bot.dto';
 import { BotService } from '@services/bot.service';
-import { HttpExceptionFilter } from 'filters/http-exception.filter';
+import { HttpExceptionFilter } from '@filters/http-exception.filter';
 import { SocketGateway } from '@gateway/socket-gateway';
 
 @Controller('bot')

@@ -1,4 +1,4 @@
-import { TicketDto } from '@dtos/Ticket.dto';
+import { TicketDto } from '@dtos/ticket.dto';
 import { Controller, Get, Param } from '@nestjs/common';
 
 @Controller('tickets')

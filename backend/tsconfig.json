@@ -54,6 +54,9 @@
       ],
       "@gateway/*": [
         "gateway/*"
+      ],
+      "@filters/*": [
+        "filters/*"
       ]
     }
   }

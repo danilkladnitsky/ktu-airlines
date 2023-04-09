@@ -12,10 +12,8 @@ services:
     restart: always
     build: 
       context: backend
-      target: production
+      target: build
     command: npm run start:dev
-    depends_on:
-      - database
     volumes:
       - ./volumes/backend:/usr/app
       - ./volumes/backend:/usr/app/node_modules
