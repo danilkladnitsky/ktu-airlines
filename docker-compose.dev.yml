@@ -14,6 +14,7 @@ services:
       - .env
   backend:
     image: danyakladnitsky/ktu-airlines.backend:latest
+    platform: linux/x86_64
     ports:
       - ${APP_PORT}:${APP_PORT}
     environment:
@@ -33,6 +34,7 @@ services:
   frontend:
     image: danyakladnitsky/ktu-airlines.frontend:latest
     restart: always
+    platform: linux/x86_64
   
   nginx:
     image: nginx:latest
