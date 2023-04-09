@@ -1,5 +1,18 @@
 version: "3.8"
 services:
+  database: 
+    container_name: database
+    image: postgres:10.4-alpine
+    ports:
+      - ${PG_PORT}:${PG_PORT}
+    command: -p ${PG_PORT}
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB}
+      POSTGRES_HOST: ${PG_HOST}
+    volumes:
+      - ./volumes/postgres:/var/lib/postgresql/data
   backend:
     image: ktu-airlines.backend:latest
     ports:
@@ -9,8 +22,9 @@ services:
       - ${JWT_TOKEN}:${JWT_TOKEN}
       - ${SWAGGER_USER}:${SWAGGER_USER}
       - ${SWAGGER_PASSWORD}:${SWAGGER_PASSWORD}
+      - ${PG_PORT}:${PG_PORT}
+      - ${PG_HOST}:${PG_HOST}
     restart: always
+    depends_on: 
+      - database
     command: npm run start:prod
-    volumes:
-      - ./volumes/backend:/usr/app
-      - ./volumes/backend:/usr/app/node_modules
