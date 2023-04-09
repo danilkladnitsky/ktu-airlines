@@ -5,9 +5,12 @@ on:
     branches: [main]
 
 jobs:
-  login:
+  push:
     name: Build and publish images
     runs-on: ubuntu-latest
+    env:
+      frontend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.frontend
+      backend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.backend
     steps:
       -
         name: Checkout
@@ -30,14 +33,18 @@ jobs:
         with:
           context: backend
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.backend:latest
+          tags: $backend_rep:latest
           platforms: linux/x86_64
+          cache-from: type=registry,ref=$backend_rep:latest
+          cache-to: type=inline
       -
         name: Push frontend image
         uses: docker/build-push-action@v4
         with:
           context: frontend
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.frontend:latest
+          tags: $frontend_rep:latest
           platforms: linux/x86_64
+          cache-from: type=registry,ref=$frontend_rep:latest
+          cache-to: type=inline
 
