@@ -36,7 +36,7 @@ jobs:
           tags: ${{env.backend_rep}}:latest
           cache-from: type=registry,ref=${{env.backend_rep}}:latest
           cache-to: type=inline
-          platforms: linux/x86_64,linux/arm64
+          platforms: linux/x86_64
       -
         name: Push frontend image
         uses: docker/build-push-action@v4
@@ -46,5 +46,5 @@ jobs:
           tags: ${{env.frontend_rep}}:latest
           cache-from: type=registry,ref=${{env.frontend_rep}}:latest
           cache-to: type=inline
-          platforms: linux/x86_64,linux/arm64
+          platforms: linux/x86_64
 
