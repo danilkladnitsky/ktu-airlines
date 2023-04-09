@@ -32,4 +32,12 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.backend:latest
           platforms: linux/x86_64
+      -
+        name: Push frontend image
+        uses: docker/build-push-action@v4
+        with:
+          context: frontend
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.frontend:latest
+          platforms: linux/x86_64
 
