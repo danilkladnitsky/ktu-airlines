@@ -15,7 +15,6 @@ services:
     env_file:
       - .env
   backend:
-    platform: linux/x86_64
     image: danyakladnitsky/ktu-airlines.backend:latest
     ports:
       - ${APP_PORT}:${APP_PORT}
