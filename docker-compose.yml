@@ -31,3 +31,9 @@ services:
     env_file:
       - .env
     command: npm run start:prod
+  
+  frontend:
+    image: danyakladnitsky/ktu-airlines.frontend:latest
+    ports:
+      - 81:80
+    restart: always

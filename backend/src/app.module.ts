@@ -13,8 +13,6 @@ import { UserService } from '@services/user.service';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-console.log(process.env);
-
 @Module({
   imports: [
     ConfigModule.forRoot(),
