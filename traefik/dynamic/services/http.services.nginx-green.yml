@@ -1,6 +1,6 @@
 http:
   services:
-    blue:
+    nginx-green:
       loadBalancer:
         servers:
-          - url: 'http://blue/'
+          - url: 'http://nginx-green'

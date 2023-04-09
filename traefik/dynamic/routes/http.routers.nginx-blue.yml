@@ -1,0 +1,5 @@
+http:
+  routers:
+    nginx-green-docker-localhost:
+      rule: Host(`nginx-blue.docker.localhost`)
+      service: blue-nginx@file

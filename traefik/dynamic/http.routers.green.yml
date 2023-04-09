@@ -1,5 +1,0 @@
-http:
-  routers:
-    green-docker-localhost:
-      rule: Host(`green.docker.localhost`)
-      service: blue@file
