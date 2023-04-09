@@ -14,8 +14,6 @@ services:
       - .env
   backend:
     image: danyakladnitsky/ktu-airlines.backend:latest
-    ports:
-      - ${APP_PORT}:${APP_PORT}
     environment:
       - ${APP_PORT}:${APP_PORT}
       - ${JWT_TOKEN}:${JWT_TOKEN}
