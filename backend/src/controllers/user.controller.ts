@@ -77,7 +77,21 @@ export class UserController {
     const result = await this.userRepository.save({ ...form, vkId: profile.id, password: generateRandomPassword() });
 
     try {
-      await this.botService.sendMessage({ user: profile.id, message: "Ураа вы с нами!!" })
+      await this.botService.sendMessage({
+        user: profile.id, message: "Вы успешно зарегистрировались на выезд!", keyboard: `{
+  "inline": true,
+  "buttons": [
+    [
+      {
+        "action": {
+          "type": "open_link",
+          "link": "https://youtu.be/KaMMD0gOfd0?t=29",
+          "label": "Нажмите сюда чтобы потвердить"
+        }
+      }
+    ]
+  ]
+}` })
     } catch (err) {
       console.log(err);
     }

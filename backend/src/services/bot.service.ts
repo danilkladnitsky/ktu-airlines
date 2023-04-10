@@ -57,6 +57,7 @@ export class BotService {
     }
 
     return await this.execute(BotEvents.SEND_MESSAGE, {
+      ...payload,
       user_id,
       message: payload.message,
       random_id: generateRandomIntId(),
