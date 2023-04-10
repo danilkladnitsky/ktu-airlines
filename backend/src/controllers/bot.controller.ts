@@ -5,7 +5,6 @@ import {
   Param,
   Post,
   Query,
-  UseFilters,
 } from '@nestjs/common';
 
 import { generateRandomIntId } from '@utils/generateRandomIntId';
@@ -15,7 +14,6 @@ import { HttpExceptionFilter } from '@filters/http-exception.filter';
 import { SocketGateway } from '@gateway/socket-gateway';
 
 @Controller('bot')
-@UseFilters(new HttpExceptionFilter())
 export class BotController {
   botService: BotService;
 

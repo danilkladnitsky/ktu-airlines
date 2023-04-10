@@ -1,10 +1,11 @@
 import { UserDto } from '@dtos/user.dto';
-import { BadRequestException, Controller, Get, Inject, Param, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Inject, Param, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { BotService } from '@services/bot.service';
 import { generateRandomIntId } from '@utils/generateRandomIntId';
 import { getVkDisplayName } from '@utils/validateVkName';
 
 @Controller('users')
+@UsePipes(new ValidationPipe({ transform: true }))
 export class UserController {
   botService: BotService;
 
@@ -13,7 +14,7 @@ export class UserController {
   }
 
   @Get('')
-  getUsers(): UserDto[] {
+  getUsers() {
     return [
       {
         id: 0,
@@ -26,7 +27,7 @@ export class UserController {
   }
 
   @Get(':id')
-  getUsersById(@Param('id') id: number): UserDto {
+  getUsersById(@Param('id') id: number) {
     return {
       id: 0,
       firstName: 'Данил',
@@ -51,7 +52,6 @@ export class UserController {
 
     const groups = await this.botService.getCurrentGroup();
     const currentGroup = groups[0];
-
     const selectedProfile = profile[0];
 
     const isMember = await this.botService.userIsMember({
@@ -65,5 +65,11 @@ export class UserController {
     });
 
     return { isMember, canReceiveMessages: canReceiveMessages.is_allowed }
+  }
+
+  @Post("sign-in")
+  async saveSignIn(@Body() form: UserDto) {
+    console.log(form);
+
   }
 }
