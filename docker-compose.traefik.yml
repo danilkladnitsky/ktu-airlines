@@ -9,5 +9,9 @@ services:
     volumes:
       - ./traefik/traefik.yml:/etc/traefik/traefik.yml
       - ./traefik/dynamic:/etc/traefik/dynamic:ro
+    networks:
+      - nginx-net
     
-   
+networks:
+  nginx-net:
+    external: true

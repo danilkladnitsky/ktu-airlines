@@ -11,10 +11,5 @@ services:
         - ./volumes/postgres:/var/lib/postgresql/data
       env_file:
         - .env
-      networks:
-        - backend-net
-
-
-networks:
-  backend-net:
-    external: true
+      ports:
+        - 5432:${PG_PORT}

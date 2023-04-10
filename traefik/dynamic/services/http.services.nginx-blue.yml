@@ -3,4 +3,4 @@ http:
     nginx-blue:
       loadBalancer:
         servers:
-          - url: 'http://nginx-blue:82'
+          - url: 'http://nginx-blue'

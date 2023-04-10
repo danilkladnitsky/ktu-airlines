@@ -8,9 +8,9 @@ export class UserEntity extends BaseEntity {
   firstName: string;
   lastName: string;
   isuNumber: number;
-  groupName: string;
-  phoneNumber: string;
   vkId: string;
+  phoneNumber: string;
+  groupName: string;
   motivationLetter: string;
   selectedServices: [UserSelectedServices];
   password: string;

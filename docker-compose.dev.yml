@@ -5,4 +5,4 @@ services:
   
   frontend:
     platform: linux/x86_64
-    
+  
