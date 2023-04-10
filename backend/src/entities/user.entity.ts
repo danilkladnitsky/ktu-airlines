@@ -1,17 +1,26 @@
-import { Entity } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
 
 export type UserSelectedServices = 'needs_bed_sheets' | 'is_vegan';
 
 @Entity()
-export class UserEntity extends BaseEntity {
+export class User extends BaseEntity {
+  @Column()
   firstName: string;
+  @Column()
   lastName: string;
+  @Column()
   isuNumber: number;
-  vkId: string;
+  @Column()
+  vkId: number;
+  @Column()
   phoneNumber: string;
+  @Column()
   groupName: string;
+  @Column()
   motivationLetter: string;
-  selectedServices: [UserSelectedServices];
+  @Column()
+  selectedServices: string;
+  @Column()
   password: string;
 }

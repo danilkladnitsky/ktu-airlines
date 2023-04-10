@@ -6,16 +6,25 @@ export class UserDto {
   @IsNotEmpty()
   firstName: string;
   lastName: string;
-  // @IsNotEmpty()
-  // @IsInt()
+  @IsNotEmpty()
+  @IsInt()
   isuNumber: number;
-  // @IsNotEmpty()
+  @IsNotEmpty()
   groupName: StudentGroup;
-  // @IsPhoneNumber()
+  @IsPhoneNumber()
   phoneNumber: string;
-  // @IsString()
+  @IsString()
   vkLink: string;
   @IsString()
   motivationLetter: string;
+  @IsNotEmpty()
+  @IsString()
+  selectedServices: string;
+}
+
+export class ShareableUserDto {
+  id: Id;
+  firstName: string;
+  lastName: string;
   selectedServices: [UserSelectedServices];
 }

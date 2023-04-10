@@ -26,28 +26,25 @@ export class BotService {
     let user_id: Id | string;
 
     if (!Number.isInteger(payload.user)) {
-      const profiles = await this.getVkProfile({
+      const profile = await this.getVkProfile({
         user_ids: [payload.user],
-        random_id: generateRandomIntId(),
       });
 
-      user_id = profiles[0].id;
+      user_id = profile.id;
     } else {
       user_id = payload.user as number;
     }
 
-    const groups = await this.getCurrentGroup();
-    const currentGroup = groups[0];
+    const group = await this.getCurrentGroup();
 
     const isMember = await this.userIsMember({
       user_id,
-      group_id: currentGroup.id,
+      group_id: group.id,
     });
 
-    const { is_allowed: messagesAreAllowed } = await this.userCanReceiveMessage(
+    const messagesAreAllowed = await this.userCanReceiveMessage(
       {
         user_id,
-        group_id: currentGroup.id,
       },
     );
 
@@ -76,22 +73,26 @@ export class BotService {
 
   async userCanReceiveMessage(
     payload: MessageAllowedRequest,
-  ): Promise<MessagesAllowedResponse> {
-    return await this.execute(BotEvents.MESSAGES_ARE_ALLOWED, payload);
+  ): Promise<boolean> {
+    const group = await this.getCurrentGroup();
+    const result = await this.execute(BotEvents.MESSAGES_ARE_ALLOWED, { ...payload, group_id: group.id });
+    return result.is_allowed;
   }
 
-  async getVkProfile(payload: VkProfileRequest): Promise<VkProfileResponse[]> {
-    return await this.execute(BotEvents.GET_VK_PROFILE, payload);
+  async getVkProfile(payload: VkProfileRequest): Promise<VkProfileResponse> {
+    const randomId = generateRandomIntId();
+    const profiles = await this.execute(BotEvents.GET_VK_PROFILE, { ...payload, randomId });
+    return profiles[0];
   }
 
-  async getCurrentGroup(): Promise<VkGroupResponse[]> {
+  async getCurrentGroup(): Promise<VkGroupResponse> {
     const groups = await this.execute(BotEvents.GET_CURRENT_GROUP);
 
-    if (groups.length === 0) {
+    if (!groups) {
       throw new BadRequestException('Невозможно найти группу');
     }
 
-    return groups;
+    return groups[0];
   }
 
   private async execute<T>(event: BotEvents, payload?: T) {

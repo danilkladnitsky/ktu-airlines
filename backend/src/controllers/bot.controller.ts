@@ -10,7 +10,6 @@ import {
 import { generateRandomIntId } from '@utils/generateRandomIntId';
 import { BotSendMessageDto } from '@dtos/bot.dto';
 import { BotService } from '@services/bot.service';
-import { HttpExceptionFilter } from '@filters/http-exception.filter';
 import { SocketGateway } from '@gateway/socket-gateway';
 
 @Controller('bot')
@@ -32,13 +31,13 @@ export class BotController {
       random_id: generateRandomIntId(),
     };
 
-    const profiles = await this.botService.getVkProfile(payload);
+    const profile = await this.botService.getVkProfile(payload);
 
-    if (profiles.length === 0) {
+    if (profile) {
       throw new NotFoundException(`Пользователя ${username} не существует`);
     }
 
-    return profiles[0];
+    return profile;
   }
 
   @Post('send_message/:user')
@@ -49,7 +48,6 @@ export class BotController {
     const message_id = await this.botService.sendMessage({
       message,
       user,
-      random_id: generateRandomIntId(),
     });
     this.socketGateway.sendToAll(message);
     return { message_id };
@@ -57,22 +55,19 @@ export class BotController {
 
   @Get('get_user_membership/:username')
   async getUserMembership(@Param('username') username: string) {
-    const profiles = await this.botService.getVkProfile({
+    const profile = await this.botService.getVkProfile({
       user_ids: [username],
-      random_id: generateRandomIntId(),
     });
 
-    if (profiles.length === 0) {
+    if (profile) {
       throw new NotFoundException(`Пользователя ${username} не существует`);
     }
-
-    const currentUser = profiles[0];
 
     const groups = await this.botService.getCurrentGroup();
     const currentGroup = groups[0];
 
     return await this.botService.userIsMember({
-      user_id: currentUser.id,
+      user_id: profile.id,
       group_id: currentGroup.id,
     });
   }

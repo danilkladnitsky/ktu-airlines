@@ -1,25 +1,26 @@
-import { UserDto } from '@dtos/user.dto';
-import { BadRequestException, Body, Controller, Get, Inject, Param, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
+import { ShareableUserDto, UserDto } from '@dtos/user.dto';
+import { BadRequestException, Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { BotService } from '@services/bot.service';
-import { generateRandomIntId } from '@utils/generateRandomIntId';
+import { generateRandomPassword } from '@utils/generateRandomPassword';
 import { getVkDisplayName } from '@utils/validateVkName';
+import { UserRepository } from 'repositories/user.repository';
 
 @Controller('users')
-@UsePipes(new ValidationPipe({ transform: true }))
 export class UserController {
   botService: BotService;
+  userRepository: UserRepository;
 
-  constructor(botService: BotService) {
+  constructor(botService: BotService, userRepository: UserRepository) {
     this.botService = botService;
+    this.userRepository = userRepository;
   }
 
   @Get('')
-  getUsers() {
+  getUsers(): ShareableUserDto[] {
     return [
       {
         id: 0,
         firstName: 'Данил',
-        groupName: 'P34312',
         lastName: 'Кладницкий',
         selectedServices: ['is_vegan'],
       },
@@ -27,11 +28,10 @@ export class UserController {
   }
 
   @Get(':id')
-  getUsersById(@Param('id') id: number) {
+  getUsersById(@Param('id') id: number): ShareableUserDto {
     return {
       id: 0,
       firstName: 'Данил',
-      groupName: 'P34312',
       lastName: 'Кладницкий',
       selectedServices: ['is_vegan'],
     };
@@ -47,29 +47,40 @@ export class UserController {
 
     const profile = await this.botService.getVkProfile({
       user_ids: [displayName],
-      random_id: generateRandomIntId()
     });
 
     const groups = await this.botService.getCurrentGroup();
     const currentGroup = groups[0];
-    const selectedProfile = profile[0];
 
     const isMember = await this.botService.userIsMember({
-      user_id: selectedProfile.id,
+      user_id: profile.id,
       group_id: currentGroup.id
     });
 
     const canReceiveMessages = await this.botService.userCanReceiveMessage({
-      group_id: currentGroup.id,
-      user_id: selectedProfile.id
+      user_id: profile.id
     });
 
-    return { isMember, canReceiveMessages: canReceiveMessages.is_allowed }
+    return { isMember, canReceiveMessages }
   }
 
   @Post("sign-in")
   async saveSignIn(@Body() form: UserDto) {
-    console.log(form);
+    const vkDisplayName = getVkDisplayName(form.vkLink);
 
+    if (!vkDisplayName) {
+      throw new BadRequestException("Невалидный ВК профиль");
+    }
+
+    const profile = await this.botService.getVkProfile({ user_ids: [vkDisplayName] });
+
+    const result = await this.userRepository.save({ ...form, vkId: profile.id, password: generateRandomPassword() });
+
+    try {
+      await this.botService.sendMessage({ user: profile.id, message: "Ураа вы с нами!!" })
+    } catch (err) {
+      console.log(err);
+    }
+    return result.id;
   }
 }

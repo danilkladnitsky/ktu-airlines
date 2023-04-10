@@ -18,13 +18,11 @@ export type ProfileFields = 'photo_50' | 'city';
 // API functions
 export type BotSendMessage = {
   user: Id | string;
-  random_id: Id;
   message: string;
 };
 
 export type VkProfileRequest = {
   user_ids: (string | number)[];
-  random_id: number;
   fields?: string;
 };
 
@@ -50,7 +48,6 @@ export type VkGroupResponse = {
 
 export type MessageAllowedRequest = {
   user_id: Id;
-  group_id: Id;
 };
 
 export type MessagesAllowedResponse = {
