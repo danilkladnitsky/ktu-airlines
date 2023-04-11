@@ -1,5 +1,5 @@
 import { ShareableUserDto, UserDto } from '@dtos/user.dto';
-import { BadRequestException, Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, ConflictException, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { BotService } from '@services/bot.service';
 import { generateRandomPassword } from '@utils/generateRandomPassword';
 import { getVkDisplayName } from '@utils/validateVkName';
@@ -74,7 +74,13 @@ export class UserController {
 
     const profile = await this.botService.getVkProfile({ user_ids: [vkDisplayName] });
 
-    const result = await this.userRepository.save({ ...form, vkId: profile.id, password: generateRandomPassword() });
+    const dublicate = await this.userRepository.getBy("isuNumber", form.isuNumber);
+     
+    if (dublicate) {
+      throw new ConflictException("Этот пользователь уже был зарегистрирован");
+    }
+
+    const result = await this.userRepository.save({ ...form, vkId: profile.id });
 
     try {
       await this.botService.sendMessage({
