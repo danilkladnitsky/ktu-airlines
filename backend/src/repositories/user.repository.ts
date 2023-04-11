@@ -1,10 +1,10 @@
 import { UpdateEntity } from "@common/repository.types";
-import { ShareableUserDto, UserDto } from "@dtos/user.dto";
+import { ShareableUserDto } from "@dtos/user.dto";
 import { User } from "@entities/user.entity";
 import { Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { AbstractRepository } from "./abstract.repository";
-import { plainToClass, plainToInstance } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
 import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
@@ -41,7 +41,7 @@ export class UserRepository implements AbstractRepository<User, ShareableUserDto
     }
 
     async get(id: Id) {
-        const result = await this.repository.findOne({ where: { id } });
+        const result = await this.getBy("id", id);
         return plainToInstance(ShareableUserDto, result);
     }
 }

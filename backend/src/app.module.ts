@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BotService } from '@services/bot.service';
 import { TicketService } from '@services/ticket.service';
 import { UserService } from '@services/user.service';
+import { TicketRepository } from 'repositories/ticket.repository';
 import { UserRepository } from 'repositories/user.repository';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -27,15 +28,17 @@ import { AppService } from './app.service';
       entities: [Ticket, User],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User])
+    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([Ticket]),
   ],
   controllers: [AppController, UserController, TicketController, BotController],
   providers: [
     AppService,
     UserService,
     TicketService,
-    UserRepository,
     BotService,
+    UserRepository,
+    TicketRepository,
     SocketGateway,
   ],
 })

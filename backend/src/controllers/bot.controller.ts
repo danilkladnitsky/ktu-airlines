@@ -1,10 +1,13 @@
 import {
+  Body,
   Controller,
   Get,
+  HttpStatus,
   NotFoundException,
   Param,
   Post,
   Query,
+  Res,
 } from '@nestjs/common';
 
 import { generateRandomIntId } from '@utils/generateRandomIntId';
@@ -51,6 +54,11 @@ export class BotController {
     });
     this.socketGateway.sendToAll(message);
     return { message_id };
+  }
+
+  @Post("connect-webhook")
+  async connectWebhook(@Res() response) {
+    return response.status(200).send(process.env.BOT_CONFIRMATION);
   }
 
   @Get('get_user_membership/:username')

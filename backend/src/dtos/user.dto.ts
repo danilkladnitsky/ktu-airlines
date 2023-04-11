@@ -26,5 +26,6 @@ export class ShareableUserDto {
   id: Id;
   firstName: string;
   lastName: string;
+  vkId: number;
   selectedServices: [UserSelectedServices];
 }

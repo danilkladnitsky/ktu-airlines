@@ -1,25 +1,20 @@
 import { ShareableUserDto, UserDto } from '@dtos/user.dto';
 import { BadRequestException, Body, ConflictException, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { BotService } from '@services/bot.service';
-import { generateRandomPassword } from '@utils/generateRandomPassword';
 import { getVkDisplayName } from '@utils/validateVkName';
 import { UserRepository } from 'repositories/user.repository';
 
 @Controller('users')
 export class UserController {
-  botService: BotService;
-  userRepository: UserRepository;
-
-  constructor(botService: BotService, userRepository: UserRepository) {
-    this.botService = botService;
-    this.userRepository = userRepository;
+  constructor(private botService: BotService, private userRepository: UserRepository) {
   }
 
-  @Get('')
+  @Get()
   getUsers(): ShareableUserDto[] {
     return [
       {
         id: 0,
+        vkId: 1,
         firstName: 'Данил',
         lastName: 'Кладницкий',
         selectedServices: ['is_vegan'],
@@ -31,6 +26,7 @@ export class UserController {
   getUsersById(@Param('id') id: number): ShareableUserDto {
     return {
       id: 0,
+      vkId: 0,
       firstName: 'Данил',
       lastName: 'Кладницкий',
       selectedServices: ['is_vegan'],
@@ -84,20 +80,7 @@ export class UserController {
 
     try {
       await this.botService.sendMessage({
-        user: profile.id, message: "Вы успешно зарегистрировались на выезд!", keyboard: `{
-  "inline": true,
-  "buttons": [
-    [
-      {
-        "action": {
-          "type": "open_link",
-          "link": "https://youtu.be/KaMMD0gOfd0?t=29",
-          "label": "Нажмите сюда чтобы потвердить"
-        }
-      }
-    ]
-  ]
-}` })
+        user: profile.id, message: "Вы успешно зарегистрировались на выезд!"})
     } catch (err) {
       console.log(err);
     }

@@ -21,6 +21,6 @@ export class User extends BaseEntity {
   motivationLetter: string;
   @Column()
   selectedServices: string;
-  @Column({nullable: true})
+  @Column({ nullable: true })
   password?: string;
 }

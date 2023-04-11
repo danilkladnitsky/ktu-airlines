@@ -13,15 +13,18 @@ import {
   BotSendMessage,
   VkProfileRequest,
   MessageAllowedRequest,
-  MessagesAllowedResponse,
   VkGroupResponse,
   PinMessageResponse,
   VkProfileResponse,
 } from '@common/bot.types';
 import { generateRandomIntId } from '@utils/generateRandomIntId';
+import { setupBotListener } from '@gateway/bot-gateway';
 
 @Injectable()
 export class BotService {
+  constructor() {
+    setupBotListener();
+  }
   async sendMessage(payload: BotSendMessage): Promise<number> {
     let user_id: Id | string;
 
@@ -61,6 +64,7 @@ export class BotService {
       user_id,
       message: payload.message,
       random_id: generateRandomIntId(),
+      keyboard: JSON.stringify(payload.keyboard)
     });
   }
 
