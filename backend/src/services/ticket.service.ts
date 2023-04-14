@@ -11,9 +11,16 @@ export class TicketService {
         private ticketRepository: TicketRepository,
         private botService: BotService
     ) { }
-    
+
+    async getAll() {
+        return this.ticketRepository.getAll()
+    }
+
+    async getTicketByUserId(userId: number) {
+        return this.ticketRepository.getBy("userId", userId);
+    }
+
     async inviteUser(user: ShareableUserDto) {
-        
         const ticket = await this.ticketRepository.getBy("userId", user.id);
 
         if (ticket) {
@@ -22,6 +29,6 @@ export class TicketService {
             await this.ticketRepository.save({ status: "pending", userId: user.id });
         }
 
-        this.botService.sendMessage({user: user.vkId, message: INVITE_TEXT, keyboard: BotInviteKeyboard });
+        this.botService.sendMessage({ user: user.vkId, message: INVITE_TEXT, keyboard: BotInviteKeyboard });
     }
 }

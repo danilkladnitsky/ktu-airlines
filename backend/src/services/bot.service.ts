@@ -106,7 +106,6 @@ export class BotService {
       return;
     }
 
-
     await this.ticketRepository.update({ ...ticket, status: payload.value });
 
     if (payload.value === "accepted") {

@@ -15,6 +15,10 @@ export class TicketRepository implements AbstractRepository<Ticket, TicketDto> {
         return this.repository.findOne({ where: { id } });
     }
 
+    async getAll(): Promise<TicketDto[]> {
+        return this.repository.find()
+    }
+
     async save(ticket: CreateTicketDto): Promise<TicketDto> {
         const result = await this.repository.save(ticket);
         return plainToInstance(TicketDto, result);
