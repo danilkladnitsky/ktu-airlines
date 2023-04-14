@@ -11,22 +11,27 @@ import { CreateTicketDto, TicketDto } from "@dtos/ticket.dto";
 export class TicketRepository implements AbstractRepository<Ticket, TicketDto> {
     constructor(@InjectRepository(Ticket) private readonly repository: Repository<Ticket>) { }
 
-    async get(id: number): Promise<TicketDto> { 
-        return this.repository.findOne({where: { id }});
+    async get(id: number): Promise<TicketDto> {
+        return this.repository.findOne({ where: { id } });
     }
 
-    async save(ticket: CreateTicketDto): Promise<TicketDto> { 
+    async save(ticket: CreateTicketDto): Promise<TicketDto> {
         const result = await this.repository.save(ticket);
         return plainToInstance(TicketDto, result);
     }
 
-    async update(ticket: UpdateEntity<TicketDto>) { 
+    async update(ticket: UpdateEntity<TicketDto>) {
         const result = await this.repository.save(ticket);
         return plainToInstance(TicketDto, result);
     }
 
-     async getBy(property: keyof Ticket, value: any) { 
-        const result = await this.repository.findOneBy({[property]: value});
+    async getBy(property: keyof Ticket, value: any) {
+        const result = await this.repository.findOneBy({ [property]: value });
+
+        if (!result) {
+            return null;
+        }
+
         return plainToInstance(TicketDto, result);
     }
 }

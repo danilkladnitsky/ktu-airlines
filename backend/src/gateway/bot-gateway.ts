@@ -1,25 +1,48 @@
+import { BotEventType, BotMessageState } from '@common/bot.events';
+import { Inject, OnModuleInit } from '@nestjs/common';
+import { BotService } from '@services/bot.service';
 import { API, Upload, Updates } from 'vk-io';
 
-export const setupBotListener = () => {
-    const api = new API({
-        token: process.env.BOT_TOKEN,
-    });
+export class BotGateway implements OnModuleInit {
+    vkApi: API;
+    vkUpload: Upload;
+    vkUpdates: Updates;
 
-    const upload = new Upload({
-        api
-    });
+    @Inject(BotService)
+    private readonly botService: BotService;
 
-    const updates = new Updates({
-        api,
-        upload,
-    });
+    onModuleInit() {
+        this.vkApi = new API({
+            token: process.env.BOT_TOKEN,
+        });
 
-    updates.startPolling();
+        this.vkUpload = new Upload({
+            api: this.vkApi
+        });
 
-    updates.on('message_new', (context) => {
-        console.log(context.messagePayload);
+        this.vkUpdates = new Updates({
+            api: this.vkApi,
+            upload: this.vkUpload,
+        });
 
-        // context.type // message
-        // context.subTypes // ['message_new']
-    });
+        this.vkUpdates.startPolling();
+
+        this.vkUpdates.on('message_new', (context) => {
+            const { messagePayload } = context;
+
+            if (!messagePayload) {
+                return;
+            }
+
+            const buttonPayload = messagePayload as BotMessageState;
+
+            switch (buttonPayload.type) {
+                case BotEventType.INVITATION:
+                default:
+                    this.botService.onInvitation(buttonPayload, context)
+
+            }
+
+        });
+    }
 }

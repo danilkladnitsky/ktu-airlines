@@ -3,6 +3,7 @@ const api = require('node-vk-bot-api/lib/api');
 import {
   BadRequestException,
   ForbiddenException,
+  Inject,
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
@@ -18,13 +19,19 @@ import {
   VkProfileResponse,
 } from '@common/bot.types';
 import { generateRandomIntId } from '@utils/generateRandomIntId';
-import { setupBotListener } from '@gateway/bot-gateway';
+import { ContextDefaultState, MessageContext } from 'vk-io';
+import { InvitationState } from '@common/bot.events';
+import { TicketRepository } from 'repositories/ticket.repository';
+import { UserRepository } from 'repositories/user.repository';
 
 @Injectable()
 export class BotService {
-  constructor() {
-    setupBotListener();
-  }
+  @Inject(TicketRepository)
+  private ticketRepository: TicketRepository;
+
+  @Inject(UserRepository)
+  private userRepository: UserRepository;
+
   async sendMessage(payload: BotSendMessage): Promise<number> {
     let user_id: Id | string;
 
@@ -88,6 +95,26 @@ export class BotService {
     const randomId = generateRandomIntId();
     const profiles = await this.execute(BotEvents.GET_VK_PROFILE, { ...payload, randomId });
     return profiles[0];
+  }
+
+  async onInvitation(payload: InvitationState, context: MessageContext<ContextDefaultState>) {
+    const user = await this.userRepository.getBy("vkId", context.senderId)
+    const ticket = await this.ticketRepository.getBy("userId", user.id);
+
+    if (!ticket) {
+      this.sendMessage({ user: context.senderId, message: "Вы не регистрировались на выезд. Если это ошибка - свяжитесь с разработчиком" });
+      return;
+    }
+
+
+    await this.ticketRepository.update({ ...ticket, status: payload.value });
+
+    if (payload.value === "accepted") {
+      this.sendMessage({ user: context.senderId, message: "Вы успешно зарегистрировались на выезд!" });
+    } else if (payload.value === "declined") {
+      this.sendMessage({ user: context.senderId, message: "Вы отказались от участия в выезде" });
+    }
+
   }
 
   async getCurrentGroup(): Promise<VkGroupResponse> {

@@ -1,3 +1,5 @@
+import { BotEventType } from "./bot.events";
+
 export const BotInviteKeyboard = {
   "buttons": [
     [
@@ -5,7 +7,7 @@ export const BotInviteKeyboard = {
         "action": {
           "type": "text",
           "label": "Подтвердить",
-          "payload": "{\"status\": \"accept\"}"
+          "payload": { type: BotEventType.INVITATION, value: "accepted" }
         },
         "color": "positive"
       },
@@ -13,7 +15,7 @@ export const BotInviteKeyboard = {
         "action": {
           "type": "text",
           "label": "Отказаться",
-          "payload": "{\"status\": \"decline\"}"
+          "payload": { type: BotEventType.INVITATION, value: "declined" }
         },
         "color": "negative"
       }

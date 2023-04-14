@@ -3,6 +3,7 @@ import { TicketController } from '@controllers/ticket.controller';
 import { UserController } from '@controllers/user.controller';
 import { Ticket } from '@entities/ticket.entity';
 import { User } from '@entities/user.entity';
+import { BotGateway } from '@gateway/bot-gateway';
 import { SocketGateway } from '@gateway/socket-gateway';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -40,6 +41,7 @@ import { AppService } from './app.service';
     UserRepository,
     TicketRepository,
     SocketGateway,
+    BotGateway
   ],
 })
 export class AppModule { }
