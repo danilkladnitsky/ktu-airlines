@@ -1,6 +1,6 @@
 import { BotInviteKeyboard } from "@common/bot.keyboards";
 import { INVITE_TEXT } from "@common/bot.phrases";
-import { ShareableUserDto } from "@dtos/user.dto";
+import { ShareableUserDto, UserDto } from "@dtos/user.dto";
 import { Injectable } from "@nestjs/common";
 import { TicketRepository } from "repositories/ticket.repository";
 import { BotService } from "./bot.service";

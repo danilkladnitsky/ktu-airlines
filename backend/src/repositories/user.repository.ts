@@ -4,21 +4,19 @@ import { User } from "@entities/user.entity";
 import { Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { AbstractRepository } from "./abstract.repository";
-import { plainToInstance } from 'class-transformer';
+import { classToPlain, instanceToPlain, plainToClass, plainToInstance } from 'class-transformer';
 import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
-export class UserRepository implements AbstractRepository<User, ShareableUserDto> {
+export class UserRepository {
     constructor(@InjectRepository(User) private readonly repository: Repository<User>) { }
 
     async save(user: User) {
-        const result = await this.repository.save(user);
-        return plainToInstance(ShareableUserDto, result);
+        return await this.repository.save(user);
     }
 
     async getAll() {
-        const result = await this.repository.find();
-        return result.map(user => plainToInstance(ShareableUserDto, user));
+        return await this.repository.find();
     }
 
     async getBy(property: keyof User, value: any): Promise<ShareableUserDto | null> {
@@ -27,7 +25,7 @@ export class UserRepository implements AbstractRepository<User, ShareableUserDto
         if (!result) {
             return null;
         }
-        return plainToInstance(ShareableUserDto, result);
+        return result;
     }
 
     async delete(id: Id) {
@@ -41,12 +39,12 @@ export class UserRepository implements AbstractRepository<User, ShareableUserDto
     }
 
     async update(user: UpdateEntity<User>) {
-        const result = await this.repository.save(user);
-        return plainToInstance(ShareableUserDto, result);
+        return await this.repository.save(user);
     }
 
     async get(id: Id) {
-        const result = await this.getBy("id", id);
-        return plainToInstance(ShareableUserDto, result);
+        const result = await this.repository.findOne({ where: { id }, });
+
+        return result;
     }
 }

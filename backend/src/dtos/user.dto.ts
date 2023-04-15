@@ -1,4 +1,5 @@
 import { UserSelectedServices } from '@entities/user.entity';
+import { Expose } from 'class-transformer';
 import { IsInt, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
 
 export class UserDto {
@@ -26,6 +27,6 @@ export class ShareableUserDto {
   id: Id;
   firstName: string;
   lastName: string;
-  vkId: number;
-  selectedServices: [UserSelectedServices];
+  vkId: string;
+  selectedServices: string;
 }

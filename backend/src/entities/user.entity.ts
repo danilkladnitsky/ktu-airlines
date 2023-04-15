@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
 
@@ -22,5 +23,6 @@ export class User extends BaseEntity {
   @Column()
   selectedServices: string;
   @Column({ nullable: true })
+  @Exclude({ toPlainOnly: true })
   password?: string;
 }
