@@ -1,5 +1,3 @@
-import { UserSelectedServices } from '@entities/user.entity';
-import { Expose } from 'class-transformer';
 import { IsInt, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
 
 export class UserDto {

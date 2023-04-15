@@ -2,7 +2,7 @@ import { Exclude } from 'class-transformer';
 import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
 
-export type UserSelectedServices = 'needs_bed_sheets' | 'is_vegan';
+export type UserSelectedServices = 'needs_bed_sheets' | 'vegan_menu';
 
 @Entity()
 export class User extends BaseEntity {

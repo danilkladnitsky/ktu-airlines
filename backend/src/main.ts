@@ -12,6 +12,9 @@ async function runApi() {
     new ClassSerializerInterceptor(app.get(Reflector))
   );
 
+  app.enableCors({origin: "*"})
+  app.setGlobalPrefix("api");
+
   await app.listen(process.env.APP_PORT);
 }
 
