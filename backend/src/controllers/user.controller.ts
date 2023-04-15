@@ -1,7 +1,8 @@
 import { UserDto } from '@dtos/user.dto';
-import { BadRequestException, Body, ConflictException, Controller, Get, Inject, Param, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, ConflictException, Controller, Get, Inject, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { BotService } from '@services/bot.service';
 import { getVkDisplayName } from '@utils/validateVkName';
+import { AdminGuard } from 'guards/admin.guard';
 import { UserRepository } from 'repositories/user.repository';
 
 @Controller('users')
@@ -13,6 +14,7 @@ export class UserController {
   private userRepository: UserRepository;
 
   @Get()
+  @UseGuards(AdminGuard)
   async getUsers() {
     return await this.userRepository.getAll();
   }

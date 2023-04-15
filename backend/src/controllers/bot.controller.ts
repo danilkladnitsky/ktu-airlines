@@ -7,6 +7,7 @@ import {
   Post,
   Query,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 
 import { BotSendMessageDto } from '@dtos/bot.dto';
@@ -15,6 +16,7 @@ import { SocketGateway } from '@gateway/socket-gateway';
 import { UsersGetParams } from 'vk-io/lib/api/schemas/params';
 import { UsersFields } from 'vk-io/lib/api/schemas/objects';
 import { Response } from 'express';
+import { AdminGuard } from 'guards/admin.guard';
 
 @Controller('bot')
 export class BotController {
@@ -54,6 +56,7 @@ export class BotController {
   }
 
   @Post('send_message/:user')
+  @UseGuards(AdminGuard)
   async sendMessage(
     @Query('message') message: string,
     @Param('user') user: Id | string,

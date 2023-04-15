@@ -1,9 +1,11 @@
 import { TicketDto } from '@dtos/ticket.dto';
-import { BadRequestException, Controller, Get, Inject, NotFoundException, Param, Post } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Inject, NotFoundException, Param, Post, UseGuards } from '@nestjs/common';
 import { TicketService } from '@services/ticket.service';
+import { AdminGuard } from 'guards/admin.guard';
 import { UserRepository } from 'repositories/user.repository';
 
 @Controller('tickets')
+@UseGuards(AdminGuard)
 export class TicketController {
   @Inject(UserRepository)
   private userRepository: UserRepository;
