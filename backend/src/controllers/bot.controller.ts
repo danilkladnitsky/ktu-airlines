@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Controller,
   Get,
   NotFoundException,
@@ -15,7 +16,9 @@ import { SocketGateway } from '@gateway/socket-gateway';
 import { UsersGetParams } from 'vk-io/lib/api/schemas/params';
 import { UsersFields } from 'vk-io/lib/api/schemas/objects';
 import { Response } from 'express';
-import { AdminGuard } from 'guards/admin.guard';
+import { RolesGuard } from 'guards/role.guard';
+import { Roles } from 'guards/roles';
+import { Role } from 'guards/roles.enum';
 
 @Controller('bot')
 export class BotController {
@@ -55,7 +58,8 @@ export class BotController {
   }
 
   @Post('send_message/:user')
-  @UseGuards(AdminGuard)
+  @Roles([Role.Admin])
+  @UseGuards(RolesGuard)
   async sendMessage(
     @Query('message') message: string,
     @Param('user') user: Id | string,
@@ -68,7 +72,6 @@ export class BotController {
     return { message_id };
   }
 
-
   @Get('get_user_membership/:username')
   async getUserMembership(@Param('username') username: string) {
     const profile = await this.botService.getVkProfile({
@@ -80,6 +83,27 @@ export class BotController {
     }
 
     return await this.botService.userIsMember(profile.id);
+  }
+
+  @Get("permissions")
+  async checkUserVkRights(@Query("vk") vk: string) {
+    const vkProfile = await this.botService.resolveVkResource(vk);
+
+    if (!vkProfile || vkProfile.type !== "user") {
+      throw new BadRequestException("Ссылка на ВК Профиль невалидна");
+    }
+
+    const profile = await this.botService.getVkProfile({
+      user_ids: [vkProfile.id],
+    });
+
+    const isMember = await this.botService.userIsMember(profile.id);
+
+    const canReceiveMessages = await this.botService.userCanReceiveMessage({
+      user_id: profile.id
+    });
+
+    return { isMember, canReceiveMessages }
   }
 
   @Post("connect-webhook")

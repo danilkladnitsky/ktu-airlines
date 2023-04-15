@@ -9,3 +9,7 @@ export const verifyJwt = <T,>(value: string): T | null => {
         return null;
     }
 }
+
+export const signJwt = <T extends object>(value: T) => {
+    return jwt.sign(value, process.env.JWT_TOKEN);
+}

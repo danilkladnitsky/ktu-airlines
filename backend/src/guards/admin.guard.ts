@@ -13,7 +13,7 @@ export class AdminGuard implements CanActivate {
         const jwt = request.headers.authorization?.split("Bearer ")[1].trim();
 
         if (!jwt) {
-            throw new UnauthorizedException();
+            return false;
         }
 
         const jwtPayload = verifyJwt(jwt);
@@ -22,6 +22,7 @@ export class AdminGuard implements CanActivate {
             return true;
         }
 
-        throw new UnauthorizedException();
+        return false;
+
     }
 }

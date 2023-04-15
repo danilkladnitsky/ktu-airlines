@@ -1,11 +1,13 @@
 import { TicketDto } from '@dtos/ticket.dto';
 import { BadRequestException, Controller, Get, Inject, NotFoundException, Param, Post, UseGuards } from '@nestjs/common';
 import { TicketService } from '@services/ticket.service';
-import { AdminGuard } from 'guards/admin.guard';
+import { RolesGuard } from 'guards/role.guard';
+import { Roles } from 'guards/roles';
+import { Role } from 'guards/roles.enum';
 import { UserRepository } from 'repositories/user.repository';
 
 @Controller('tickets')
-@UseGuards(AdminGuard)
+@UseGuards(RolesGuard)
 export class TicketController {
   @Inject(UserRepository)
   private userRepository: UserRepository;
@@ -14,16 +16,19 @@ export class TicketController {
   private ticketService: TicketService;
 
   @Get()
+  @Roles([Role.Admin])
   async getTickets() {
     return this.ticketService.getAll()
   }
 
   @Get(':userId')
+  @Roles([Role.User, Role.Admin])
   async getTicketByUserId(@Param('userId') userId: number): Promise<TicketDto> {
     return this.ticketService.getTicketByUserId(userId);
   }
 
   @Post("invite-user/:vk_id")
+  @Roles([Role.Admin])
   async inviteUser(@Param('vk_id') vkId: string) {
     if (!vkId) {
       throw new BadRequestException("Не указан vk_id");
