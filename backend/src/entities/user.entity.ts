@@ -12,7 +12,7 @@ export class User extends BaseEntity {
   @Column()
   isuNumber: number;
   @Column()
-  vkId: number;
+  vkId: string;
   @Column()
   phoneNumber: string;
   @Column()

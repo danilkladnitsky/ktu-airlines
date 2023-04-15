@@ -19,7 +19,7 @@ export type ProfileFields = 'photo_50' | 'city';
 export type BotSendMessage = {
   user: Id | string;
   message: string;
-  keyboard?: object;
+  keyboard?: string;
 };
 
 export type VkProfileRequest = {

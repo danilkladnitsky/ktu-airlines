@@ -1,28 +1,22 @@
-const api = require('node-vk-bot-api/lib/api');
-
 import {
   BadRequestException,
   ForbiddenException,
   Inject,
   Injectable,
-  InternalServerErrorException,
 } from '@nestjs/common';
 import {
-  BotEvents,
-  UserMembershipRequest,
-  PinMessageRequest,
-  BotSendMessage,
-  VkProfileRequest,
   MessageAllowedRequest,
-  VkGroupResponse,
-  PinMessageResponse,
   VkProfileResponse,
 } from '@common/bot.types';
 import { generateRandomIntId } from '@utils/generateRandomIntId';
-import { ContextDefaultState, MessageContext } from 'vk-io';
+import { API, ContextDefaultState, IResolvedOwnerResource, IResolvedTargetResource, MessageContext, resolveResource } from 'vk-io';
 import { InvitationState } from '@common/bot.events';
 import { TicketRepository } from 'repositories/ticket.repository';
 import { UserRepository } from 'repositories/user.repository';
+import { MessagesSendParams, UsersGetParams } from 'vk-io/lib/api/schemas/params';
+import { GroupsGroupFull } from 'vk-io/lib/api/schemas/objects';
+import { BotDeclineKeyboard } from '@common/bot.keyboards';
+import { ACCEPT_INVITE_TEXT, DECLINE_TEXT } from '@common/bot.phrases';
 
 @Injectable()
 export class BotService {
@@ -32,7 +26,15 @@ export class BotService {
   @Inject(UserRepository)
   private userRepository: UserRepository;
 
-  async sendMessage(payload: BotSendMessage): Promise<number> {
+  private vkApi: API;
+
+  constructor() {
+    this.vkApi = new API({
+      token: process.env.BOT_TOKEN
+    });
+  }
+
+  async sendMessage(payload: MessagesSendParams): Promise<number> {
     let user_id: Id | string;
 
     if (!Number.isInteger(payload.user)) {
@@ -45,12 +47,7 @@ export class BotService {
       user_id = payload.user as number;
     }
 
-    const group = await this.getCurrentGroup();
-
-    const isMember = await this.userIsMember({
-      user_id,
-      group_id: group.id,
-    });
+    const isMember = await this.userIsMember(user_id);
 
     const messagesAreAllowed = await this.userCanReceiveMessage(
       {
@@ -66,35 +63,48 @@ export class BotService {
       throw new ForbiddenException('Пользователь не может получать сообщения');
     }
 
-    return await this.execute(BotEvents.SEND_MESSAGE, {
-      ...payload,
-      user_id,
-      message: payload.message,
-      random_id: generateRandomIntId(),
-      keyboard: JSON.stringify(payload.keyboard)
-    });
+    return this.vkApi.messages.send({ ...payload, random_id: generateRandomIntId(), user_id });
+
   }
 
-  async pinMessage(payload: PinMessageRequest): Promise<PinMessageResponse> {
-    return await this.execute(BotEvents.PIN_MESSAGE, payload);
-  }
+  async userIsMember(user_id: number): Promise<boolean> {
+    const group = await this.getCurrentGroup();
 
-  async userIsMember(payload: UserMembershipRequest): Promise<boolean> {
-    return await this.execute(BotEvents.CHECK_IF_USER_IS_MEMBER, payload);
+    const isMember = await this.vkApi.groups.isMember({ group_id: group.id.toString(), user_id });
+
+    return !!isMember;
   }
 
   async userCanReceiveMessage(
     payload: MessageAllowedRequest,
   ): Promise<boolean> {
     const group = await this.getCurrentGroup();
-    const result = await this.execute(BotEvents.MESSAGES_ARE_ALLOWED, { ...payload, group_id: group.id });
-    return result.is_allowed;
+    const result = await this.vkApi.messages.isMessagesFromGroupAllowed({ user_id: payload.user_id, group_id: group.id });
+
+    return !!result.is_allowed;
   }
 
-  async getVkProfile(payload: VkProfileRequest): Promise<VkProfileResponse> {
-    const randomId = generateRandomIntId();
-    const profiles = await this.execute(BotEvents.GET_VK_PROFILE, { ...payload, randomId });
-    return profiles[0];
+  async getVkProfile(payload: UsersGetParams): Promise<VkProfileResponse> {
+    try {
+      const result = await this.vkApi.users.get(payload);
+
+      return result[0];
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
+  async resolveVkResource(link: string): Promise<IResolvedTargetResource | IResolvedOwnerResource | null> {
+    try {
+      return await resolveResource({
+        api: this.vkApi,
+        resource: link,
+      });
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   }
 
   async onInvitation(payload: InvitationState, context: MessageContext<ContextDefaultState>) {
@@ -106,40 +116,29 @@ export class BotService {
       return;
     }
 
+    if (ticket.status === "declined") {
+      this.sendMessage({ user: context.senderId, message: "Вы уже отказались от участия в выезде." });
+      return;
+    }
+
     await this.ticketRepository.update({ ...ticket, status: payload.value });
 
     if (payload.value === "accepted") {
-      this.sendMessage({ user: context.senderId, message: "Вы успешно зарегистрировались на выезд!" });
+      this.sendMessage({ user: context.senderId, message: ACCEPT_INVITE_TEXT, keyboard: BotDeclineKeyboard });
     } else if (payload.value === "declined") {
-      this.sendMessage({ user: context.senderId, message: "Вы отказались от участия в выезде" });
+      this.sendMessage({ user: context.senderId, message: DECLINE_TEXT });
     }
 
   }
 
-  async getCurrentGroup(): Promise<VkGroupResponse> {
-    const groups = await this.execute(BotEvents.GET_CURRENT_GROUP);
+  async getCurrentGroup(): Promise<GroupsGroupFull> {
+    const groupsList = await this.vkApi.groups.getById({});
 
-    if (!groups) {
+    if (!groupsList.length) {
       throw new BadRequestException('Невозможно найти группу');
     }
 
-    return groups[0];
+    return groupsList[0];
   }
 
-  private async execute<T>(event: BotEvents, payload?: T) {
-    try {
-      const result = await api(event, {
-        ...payload,
-        access_token: process.env.BOT_TOKEN,
-      });
-
-      return result.response;
-    } catch (err) {
-      console.log(err);
-      throw new InternalServerErrorException(
-        'Запрос к API Вконтакте не удался',
-        { description: err },
-      );
-    }
-  }
 }

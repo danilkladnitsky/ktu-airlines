@@ -13,12 +13,17 @@ export class UserRepository implements AbstractRepository<User, ShareableUserDto
 
     async save(user: User) {
         const result = await this.repository.save(user);
-        return plainToInstance(ShareableUserDto, result); 
+        return plainToInstance(ShareableUserDto, result);
+    }
+
+    async getAll() {
+        const result = await this.repository.find();
+        return result.map(user => plainToInstance(ShareableUserDto, user));
     }
 
     async getBy(property: keyof User, value: any): Promise<ShareableUserDto | null> {
-        const result = await this.repository.findOneBy({ [property]: value});
-        
+        const result = await this.repository.findOneBy({ [property]: value });
+
         if (!result) {
             return null;
         }
@@ -37,7 +42,7 @@ export class UserRepository implements AbstractRepository<User, ShareableUserDto
 
     async update(user: UpdateEntity<User>) {
         const result = await this.repository.save(user);
-         return plainToInstance(ShareableUserDto, result);
+        return plainToInstance(ShareableUserDto, result);
     }
 
     async get(id: Id) {

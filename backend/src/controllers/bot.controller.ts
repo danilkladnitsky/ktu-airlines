@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  HttpStatus,
   NotFoundException,
   Param,
   Post,
@@ -10,10 +9,12 @@ import {
   Res,
 } from '@nestjs/common';
 
-import { generateRandomIntId } from '@utils/generateRandomIntId';
 import { BotSendMessageDto } from '@dtos/bot.dto';
 import { BotService } from '@services/bot.service';
 import { SocketGateway } from '@gateway/socket-gateway';
+import { UsersGetParams } from 'vk-io/lib/api/schemas/params';
+import { UsersFields } from 'vk-io/lib/api/schemas/objects';
+import { Response } from 'express';
 
 @Controller('bot')
 export class BotController {
@@ -26,21 +27,30 @@ export class BotController {
   @Get('vk_profile/:username')
   async getVkProfile(
     @Param('username') username: string | number,
-    @Query('fields') fields: string,
+    @Query('fields') fields?: string,
   ) {
-    const payload = {
+    const fieldsValue = fields?.split(",") as UsersFields[];
+
+    const payload: UsersGetParams = {
       user_ids: [username],
-      fields,
-      random_id: generateRandomIntId(),
+      fields: fieldsValue,
     };
 
     const profile = await this.botService.getVkProfile(payload);
 
-    if (profile) {
+    if (!profile) {
       throw new NotFoundException(`Пользователя ${username} не существует`);
     }
 
     return profile;
+  }
+
+  @Get('resolve-link')
+  async resolveUserByLink(
+    @Query('link') link: string,
+  ) {
+
+    return await this.botService.resolveVkResource(link);
   }
 
   @Post('send_message/:user')
@@ -56,10 +66,6 @@ export class BotController {
     return { message_id };
   }
 
-  @Post("connect-webhook")
-  async connectWebhook(@Res() response) {
-    return response.status(200).send(process.env.BOT_CONFIRMATION);
-  }
 
   @Get('get_user_membership/:username')
   async getUserMembership(@Param('username') username: string) {
@@ -67,16 +73,16 @@ export class BotController {
       user_ids: [username],
     });
 
-    if (profile) {
+    if (!profile) {
       throw new NotFoundException(`Пользователя ${username} не существует`);
     }
 
-    const groups = await this.botService.getCurrentGroup();
-    const currentGroup = groups[0];
-
-    return await this.botService.userIsMember({
-      user_id: profile.id,
-      group_id: currentGroup.id,
-    });
+    return await this.botService.userIsMember(profile.id);
   }
+
+  @Post("connect-webhook")
+  async connectWebhook(@Res() response: Response) {
+    return response.status(200).send(process.env.BOT_CONFIRMATION);
+  }
+
 }
