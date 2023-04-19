@@ -1,10 +1,18 @@
 import React from 'react';
 
-import { MantineProvider } from '@mantine/core';
+import { Button, MantineProvider } from '@mantine/core';
+
+import { MANTINE_THEME } from 'shared/theme';
 
 function App() {
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>App</MantineProvider>
+    <MantineProvider
+      withGlobalStyles
+      withNormalizeCSS
+      theme={MANTINE_THEME}
+    >
+      <Button>App</Button>
+    </MantineProvider>
   );
 }
 

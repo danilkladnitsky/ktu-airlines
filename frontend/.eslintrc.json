@@ -18,7 +18,7 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint",
+        "@typescript-eslint"
     ],
     "rules": {
         "no-console": "warn",
@@ -38,7 +38,14 @@
         "max-len": [
             "error",
             {
-                "code": 120
+                "code": 80,
+                "tabWidth": 2,
+                "ignoreUrls": true,
+                "ignoreComments": false,
+                "ignoreTrailingComments": false,
+                "ignoreRegExpLiterals": true,
+                "ignoreStrings": true,
+                "ignoreTemplateLiterals": true
             }
         ],
         "comma-dangle": [
@@ -48,6 +55,6 @@
         "semi": [
             "warn",
             "always"
-        ],
-    },
+        ]
+    }
 }

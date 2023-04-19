@@ -25,19 +25,5 @@
   "exclude": [
     "node_modules",
     "build"
-  ] // *** The files to not type check ***
-  "paths": {
-    "@shared/*": [
-      "shared/*"
-    ],
-    "@domain/*": [
-      "domain/*"
-    ],
-    "@services/*": [
-      "services/*"
-    ],
-    "@app/*": [
-      "app/*"
-    ],
-  }
+  ]
 }

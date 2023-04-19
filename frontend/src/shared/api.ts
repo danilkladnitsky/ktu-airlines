@@ -13,7 +13,8 @@ const GET = (path: string): FetchRequest => ({ method: 'GET', path });
 
 export const USER_IS_SUBSCRIBED = (name: VKId): FetchRequest => GET(`bot/get_user_membership/${name}`);
 
-export async function fetchApi<T,>(request: FetchRequest): Promise<FetchResponse<T>> {
+export async function fetchApi<T,>(request: FetchRequest)
+  : Promise<FetchResponse<T>> {
   try {
     const fetchResponse = await fetch(`${ENV_VARS.API_HOST}/${request.path}`, {
       method: request.method,

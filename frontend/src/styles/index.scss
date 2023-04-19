@@ -1,0 +1,40 @@
+@import "./colors.scss";
+
+:root {
+    --primary-background: $primary-background;
+    --secondary-background: $secondary-background;
+    --hover-background: $hover-background;
+    --focus-background: $focus-background;
+    --primary-text: $primary-text;
+    --secondary-text: $secondary-text;
+    --accent-text: $accent-text;
+    --secondary-button: $secondary-button;
+    --disabled-button: $disabled-button;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+    font-size: 14px;
+    background-color: $secondary-background;
+    min-height: 100vh;
+    font-family: "Regular";
+}
+
+@font-face {
+    font-family: "Bold";
+    src: url("../../public/fonts/Bold.ttf");
+}
+
+@font-face {
+    font-family: "Semibold";
+    src: url("../../public/fonts/Semibold.ttf");
+}
+
+@font-face {
+    font-family: "Regular";
+    src: url("../../public/fonts/Regular.ttf");
+}

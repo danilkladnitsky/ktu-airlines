@@ -1,4 +1,4 @@
-import { fetchApi, FetchResponse, USER_IS_SUBSCRIBED } from '@shared/api';
+import { fetchApi, FetchResponse, USER_IS_SUBSCRIBED } from 'shared/api';
 
 export type UserServices = 'bed_sheets' | 'vegan_menu';
 

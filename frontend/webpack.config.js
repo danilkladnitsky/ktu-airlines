@@ -8,7 +8,8 @@ module.exports = {
   entry: {
     app: [
       path.resolve(__dirname, 'src', 'index.tsx'),
-      path.resolve(__dirname, 'src', 'app/index.scss'),
+      path.resolve(__dirname, 'src', 'styles/colors.scss'),
+      path.resolve(__dirname, 'src', 'styles/index.scss'),
     ],
   },
   context: path.join(__dirname, 'src'),
@@ -43,9 +44,8 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               additionalData: `
-          @import "app/variables.scss";
-          @import "app/colors.scss";
-          @import "app/mixins.scss";
+          @import "styles/variables.scss";
+          @import "styles/mixins.scss";
         `,
             },
           },
@@ -57,7 +57,7 @@ module.exports = {
       },
       {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
-        type: 'asset/inline',
+        type: 'asset/resource',
       },
     ],
   },
