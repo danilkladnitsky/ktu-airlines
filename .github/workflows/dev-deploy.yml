@@ -24,10 +24,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       
   build-app:
-   environment: DEV
-   runs-on: ktu-airlines
-   needs: push
-   steps:
+    name: Build and publish services
+    environment: DEV
+    runs-on: ktu-airlines
+    needs: push
+    steps:
      - uses: SpicyPizza/create-envfile@v1.3
       with:
           envkey_PG_PORT: ${{ secrets.PG_PORT }}
