@@ -50,8 +50,14 @@ jobs:
         name: Pull last images
         run: docker compose pull
       -
-        name: Stop docker compose
-        run: docker compose --env-file .env stop  
+        name: Stop services
+        run: docker compose --env-file .env down  
       -
-        name: Run docker compose
-        run: docker compose --build --env-file .env up
+        name: Build services
+        run: docker compose --env-file .env build
+      -
+        name: Run services
+        run: docker compose --env-file .env up -d
+      -
+        name: Check services
+        run: docker ps -a
