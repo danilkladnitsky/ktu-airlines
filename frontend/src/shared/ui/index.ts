@@ -1,1 +1,2 @@
-export * from './Banner';
+export * from './Banner/index';
+export * from './Header/index';
