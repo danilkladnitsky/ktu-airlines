@@ -21,8 +21,25 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "eol-last": [
+            "error",
+            "always"
+        ],
+        "no-multiple-empty-lines": [
+            "error",
+            {
+                "max": 1,
+                "maxEOF": 0
+            }
+        ],
+        "no-trailing-spaces": "error",
         "no-console": "warn",
         "prefer-const": "error",
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "no-multi-spaces": "error",
         "quotes": [
             "error",
             "single"

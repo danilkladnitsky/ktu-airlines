@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Button, MantineProvider } from '@mantine/core';
+import { MantineProvider } from '@mantine/core';
 
 import { MANTINE_THEME } from 'shared/theme';
+import { AppRouter } from './Router';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       withNormalizeCSS
       theme={MANTINE_THEME}
     >
-      <Button>App</Button>
+      <AppRouter />
     </MantineProvider>
   );
 }

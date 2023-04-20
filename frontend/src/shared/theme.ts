@@ -15,7 +15,7 @@ export const MANTINE_THEME: MantineThemeOverride = {
   fontSizes: FONT_SIZES,
   defaultRadius: 8,
   activeStyles: {
-    transform: 'scale(1)',
+    transform: 'scale(0.99)',
   },
   headings: {
     h1: {
@@ -47,7 +47,7 @@ export const MANTINE_THEME: MantineThemeOverride = {
     Title: {
       styles: {
         root: {
-          '&:is(h1)': { color: COLORS.PRIMARY_TEXT },
+          '&:is(h1)': { color: COLORS.ACCENT_TEXT },
           '&:is(h2)': { color: COLORS.PRIMARY_TEXT },
           '&:is(h3)': { color: COLORS.ACCENT_TEXT },
           '&:is(h4)': { color: COLORS.PRIMARY_TEXT },
@@ -62,7 +62,7 @@ export const MANTINE_THEME: MantineThemeOverride = {
           backgroundColor: COLORS.SECONDARY_BUTTON,
           width: '100%',
           color: COLORS.ACCENT_TEXT,
-          minHeight: '45px',
+          minHeight: '56px',
         },
       },
     },
