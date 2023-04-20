@@ -13,14 +13,10 @@ services:
     env_file:
       - .env
     command: npm run start:prod
-    networks:
-      - backend-net
   
   frontend:
     image: danyakladnitsky/ktu-airlines.frontend:latest
     restart: always
-    networks:
-      - nginx-net
   
   nginx:
     image: nginx:latest
@@ -30,11 +26,3 @@ services:
     depends_on:
       - backend
       - frontend
-    networks:
-      - nginx-net
-
-networks:
-  backend-net:
-    external: true
-  nginx-net:
-    external: true

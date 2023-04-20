@@ -22,9 +22,36 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+  create-env-file:
+    environment: DEV
+    runs-on: ktu-airlines
+    needs: push
+    steps:
+      - uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_PG_PORT: ${{ secrets.PG_PORT }}
+          envkey_PG_USER: ${{ secrets.PG_USER }}
+          envkey_PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+          envkey_PG_DB: ${{ secrets.PG_DB }}
+          envkey_PG_HOST: ${{ secrets.PG_HOST }}
+          envkey_APP_PORT: ${{ secrets.APP_PORT }}
+          envkey_JWT_TOKEN: ${{ secrets.JWT_TOKEN }}
+          envkey_SWAGGER_USER: ${{ secrets.SWAGGER_USER }}
+          envkey_SWAGGER_PASSWORD: ${{ secrets.SWAGGER_PASSWORD }}
+          envkey_BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          file_name: .env
+          fail_on_empty: false
+  build-app:
+   environment: DEV
+   runs-on: ktu-airlines
+   needs: create-env-file
+   steps:
       -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        name: Pull last images
+        run: docker compose pull
       -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        name: Stop docker compose
+        run: docker compose stop --env-file .env
+      -
+        name: Run docker compose
+        run: docker compose --env-file .env --build up
