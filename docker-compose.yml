@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   backend:
+    container_name: backend
     image: danyakladnitsky/ktu-airlines.backend:latest
     environment:
       - ${APP_PORT}:${APP_PORT}
@@ -13,28 +14,19 @@ services:
     env_file:
       - .env
     command: npm run start:prod
-    networks:
-      - backend-net
   
   frontend:
+    container_name: frontend
     image: danyakladnitsky/ktu-airlines.frontend:latest
     restart: always
-    networks:
-      - nginx-net
   
   nginx:
     image: nginx:latest
     restart: always
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/:/etc/nginx/conf.d/
     depends_on:
       - backend
       - frontend
-    networks:
-      - nginx-net
-
-networks:
-  backend-net:
-    external: true
-  nginx-net:
-    external: true
+    ports:
+      - 80:80
