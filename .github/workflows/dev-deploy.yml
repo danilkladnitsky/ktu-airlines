@@ -8,7 +8,7 @@ on:
 jobs:
   push:
     name: Pull and run images
-    runs-on: dev-stage-runner
+    runs-on: ktu-airlines
     env:
       frontend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.frontend
       backend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.backend
