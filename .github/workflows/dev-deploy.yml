@@ -29,7 +29,8 @@ jobs:
     runs-on: ktu-airlines
     needs: push
     steps:
-     - uses: SpicyPizza/create-envfile@v1.3
+      - 
+      uses: SpicyPizza/create-envfile@v1.3
       with:
           envkey_PG_PORT: ${{ secrets.PG_PORT }}
           envkey_PG_USER: ${{ secrets.PG_USER }}
