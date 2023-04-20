@@ -2,8 +2,7 @@ name: Deploy to dev staging
 
 on:
   push:
-    branches: 
-      - "dev"
+    branches: ["dev", "main"]
 
 jobs:
   push-images:
