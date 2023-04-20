@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   backend:
+    container_name: backend
     image: danyakladnitsky/ktu-airlines.backend:latest
     environment:
       - ${APP_PORT}:${APP_PORT}
@@ -15,6 +16,7 @@ services:
     command: npm run start:prod
   
   frontend:
+    container_name: frontend
     image: danyakladnitsky/ktu-airlines.frontend:latest
     restart: always
   

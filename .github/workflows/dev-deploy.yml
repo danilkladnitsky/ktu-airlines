@@ -22,12 +22,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-  create-env-file:
-    environment: DEV
-    runs-on: ktu-airlines
-    needs: push
-    steps:
-      - uses: SpicyPizza/create-envfile@v1.3
+      
+  build-app:
+   environment: DEV
+   runs-on: ktu-airlines
+   needs: push
+   steps:
+     - uses: SpicyPizza/create-envfile@v1.3
         with:
           envkey_PG_PORT: ${{ secrets.PG_PORT }}
           envkey_PG_USER: ${{ secrets.PG_USER }}
@@ -41,11 +42,6 @@ jobs:
           envkey_BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           file_name: .env
           fail_on_empty: false
-  build-app:
-   environment: DEV
-   runs-on: ktu-airlines
-   needs: create-env-file
-   steps:
       -
         name: Pull last images
         run: docker compose pull
