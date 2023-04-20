@@ -1,4 +1,5 @@
 import { MantineThemeOverride } from '@mantine/core';
+
 import { COLORS } from './colors';
 
 export const FONT_SIZES = {

@@ -19,15 +19,15 @@ export async function fetchApi<T,>(request: FetchRequest)
     const fetchResponse = await fetch(`${ENV_VARS.API_HOST}/${request.path}`, {
       method: request.method,
     });
-      
+
     return {
       ok: true,
-      result: fetchResponse.json() as T,   
+      result: fetchResponse.json() as T,
     };
-      
+
   } catch (errorResponse) {
     console.log(errorResponse);
-    
+
     return {
       ok: false,
       result: null,

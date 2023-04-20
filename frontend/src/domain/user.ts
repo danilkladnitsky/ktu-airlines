@@ -22,6 +22,6 @@ export function isSubscribed(user: User): Promise<FetchResponse<boolean>> {
   return fetchApi<boolean>(USER_IS_SUBSCRIBED(user.vkLink));
 }
 
-export function canReceiveMessages(user: User): Promise<boolean> { 
+export function canReceiveMessages(user: User): Promise<boolean> {
   return new Promise<boolean>((resolve) => resolve(true));
 }

@@ -1,8 +1,8 @@
 import React from 'react';
-
 import { MantineProvider } from '@mantine/core';
 
 import { MANTINE_THEME } from 'shared/theme';
+
 import { AppRouter } from './Router';
 
 function App() {
