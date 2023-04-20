@@ -54,4 +54,4 @@ jobs:
         run: docker compose --env-file .env stop  
       -
         name: Run docker compose
-        run: docker compose --env-file .env --build up
+        run: docker compose --build --env-file .env up
