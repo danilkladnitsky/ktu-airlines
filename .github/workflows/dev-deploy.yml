@@ -52,6 +52,7 @@ jobs:
   pull-images:
     name: Pull and run images
     runs-on: ktu-airlines
+    needs: push-images
     env:
       frontend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.frontend
       backend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.backend
@@ -70,7 +71,7 @@ jobs:
     name: Build and publish services
     environment: DEV
     runs-on: ktu-airlines
-    needs: push
+    needs: pull-images
     steps:
       -
         uses: SpicyPizza/create-envfile@v1.3
