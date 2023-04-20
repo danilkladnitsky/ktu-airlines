@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Box, Image, Title } from '@mantine/core';
 
 import styles from './Header.module.scss';

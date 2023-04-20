@@ -1,5 +1,5 @@
-import { Container } from '@mantine/core';
 import React, { ReactNode } from 'react';
+import { Container } from '@mantine/core';
 
 import styles from './Banner.module.scss';
 
