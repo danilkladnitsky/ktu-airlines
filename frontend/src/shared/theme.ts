@@ -44,7 +44,7 @@ export const MANTINE_THEME: MantineThemeOverride = {
     },
     h6: {
       fontSize: FONT_SIZES.xs,
-      fontFamily: 'Semibold',
+      fontFamily: 'Regular',
     },
   },
   components: {
@@ -54,9 +54,8 @@ export const MANTINE_THEME: MantineThemeOverride = {
           '&:is(h1)': { color: COLORS.ACCENT_TEXT },
           '&:is(h2)': { color: COLORS.PRIMARY_TEXT },
           '&:is(h3)': { color: COLORS.ACCENT_TEXT },
-          '&:is(h4)': { color: COLORS.PRIMARY_TEXT },
           '&:is(h5)': { color: COLORS.PRIMARY_TEXT },
-          '&:is(h6)': { color: COLORS.PRIMARY_TEXT },
+          '&:is(h6)': { color: COLORS.SECONDARY_TEXT },
         },
       },
     },

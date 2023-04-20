@@ -1,0 +1,18 @@
+@import "styles/colors.scss";
+
+.loadingWrapper {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin: 24px 0px;
+}
+
+.title {
+    font-family: "Semibold";
+}
+
+.description {
+    font-family: "Regular";
+    color: $secondary-text;
+    font-weight: 200;
+}
