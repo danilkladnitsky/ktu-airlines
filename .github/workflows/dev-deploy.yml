@@ -2,12 +2,13 @@ name: Deploy to dev staging
 
 on:
   push:
-    branches: [dev]
+    branches: 
+      - "dev"
 
 jobs:
   push:
     name: Pull and run images
-    runs-on: ubuntu-latest
+    runs-on: dev-stage-runner
     env:
       frontend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.frontend
       backend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.backend
