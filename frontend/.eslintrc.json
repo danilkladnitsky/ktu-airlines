@@ -42,7 +42,13 @@
                             ],
                             // Internal packages.
                             [
-                                "^(@|shared)(/.*|$)"
+                                "^(@)(/.*|$)"
+                            ],
+                            [
+                                "^\\u0000"
+                            ],
+                            [
+                                "^(shared)(/.*|$)"
                             ],
                             // Side effect imports.
                             [

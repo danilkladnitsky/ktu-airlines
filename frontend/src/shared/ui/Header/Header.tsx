@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Image, Title } from '@mantine/core';
 
+import { TicketSearchBar } from '../TicketSearchBar';
+
 import styles from './Header.module.scss';
 
 export const Header = () => {
@@ -13,6 +15,10 @@ export const Header = () => {
       <Box className={styles.slogan}>
         <Title className={styles.sloganText}>Летайте вместе с нами!</Title>
       </Box>
+      <Box className={styles.searchBar}>
+        <TicketSearchBar />
+      </Box>
+
     </div>
   );
 };

@@ -1,2 +1,4 @@
-export * from './Banner/index';
-export * from './Header/index';
+export * from './Banner/';
+export * from './DropdownList';
+export * from './Header/';
+export * from './TicketSearchBar';

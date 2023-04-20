@@ -3,12 +3,13 @@
 .header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
 }
 
 .headerTitle {
     color: $accent-text;
     font-size: 24px;
-    margin-bottom: 32px;
 }
 
 .headerLogo {
@@ -23,4 +24,8 @@
 
 .sloganText {
     font-size: 36px;
+}
+
+.searchBar {
+    margin-top: 48px;
 }

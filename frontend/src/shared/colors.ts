@@ -8,4 +8,5 @@ export const COLORS = {
   ACCENT_TEXT: '#ffffff',
   SECONDARY_BUTTON: '#25262B',
   DISABLED_BUTTON: '#868E96',
+  HOVER_BUTTON: '#82C91E',
 };

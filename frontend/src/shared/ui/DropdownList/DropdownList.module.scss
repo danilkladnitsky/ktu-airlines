@@ -1,0 +1,31 @@
+.list {
+    height: 100%;
+    position: relative;
+    margin: 0px;
+}
+
+.input {
+    height: 100%;
+    position: relative;
+    padding-top: 16px;
+}
+
+.root {
+    position: relative;
+
+    &>div[role="combobox"] {
+        height: 100%;
+    }
+}
+
+.inputWrapper {
+    position: relative;
+}
+
+.description {
+    position: absolute;
+    z-index: 1;
+    top: 8px;
+    left: 12px;
+    font-size: 12px;
+}

@@ -18,6 +18,9 @@ export const MANTINE_THEME: MantineThemeOverride = {
   activeStyles: {
     transform: 'scale(0.99)',
   },
+  focusRingStyles: {
+    inputStyles: () => ({ outline: `0.5px solid ${COLORS.HOVER_BUTTON}` }),
+  },
   headings: {
     h1: {
       fontSize: FONT_SIZES.xl,
@@ -57,6 +60,13 @@ export const MANTINE_THEME: MantineThemeOverride = {
         },
       },
     },
+    Input: {
+      styles: {
+        '&': {
+          borderColor: 'red',
+        },
+      },
+    },
     Button: {
       styles: {
         'root': {
@@ -64,6 +74,9 @@ export const MANTINE_THEME: MantineThemeOverride = {
           width: '100%',
           color: COLORS.ACCENT_TEXT,
           minHeight: '56px',
+          '&:hover': {
+            backgroundColor: COLORS.HOVER_BUTTON,
+          },
         },
       },
     },

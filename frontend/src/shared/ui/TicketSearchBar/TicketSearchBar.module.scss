@@ -1,0 +1,22 @@
+@import "styles/colors.scss";
+
+.ticketSearchBar {
+    height: 88px;
+    background-color: $accent-background;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+}
+
+.destInput {
+    flex: 1;
+}
+
+.dateInput {
+    width: 135px;
+}
+
+.searchBtn {
+    width: 180px;
+}
