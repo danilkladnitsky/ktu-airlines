@@ -12,7 +12,7 @@ export const HomePage = () => {
         <Header />
       </Banner>
       <div className={styles.loader}>
-        <LoadingStatus title="Ищем авиабилеты..." description="Уже можно собирать чемоданы" />
+        <LoadingStatus title="Ищем авиабилеты..." description="Уже можно собирать чемоданы!" />
       </div>
     </div>
   );

@@ -11,8 +11,8 @@ type Props = {
 }
 
 export const LoadingStatus = ({
-  description = 'Уже можно собирать чемоданы',
-  title = 'Ищем авиабилеты...',
+  description,
+  title,
 }: Props) => {
   return (
     <div className={styles.loadingWrapper}>
