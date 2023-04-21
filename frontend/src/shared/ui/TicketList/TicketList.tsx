@@ -13,7 +13,12 @@ type Props = {
 export const TicketList = ({ tickets }: Props) => {
   return (
     <div className={styles.list}>
-      {tickets.map((ticket, key) => <Ticket ticket={ticket} key={key} />,
+      {tickets.map((ticket, key) =>
+        <Ticket
+          ticket={ticket}
+          key={key}
+          available={key === 0}
+        />,
       )}
     </div>
   );

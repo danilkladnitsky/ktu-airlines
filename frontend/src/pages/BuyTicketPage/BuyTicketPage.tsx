@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Button, Container, Grid, Stepper, Title } from '@mantine/core';
+import React from 'react';
+import { Container, Grid, Stepper, Title } from '@mantine/core';
+import { useAppStore } from 'store/appStore';
 
 import { HeaderBar } from 'shared/ui/HeaderBar';
 
@@ -8,10 +9,7 @@ import { PassenderData } from './components/PassenderData';
 import styles from './BuyTicketPage.module.scss';
 
 export const BuyTicketPage = () => {
-  const [activeStep, setActiveStep] = useState(0);
-
-  const nextStep = () => setActiveStep((current) => (current < 4
-    ? current + 1 : current));
+  const { activeFormId } = useAppStore();
 
   return (
     <Container className={styles.page} >
@@ -24,8 +22,7 @@ export const BuyTicketPage = () => {
         </Grid.Col>
         <Grid.Col>
           <Stepper
-            active={activeStep}
-            onStepClick={setActiveStep}
+            active={activeFormId}
             allowNextStepsSelect={false}
             classNames={{ content: styles.step }}
             color="lime"

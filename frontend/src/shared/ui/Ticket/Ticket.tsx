@@ -1,5 +1,7 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import { Avatar, Badge, Button, Title } from '@mantine/core';
+import { useAppStore } from 'store';
 
 import { AirTicket } from 'domain/ticket';
 
@@ -10,9 +12,12 @@ import styles from './Ticket.module.scss';
 
 type Props = {
   ticket: AirTicket;
+  available: boolean;
 }
 
-export const Ticket = ({ ticket }: Props) => {
+export const Ticket = ({ ticket, available }: Props) => {
+  const history = useHistory();
+
   return (
     <div className={styles.ticket}>
       <div className={styles.tourOperator}>
@@ -22,9 +27,9 @@ export const Ticket = ({ ticket }: Props) => {
             [ktu].beda
           </Title>
         </div>
-        <Badge variant={'light'} color={'lime'}>
+        {available ? <Badge variant={'light'} color={'lime'}>
               Самый быстрый
-        </Badge>
+        </Badge> : <Badge variant={'light'} color="red">Мест нет</Badge>}
       </div>
       <div className={styles.route}>
         <div className={styles.time}>
@@ -66,7 +71,7 @@ export const Ticket = ({ ticket }: Props) => {
           </Title>
         </div>
       </div>
-      <Button className={styles.ticketBtn}>
+      <Button disabled={!available} className={styles.ticketBtn} onClick={() => history.push('/buy-ticket')}>
             Выбрать
       </Button>
     </div>

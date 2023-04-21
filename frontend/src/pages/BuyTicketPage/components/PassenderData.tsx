@@ -1,9 +1,12 @@
 import React from 'react';
 import { Avatar, Badge, Button, TextInput } from '@mantine/core';
+import { useAppStore } from 'store';
 
 import styles from './PassenderData.module.scss';
 
 export const PassenderData = () => {
+  const { incrementFormId } = useAppStore();
+
   return (
     <div className={styles.passengerData}>
       <div className={styles.form}>
@@ -26,7 +29,7 @@ export const PassenderData = () => {
           </div>
         </div>
       </div>
-      <Button>Далее</Button>
+      <Button onClick={incrementFormId}>Далее</Button>
     </div>
   );
 };
