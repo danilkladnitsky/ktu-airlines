@@ -1,6 +1,7 @@
 import React from 'react';
+import { Container } from '@mantine/core';
 
-import { Banner, Header } from 'shared/ui';
+import { Banner, Header, TicketList } from 'shared/ui';
 import { LoadingStatus } from 'shared/ui';
 
 import styles from './HomePage.module.scss';
@@ -16,6 +17,9 @@ export const HomePage = () => {
         title="Ищем авиабилеты..."
         description="Уже можно собирать чемоданы!"
       />}
+      <Container className={styles.ticketList}>
+        <TicketList tickets={[{},{}]} />
+      </Container>
     </div>
   );
 };

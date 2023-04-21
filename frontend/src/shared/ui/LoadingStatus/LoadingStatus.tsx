@@ -1,8 +1,6 @@
 import React from 'react';
-import { Loader, Text, Title } from '@mantine/core';
+import { Loader, Title } from '@mantine/core';
 import classNames from 'classnames';
-
-import { COLORS } from 'shared/colors';
 
 import styles from './LoadingStatus.module.scss';
 

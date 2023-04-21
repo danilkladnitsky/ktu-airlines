@@ -79,5 +79,19 @@ export const MANTINE_THEME: MantineThemeOverride = {
         },
       },
     },
+    Badge: {
+      styles: {
+        'root': {
+          textTransform: 'unset',
+        },
+      },
+    },
+    Container: {
+      styles: {
+        'root': {
+          maxWidth: '1100px',
+        },
+      },
+    },
   },
 };

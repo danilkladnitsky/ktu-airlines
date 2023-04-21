@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, SelectItem } from '@mantine/core';
 
-import { DropdownList } from '../DropdownList';
+import { DropdownList } from 'shared/ui/DropdownList';
 
 import styles from './TicketSearchBar.module.scss';
 
@@ -11,13 +11,8 @@ const DESTINATIONS_FROM: SelectItem[] = [
     label: 'Санкт–Петербург (GK)',
   },
   {
-    value: 'GK',
-    label: 'Санкт–Петербург (LOMO)',
-    disabled: true,
-  },
-  {
-    value: 'HOUSE',
-    label: 'КТУ House (KH)',
+    value: 'LMO',
+    label: 'Санкт–Петербург (LMO)',
     disabled: true,
   },
 ];
@@ -26,6 +21,11 @@ const DESTINATIONS_TO: SelectItem[] = [
   {
     value: 'YAG',
     label: 'Ктурция (YAG)',
+  },
+  {
+    value: 'BUR',
+    label: 'КТУбург (BUR)',
+    disabled: true,
   },
 ];
 
@@ -38,7 +38,7 @@ export const TicketSearchBar = () => {
       <DropdownList className={styles.dateInput} description="Туда" data={['05.05.2023']} />
       <DropdownList className={styles.dateInput} description="Обратно" data={['06.05.2023']} />
       <Button className={styles.searchBtn}>
-              Найти билеты
+        Найти билеты
       </Button>
     </Box>
   );
