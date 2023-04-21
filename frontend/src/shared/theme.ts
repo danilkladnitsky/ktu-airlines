@@ -51,18 +51,21 @@ export const MANTINE_THEME: MantineThemeOverride = {
     Title: {
       styles: {
         root: {
-          '&:is(h1)': { color: COLORS.ACCENT_TEXT },
+          '&:is(h1)': { color: COLORS.PRIMARY_TEXT },
           '&:is(h2)': { color: COLORS.PRIMARY_TEXT },
-          '&:is(h3)': { color: COLORS.ACCENT_TEXT },
+          '&:is(h3)': { color: COLORS.PRIMARY_TEXT },
           '&:is(h5)': { color: COLORS.PRIMARY_TEXT },
           '&:is(h6)': { color: COLORS.SECONDARY_TEXT },
         },
       },
     },
-    Input: {
+    TextInput: {
       styles: {
-        '&': {
-          borderColor: 'red',
+        root: {
+          width: '100%',
+        },
+        label: {
+          marginBottom: '8px',
         },
       },
     },

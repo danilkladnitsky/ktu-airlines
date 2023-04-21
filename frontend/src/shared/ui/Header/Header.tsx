@@ -11,7 +11,10 @@ export const Header = () => {
     <div>
       <HeaderBar />
       <Box className={styles.slogan}>
-        <Title className={styles.sloganText}>Летайте вместе с нами!</Title>
+        <Title
+          order={1}
+          className={styles.sloganText}
+        >Летайте вместе с нами!</Title>
       </Box>
       <Box className={styles.searchBar}>
         <TicketSearchBar />

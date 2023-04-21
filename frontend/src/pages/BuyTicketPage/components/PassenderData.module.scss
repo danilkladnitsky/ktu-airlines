@@ -1,0 +1,36 @@
+@import "styles/colors.scss";
+
+.passengerData {
+    background-color: $accent-background;
+    padding: 36px 64px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+.form {
+    display: flex;
+    gap: 42px;
+    align-items: center;
+}
+
+.fieldGroup {
+    display: flex;
+    gap: 24px;
+}
+
+.uploadPhoto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.fields {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 24px;
+}
