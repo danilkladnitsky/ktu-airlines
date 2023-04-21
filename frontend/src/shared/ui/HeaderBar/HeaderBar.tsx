@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ActionIcon, Avatar, Box, Title } from '@mantine/core';
 
 import { COLORS } from 'shared/colors';
@@ -14,7 +15,11 @@ export const HeaderBar = ({ theme = 'light' }: Props) => {
     <Box className={styles.header}>
       <Title className={styles.headerTitle} style={{
         color: theme === 'light' ? COLORS.ACCENT_TEXT : COLORS.PRIMARY_TEXT,
-      }}>ktu.tours</Title>
+      }}>
+        <Link to={'/'} style={{ textDecoration: 'none', color: 'unset' }}>
+          ktu.tours
+        </Link>
+      </Title>
       <ActionIcon className={styles.headerLogo} radius={'50%'}>
         <Avatar radius={'50%'} color={'lime'} size="lg" />
       </ActionIcon>

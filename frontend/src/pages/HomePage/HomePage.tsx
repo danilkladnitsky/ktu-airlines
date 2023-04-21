@@ -13,7 +13,7 @@ export const HomePage = () => {
   const [ticketsFound, setTicketsFound] = useState(false);
 
   useEffect(() => {
-    ticketSelected && setTimeout(() => setTicketsFound(true),3000);
+    ticketSelected && setTimeout(() => setTicketsFound(true), 1500);
   }, [ticketSelected]);
 
   const showLoader = !ticketsFound && ticketSelected;

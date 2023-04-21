@@ -15,7 +15,7 @@ type Props = {
   available: boolean;
 }
 
-export const Ticket = ({ ticket, available }: Props) => {
+export const Ticket = ({ available }: Props) => {
   const history = useHistory();
 
   return (
