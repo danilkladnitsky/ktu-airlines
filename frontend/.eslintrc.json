@@ -48,6 +48,9 @@
                                 "^\\u0000"
                             ],
                             [
+                                "^(domain|pages|services|app)(/.*|$)"
+                            ],
+                            [
                                 "^(shared)(/.*|$)"
                             ],
                             // Side effect imports.
