@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Avatar, Badge, Button, TextInput } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppStore } from 'store';
@@ -39,15 +39,17 @@ export const PassenderData = () => {
     validate: zodResolver(schema),
   });
 
+  useEffect(() => {
+    setUserBio(form.values);
+  }, [form.values]);
+
   const submit = () => {
     form.validate();
     const { hasErrors } = form.validate();
 
     if (!hasErrors) {
       incrementFormId();
-      setUserBio(form.values);
     }
-
   };
 
   return (

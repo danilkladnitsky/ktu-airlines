@@ -9,3 +9,5 @@ type VKId = string;
 type VKLink = string;
 
 type PropType<TObj, TProp extends keyof TObj> = TObj[TProp];
+
+type RoomId = string;

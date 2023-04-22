@@ -1,9 +1,16 @@
+import { UserServices } from './user';
+
 export type Room = {
     name: string;
     feature: string;
     description: string;
     pic: string;
     available?: boolean;
+}
+
+export type RoomWithServices = {
+  roomName: RoomId;
+  services: UserServices[];
 }
 
 export const ROOMS: Room[] = [

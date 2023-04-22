@@ -3,12 +3,7 @@ import { fetchApi, FetchResponse, USER_IS_SUBSCRIBED } from 'shared/api';
 export type UserServices = 'bed_sheets' | 'vegan_menu';
 
 export type User = UserBioData & {
-  motivationLetter: {
-    about_baggage: string;
-    about_cocktail: string;
-    about_vacation: string;
-    about_plane: string;
-  };
+  motivationLetter: UserMotivationLetter;
   selectedServices: [UserServices];
 }
 
