@@ -59,6 +59,27 @@ export const MANTINE_THEME: MantineThemeOverride = {
         },
       },
     },
+    Text: {
+      'styles': {
+        'root': {
+          fontFamily: 'Regular',
+        },
+      },
+    },
+    Checkbox: {
+      'styles': {
+        'label': {
+          fontFamily: 'Regular',
+        },
+      },
+    },
+    List: {
+      'styles': {
+        'item': {
+          fontFamily: 'Regular',
+        },
+      },
+    },
     TextInput: {
       styles: {
         root: {
@@ -93,6 +114,13 @@ export const MANTINE_THEME: MantineThemeOverride = {
       styles: {
         'root': {
           maxWidth: '1100px',
+        },
+      },
+    },
+    Textarea: {
+      styles: {
+        'label': {
+          marginBottom: '4px',
         },
       },
     },

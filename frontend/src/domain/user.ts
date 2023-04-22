@@ -18,6 +18,15 @@ export type User = {
     selectedServices: [UserServices];
 }
 
+export type UserBioData = {
+  firstName: string;
+  secondName: string;
+  isuNumber: ISUNumber;
+  groupName: GroupName;
+  phoneNumber: PhoneNumber;
+  vkLink: VKLink;
+}
+
 export function isSubscribed(user: User): Promise<FetchResponse<boolean>> {
   return fetchApi<boolean>(USER_IS_SUBSCRIBED(user.vkLink));
 }

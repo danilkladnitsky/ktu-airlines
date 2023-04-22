@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 import { AirTicket } from 'domain/ticket';
 
@@ -11,8 +12,10 @@ type Props = {
 }
 
 export const TicketList = ({ tickets }: Props) => {
+  const [animationParent] = useAutoAnimate();
+
   return (
-    <div className={styles.list}>
+    <div className={styles.list} ref={animationParent}>
       {tickets.map((ticket, key) =>
         <Ticket
           ticket={ticket}

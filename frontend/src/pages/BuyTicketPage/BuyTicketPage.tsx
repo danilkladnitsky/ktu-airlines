@@ -4,12 +4,15 @@ import { useAppStore } from 'store/appStore';
 
 import { HeaderBar } from 'shared/ui/HeaderBar';
 
-import { PassenderData } from './components/PassenderData';
+import { AboutGuest } from './components/AboutGuest/AboutGuest';
+import { HotelsList } from './components/HotelList/HotelsList';
+import { PassenderData } from './components/PassengerData/PassengerData';
+import { RoomList } from './components/RoomList/RoomList';
 
 import styles from './BuyTicketPage.module.scss';
 
 export const BuyTicketPage = () => {
-  const { activeFormId } = useAppStore();
+  const { activeFormId, setFormId } = useAppStore();
 
   return (
     <Container className={styles.page} >
@@ -23,9 +26,10 @@ export const BuyTicketPage = () => {
         <Grid.Col>
           <Stepper
             active={activeFormId}
-            allowNextStepsSelect={false}
             classNames={{ content: styles.step }}
             color="lime"
+            onStepClick={setFormId}
+            allowNextStepsSelect={false}
           >
             <Stepper.Step>
               <Title order={2} className={styles.title}>
@@ -34,13 +38,22 @@ export const BuyTicketPage = () => {
               <PassenderData />
             </Stepper.Step>
             <Stepper.Step>
-              2
+              <Title order={2} className={styles.title}>
+                Выбор отеля
+              </Title>
+              <HotelsList />
             </Stepper.Step>
             <Stepper.Step>
-              3
+              <Title order={2} className={styles.title}>
+                Номера на 5 – 6 мая
+              </Title>
+              <RoomList />
             </Stepper.Step>
             <Stepper.Step>
-              4
+              <Title order={2} className={styles.title}>
+                Информация о госте
+              </Title>
+              <AboutGuest />
             </Stepper.Step>
             <Stepper.Completed>
               Все

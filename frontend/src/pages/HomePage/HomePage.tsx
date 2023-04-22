@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { Container } from '@mantine/core';
 import { useAppStore } from 'store';
 
@@ -9,7 +10,6 @@ import styles from './HomePage.module.scss';
 
 export const HomePage = () => {
   const { ticketSelected } = useAppStore();
-
   const [ticketsFound, setTicketsFound] = useState(false);
 
   useEffect(() => {
@@ -28,8 +28,8 @@ export const HomePage = () => {
         title="Ищем авиабилеты..."
         description="Уже можно собирать чемоданы!"
       />}
-      {ticketsFound && <Container className={styles.ticketList}>
-        <TicketList tickets={[{}, {}]} />
+      {<Container className={styles.ticketList}>
+        <TicketList tickets={ticketsFound ? [{}, {}] : []} />
       </Container>
       }
     </div>
