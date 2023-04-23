@@ -20,6 +20,7 @@
     "@mantine/hooks": "^6.0.7",
     "@mantine/notifications": "^6.0.7",
     "classnames": "2.3.2",
+    "copy-webpack-plugin": "^11.0.0",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "eslint-plugin-simple-import-sort": "^10.0.0",
