@@ -11,23 +11,32 @@ import styles from './Ticket.module.scss';
 
 type Props = {
   ticket: AirTicket;
-  available: boolean;
 }
 
-export const Ticket = ({ available }: Props) => {
+export const Ticket = ({ ticket }: Props) => {
   const history = useHistory();
+
+  const { active,tourOperator,tripEnd,tripStart } = ticket;
 
   return (
     <div className={styles.ticket}>
       <div className={styles.tourOperator}>
-        <TicketOperator />
-        {available ? <Badge variant={'light'} color={'lime'}>
+        <TicketOperator name={tourOperator} />
+        {active ? <Badge variant={'light'} color={'lime'}>
               Самый быстрый
         </Badge> : <Badge variant={'light'} color="red">Мест нет</Badge>}
       </div>
-      <TicketRoute date="5 мая" endTime="10:00" startTime="7:30" />
-      <TicketRoute date="6 мая" endTime="10:30" startTime="12:10" />
-      <Button disabled={!available} className={styles.ticketBtn} onClick={() => history.push('/buy-ticket')}>
+      <TicketRoute
+        date={tripStart.day}
+        endTime={tripStart.placeFromDate}
+        startTime={tripStart.placeToDate}
+      />
+      <TicketRoute
+        date={tripEnd.day}
+        endTime={tripEnd.placeFromDate}
+        startTime={tripEnd.placeToDate}
+      />
+      <Button disabled={!active} className={styles.ticketBtn} onClick={() => history.push('/buy-ticket')}>
             Выбрать
       </Button>
     </div>

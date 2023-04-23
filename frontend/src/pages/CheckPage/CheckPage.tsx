@@ -49,15 +49,15 @@ export const CheckPage = () => {
               </Title>
               <Card padding={'xl'} radius="lg">
                 <Stack spacing={'xl'}>
-                  <TicketOperator />
+                  <TicketOperator name="[ktu].pobeda" />
                   <TicketRoute date="5 мая" endTime="10:00" startTime="7:30" />
                   <TicketRoute date="6 мая" endTime="10:30" startTime="12:10" />
                 </Stack>
               </Card>
               {currentRoom && <Room room={currentRoom} minified />}
             </Stack>
-            <Card className={styles.paymentInfo} padding={'xl'} radius="lg">
-              <Stack>
+            <Card padding={'xl'} radius="lg">
+              <Stack className={styles.paymentInfo} >
                 <div cols={2} className={styles.payment}>
                   <Stack className={styles.services}>
                     <Title order={3}>Услуга</Title>
@@ -81,17 +81,34 @@ export const CheckPage = () => {
                 <Stack spacing={'sm'}>
                   <Checkbox
                     {...form.getInputProps('prepayment')}
-                    label={<>Оплачу возвратный залог – <b>1000 руб. наличными</b></>}
+                    label={
+                      <>Оплачу возвратный залог –
+                        <b>1000 руб. наличными</b></>
+                    }
                     size={'xs'}
                     radius={'sm'}
                     color={form.values.prepayment ? 'lime' : 'red'}
                   />
                   {hasBedSheets &&
-                    <Checkbox {...form.getInputProps('bedSheets')} checked={hasBedSheets} disabled label={<>Оплачу постельное белье – <b>300 руб. наличными</b></>} size={'xs'} radius={'sm'} color="lime" />}
+                    <Checkbox
+                      {...form.getInputProps('bedSheets')}
+                      checked={hasBedSheets}
+                      disabled
+                      label={
+                        <>Оплачу постельное белье – <b>300 руб. наличными</b></>
+                      }
+                      size={'xs'} radius={'sm'}
+                      color="lime"
+                    />}
                 </Stack>
-                <Button className={styles.bookBtn} onClick={submit} disabled={!form.values.prepayment}>
+                <div className={styles.confirmBtn}>
+                  <Button
+                    className={styles.bookBtn}
+                    onClick={submit}
+                    disabled={!form.values.prepayment}>
                   Забронировать путевку
-                </Button>
+                  </Button>
+                </div>
               </Stack>
             </Card>
           </div>

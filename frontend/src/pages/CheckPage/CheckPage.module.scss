@@ -6,6 +6,10 @@
     @include page;
 }
 
+.paymentInfo {
+    height: 100%;
+}
+
 .title {
     color: $accent-text;
 }
@@ -32,6 +36,18 @@
     flex: 1;
 }
 
+.form {
+    height: 100%;
+}
+
+.confirmBtn {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
 .bookBtn {
-    align-self: flex-end;
+    position: absolute;
+    bottom: 0px;
 }
