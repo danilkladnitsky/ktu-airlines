@@ -19,6 +19,8 @@ services:
     container_name: frontend
     image: danyakladnitsky/ktu-airlines.frontend:latest
     restart: always
+    environment:
+      - ${API_HOST}:${API_HOST}
   
   nginx:
     image: nginx:latest
