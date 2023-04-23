@@ -24,11 +24,11 @@ export const TicketRoute = ({ startTime, endTime, date }: Props) => {
       </div>
       <div className={styles.destination}>
         <Title order={4}>
-              GK
+              YAG
         </Title>
         <Badge color={'violet'}>{date}</Badge>
         <Title order={4}>
-              YAG
+              GK
         </Title>
       </div>
     </div>
