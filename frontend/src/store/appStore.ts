@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { RoomWithServices } from 'domain/room';
-import { UserBioData, UserMotivationLetter, UserServices } from 'domain/user';
+import { getPermissions, UserBioData, UserMotivationLetter, UserServices, VKPermissions } from 'domain/user';
 
 type State = {
   activeFormId: number;
@@ -12,6 +12,8 @@ type State = {
   selectedRoom: RoomWithServices | null,
   selectedServices: [UserServices];
   ticketsAreLoading: boolean;
+  vkPermissions: VKPermissions | null;
+  vkPermissionsLoading: boolean;
   incrementFormId: () => void;
   setFormId: (id: number) => void;
   selectTicket: () => void;
@@ -19,15 +21,18 @@ type State = {
   setUserBio: (userBio: UserBioData) => void;
   setMotivationLetter: (letter: UserMotivationLetter) => void;
   selectRoom: (roomId: RoomWithServices) => void;
+  checkPermissions: () => void;
 }
 
-export const useAppStore = create(persist<State>((set) => ({
+export const useAppStore = create(persist<State>((set, state) => ({
   activeFormId: 0,
   ticketSelected: false,
   userBio: null,
   motivationLetter: null,
   selectedRoom: null,
   ticketsAreLoading: false,
+  vkPermissions: null,
+  vkPermissionsLoading: false,
   selectedServices: ['bed_sheets'],
   incrementFormId: () => set(state => ({
     activeFormId: state.activeFormId + 1,
@@ -45,6 +50,20 @@ export const useAppStore = create(persist<State>((set) => ({
   setUserBio: (userBio) => set({ userBio }),
   setMotivationLetter: (letter) => set({ motivationLetter: letter }),
   selectRoom: (selectedRoom) => set(() => ({ selectedRoom })),
+  checkPermissions: async () => {
+    const { userBio } = state();
+
+    set({ vkPermissionsLoading: true });
+
+    if (!userBio?.vkLink) {
+      return;
+    }
+
+    const { result } = await getPermissions(userBio.vkLink);
+
+    set({ vkPermissions: result, vkPermissionsLoading: false });
+
+  },
 }), {
   name: 'app-storage',
   storage: createJSONStorage(() => localStorage),

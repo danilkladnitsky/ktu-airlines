@@ -26,6 +26,7 @@ export const Room = ({ room, minified = false }: Props) => {
   const { description, feature, name, pic, available } = room;
 
   const submit = () => {
+    selectRoom({ roomName: room.name, services: selectedServices });
     incrementFormId();
   };
 

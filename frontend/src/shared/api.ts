@@ -13,6 +13,8 @@ const GET = (path: string): FetchRequest => ({ method: 'GET', path });
 
 export const USER_IS_SUBSCRIBED = (name: VKId): FetchRequest => GET(`bot/get_user_membership/${name}`);
 
+export const GET_VK_PERMISSIONS = (link: VKLink): FetchRequest => GET(`bot/permissions/?vk=${link}`);
+
 export async function fetchApi<T,>(request: FetchRequest)
   : Promise<FetchResponse<T>> {
   try {
@@ -22,7 +24,7 @@ export async function fetchApi<T,>(request: FetchRequest)
 
     return {
       ok: true,
-      result: fetchResponse.json() as T,
+      result: await fetchResponse.json() as T,
     };
 
   } catch (errorResponse) {

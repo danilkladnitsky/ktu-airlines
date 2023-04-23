@@ -33,7 +33,12 @@ const schema = z.object({
 });
 
 export const PassenderData = () => {
-  const { incrementFormId, setUserBio, userBio } = useAppStore();
+  const {
+    incrementFormId,
+    setUserBio,
+    userBio,
+    checkPermissions,
+  } = useAppStore();
   const [avatar, SetAvatar] = useState<string | null>(null);
 
   const form = useForm<UserBioData>({
@@ -50,6 +55,7 @@ export const PassenderData = () => {
     const { hasErrors } = form.validate();
 
     if (!hasErrors) {
+      checkPermissions();
       incrementFormId();
     }
   };

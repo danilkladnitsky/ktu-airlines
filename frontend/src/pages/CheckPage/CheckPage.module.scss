@@ -7,25 +7,23 @@
 }
 
 .paymentInfo {
-    height: 100%;
+    max-width: 400px;
 }
 
 .title {
     color: $accent-text;
 }
 
-.ticketInfo {}
-
 .count {
     text-align: right;
 }
 
 .check {
-    grid-template-columns: 300px 1fr;
+    display: flex;
+    gap: 24px;
 
     @media (max-width: 991px) {
-        grid-template-columns: auto;
-        grid-template-rows: 1fr 1fr;
+        flex-direction: column;
     }
 }
 
@@ -36,6 +34,14 @@
 
 .services {
     flex: 1;
+}
+
+.ticketInfo {
+    max-width: 300px;
+
+    @media (max-width: 991px) {
+        max-width: 100%;
+    }
 }
 
 .form {
@@ -49,7 +55,4 @@
     position: relative;
 }
 
-.bookBtn {
-    position: absolute;
-    bottom: 0px;
-}
+.bookBtn {}

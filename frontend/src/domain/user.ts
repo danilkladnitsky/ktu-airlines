@@ -1,4 +1,4 @@
-import { fetchApi, FetchResponse, USER_IS_SUBSCRIBED } from 'shared/api';
+import { fetchApi, FetchResponse, GET_VK_PERMISSIONS, USER_IS_SUBSCRIBED } from 'shared/api';
 
 export type UserServices = 'bed_sheets' | 'vegan_menu';
 
@@ -24,10 +24,12 @@ export type UserMotivationLetter = {
   about_plane: string;
 }
 
-export function isSubscribed(user: User): Promise<FetchResponse<boolean>> {
-  return fetchApi<boolean>(USER_IS_SUBSCRIBED(user.vkLink));
+export type VKPermissions = {
+  isMember: boolean;
+  canReceiveMessages: boolean;
 }
 
-export function canReceiveMessages(user: User): Promise<boolean> {
-  return new Promise<boolean>((resolve) => resolve(true));
+export async function getPermissions(vkLink: VKLink)
+  : Promise<FetchResponse<VKPermissions>> {
+  return await fetchApi(GET_VK_PERMISSIONS(vkLink));
 }

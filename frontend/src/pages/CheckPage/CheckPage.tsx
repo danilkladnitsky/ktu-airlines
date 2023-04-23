@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import { Button, Card, Center, Checkbox, Container, SimpleGrid, Space, Stack, Title } from '@mantine/core';
+import { Alert, Button, Card, Center, Checkbox, Container, Space, Stack, Title } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppStore } from 'store';
 import { z } from 'zod';
@@ -19,7 +19,11 @@ const schema = z.object({
 });
 
 export const CheckPage = () => {
-  const { selectedRoom } = useAppStore();
+  const { selectedRoom,
+    vkPermissions,
+    checkPermissions,
+    vkPermissionsLoading,
+  } = useAppStore();
 
   const history = useHistory();
 
@@ -36,6 +40,9 @@ export const CheckPage = () => {
   const hasBedSheets = selectedRoom?.services.includes('bed_sheets');
   const isVegan = selectedRoom?.services.includes('vegan_menu');
 
+  const hasVkErrors = !vkPermissions?.canReceiveMessages
+    || !vkPermissions.isMember;
+
   const submit = () => {
     const { hasErrors } = form.validate();
 
@@ -49,7 +56,7 @@ export const CheckPage = () => {
       <Container>
         <HeaderBar />
         <Center>
-          <SimpleGrid className={styles.check} cols={2}
+          <div className={styles.check}
             breakpoints={[
               { maxWidth: '62rem', cols: 1, spacing: 'md' },
             ]}
@@ -112,17 +119,30 @@ export const CheckPage = () => {
                       color="lime"
                     />}
                 </Stack>
-                <div className={styles.confirmBtn}>
+                <Stack className={styles.confirmBtn}>
+                  {!vkPermissions?.isMember && <Alert title="Внимание!" color={'red'} radius="md">
+                    Вы не подписаны на группу Актив КТУ
+                  </Alert>}
+                  {!vkPermissions?.canReceiveMessages && <Alert title="Внимание!" color={'red'} radius="md">
+                    Разрешите сообщения от группы Актив КТУ,
+                    без этого вы не сможете подтвердить регистрацию!
+                  </Alert>}
+                  {hasVkErrors && <Button
+                    onClick={checkPermissions}
+                    loading={vkPermissionsLoading}
+                  >
+                    Проверить еще раз
+                  </Button>}
                   <Button
                     className={styles.bookBtn}
                     onClick={submit}
                     disabled={!form.values.prepayment}>
                   Забронировать путевку
                   </Button>
-                </div>
+                </Stack>
               </Stack>
             </Card>
-          </SimpleGrid>
+          </div>
         </Center>
       </Container>
     </div>
