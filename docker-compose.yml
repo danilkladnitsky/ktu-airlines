@@ -27,6 +27,9 @@ services:
     restart: always
     volumes:
       - ./nginx/:/etc/nginx/conf.d/
+      - ./nginx/dhparam:/etc/nginx/dhparam
+      - ./certbot/conf/:/etc/nginx/ssl/
+      - ./certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - backend
       - frontend
@@ -34,6 +37,8 @@ services:
       - 80:80
 
   certbot:
+     depends_on: 
+     - nginx
      container_name: certbot
      image: certbot/certbot:latest
      command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email core2pixel@gmail.com --agree-tos --no-eff-email -d ktu-tour.ru
