@@ -14,3 +14,5 @@ export type AirTicket = {
         placeToDate: string
     }
 }
+
+export const TICKETS: AirTicket = [{}, {}];

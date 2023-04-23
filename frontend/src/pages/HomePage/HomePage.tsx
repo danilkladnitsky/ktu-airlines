@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useAutoAnimate } from '@formkit/auto-animate/react';
+import React, { useEffect } from 'react';
 import { Container } from '@mantine/core';
 import { useAppStore } from 'store';
+
+import { TICKETS } from 'domain/ticket';
 
 import { Banner, Header, TicketList } from 'shared/ui';
 import { LoadingStatus } from 'shared/ui';
@@ -9,28 +10,26 @@ import { LoadingStatus } from 'shared/ui';
 import styles from './HomePage.module.scss';
 
 export const HomePage = () => {
-  const { ticketSelected } = useAppStore();
-  const [ticketsFound, setTicketsFound] = useState(false);
+  const { ticketSelected, ticketsAreLoading, resetTicket } = useAppStore();
 
   useEffect(() => {
-    ticketSelected && setTimeout(() => setTicketsFound(true), 1500);
-  }, [ticketSelected]);
-
-  const showLoader = !ticketsFound && ticketSelected;
+    resetTicket();
+  }, []);
 
   return (
     <div className={styles.homePage}>
       <Banner>
         <Header />
       </Banner>
-      {showLoader && <LoadingStatus
+      {ticketsAreLoading && <LoadingStatus
         className={styles.loader}
         title="Ищем авиабилеты..."
         description="Уже можно собирать чемоданы!"
       />}
-      {<Container className={styles.ticketList}>
-        <TicketList tickets={ticketsFound ? [{}, {}] : []} />
-      </Container>
+      {
+        ticketSelected && <Container className={styles.ticketList}>
+          <TicketList tickets={TICKETS} />
+        </Container>
       }
     </div>
   );
