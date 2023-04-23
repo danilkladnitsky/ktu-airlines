@@ -86,8 +86,12 @@ jobs:
           envkey_SWAGGER_USER: ${{ secrets.SWAGGER_USER }}
           envkey_SWAGGER_PASSWORD: ${{ secrets.SWAGGER_PASSWORD }}
           envkey_BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          envkey_API_HOST: ${{ secrets.API_HOST }}
           file_name: .env
           fail_on_empty: false
+      -
+        name: Copy env to frontend
+        run: cp .env frontend/.env
       -
         name: Pull last images
         run: docker compose pull
