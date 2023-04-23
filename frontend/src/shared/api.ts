@@ -3,6 +3,10 @@ type FetchRequest = {
     path: string
 }
 
+const HOST = process.env.NODE_ENV === 'production' ?
+  'http://1431207-ck39036.tw1.ru/api'
+  : 'http://localhost:3000/api';
+
 export type FetchResponse<Result> = {
   ok: boolean,
   result: Result | null;
@@ -19,7 +23,7 @@ export const SIGN_IN = (): FetchRequest => POST('users/sign-in');
 export async function fetchApi<T,>(request: FetchRequest, body?: string)
   : Promise<FetchResponse<T>> {
   try {
-    const fetchResponse = await fetch(`${ENV_VARS.API_HOST}/${request.path}`, {
+    const fetchResponse = await fetch(`${HOST}/${request.path}`, {
       method: request.method,
       body,
       headers: {
