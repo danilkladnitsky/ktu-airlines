@@ -73,8 +73,10 @@ export const CheckPage = () => {
               <Card padding={'xl'} radius="lg">
                 <Stack spacing={'xl'}>
                   <TicketOperator name="[ktu].pobeda" />
-                  <TicketRoute date="5 мая" endTime="10:00" startTime="7:30" />
-                  <TicketRoute date="6 мая" endTime="10:30" startTime="12:10" />
+                  <TicketRoute date="5 мая" endTime="10:00" startTime="7:30" endPlace="YAG"
+                  startPlace='GK' />
+                  <TicketRoute date="6 мая" endTime="10:30" startTime="12:10" startPlace="YAG"
+                  endPlace='GK' />
                 </Stack>
               </Card>
               {currentRoom && <Room room={currentRoom} minified />}

@@ -8,9 +8,11 @@ import styles from './TicketRoute.module.scss';
 type Props = {
     startTime: string;
     endTime: string;
-    date: string;
+  date: string;
+  startPlace: string;
+    endPlace: string;
 }
-export const TicketRoute = ({ startTime, endTime, date }: Props) => {
+export const TicketRoute = ({ startTime, endTime, date, startPlace, endPlace }: Props) => {
   return (
     <div className={styles.route}>
       <div className={styles.time}>
@@ -24,11 +26,11 @@ export const TicketRoute = ({ startTime, endTime, date }: Props) => {
       </div>
       <div className={styles.destination}>
         <Title order={4}>
-              YAG
+              {startPlace}
         </Title>
         <Badge color={'violet'}>{date}</Badge>
         <Title order={4}>
-              GK
+              {endPlace}
         </Title>
       </div>
     </div>

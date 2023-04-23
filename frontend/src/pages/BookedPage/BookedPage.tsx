@@ -44,11 +44,15 @@ export const BookedPage = () => {
                   date={ticket.tripStart.day}
                   endTime={ticket.tripStart.placeFromDate}
                   startTime={ticket.tripStart.placeToDate}
+                  startPlace="GK"
+                  endPlace='YAG'
                 />
                 <TicketRoute
                   date={ticket.tripStart.day}
                   endTime={ticket.tripEnd.placeFromDate}
                   startTime={ticket.tripEnd.placeToDate}
+                  startPlace="YAG"
+                  endPlace='GK'
                 />
               </Stack>
             </Card>
