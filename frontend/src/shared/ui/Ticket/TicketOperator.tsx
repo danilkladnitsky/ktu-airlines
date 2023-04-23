@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Title } from '@mantine/core';
+import { Avatar, Text } from '@mantine/core';
 
 import styles from './TicketOperator.module.scss';
 
@@ -11,9 +11,9 @@ export const TicketOperator = ({ name }: Props) => {
   return (
     <div className={styles.tourAvatar}>
       <Avatar size={'sm'} radius={'lg'} src="/logo.jpg" />
-      <Title order={6} className={styles.tourName}>
+      <Text className={styles.tourName}>
         {name}
-      </Title>
+      </Text>
     </div>
   );
 };

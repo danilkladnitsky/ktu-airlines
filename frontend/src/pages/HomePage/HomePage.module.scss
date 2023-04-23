@@ -3,7 +3,6 @@
 .homePage {
     display: flex;
     flex-direction: column;
-    @include page;
 }
 
 .loader {

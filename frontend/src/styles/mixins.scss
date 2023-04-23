@@ -1,4 +1,8 @@
 @mixin page {
     min-height: 100vh;
     padding: 32px;
+
+    @media (max-width: 769px) {
+        padding: 16px;
+    }
 }

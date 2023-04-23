@@ -29,7 +29,9 @@ const schema = z.object({
   isuNumber: z.string().length(6, 'Номер ИСУ должен состоять из шести цифр')
     .max(100000, 'Номер ИСУ должен быть между 100000 и 999999'),
   groupName: z.string().nonempty({ message: 'Учебная группа должна быть указана' }),
-  vkLink: z.string().url('Ссылка на ВК невалидна'),
+  vkLink: z.string()
+    .url('Ссылка на ВК невалидна').
+    startsWith('https://vk.com/', { message: 'Ссылка должна начинаться на https://vk.com/' }),
 });
 
 export const PassenderData = () => {
