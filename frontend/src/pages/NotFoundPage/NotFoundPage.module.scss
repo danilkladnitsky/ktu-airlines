@@ -1,9 +1,9 @@
 @import "styles/colors.scss";
+@import "styles/mixins.scss";
 
 .page {
     background-color: $primary-background;
-    height: 100vh;
-    padding: 32px;
+    @include page;
 }
 
 .wrapper {

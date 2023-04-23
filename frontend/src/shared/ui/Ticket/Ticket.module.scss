@@ -19,38 +19,3 @@
 .ticketBtn {
     flex: 0 180px;
 }
-
-.tourOperator {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.tourAvatar {
-    display: flex;
-    gap: 8px;
-}
-
-.tourName {
-    color: $primary-text  !important;
-    font-family: "Semibold";
-}
-
-.route {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.time,
-.destination {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: space-between;
-
-    h4 {
-        font-family: "Semibold";
-    }
-}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Title } from '@mantine/core';
+import { Box, Title } from '@mantine/core';
 
 import { HeaderBar } from 'shared/ui/HeaderBar';
 

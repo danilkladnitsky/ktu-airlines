@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import { Button, Card, Stack, Text, Textarea } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppStore } from 'store';
@@ -29,6 +30,8 @@ export const AboutGuest = () => {
     setMotivationLetter,
   } = useAppStore();
 
+  const history = useHistory();
+
   const form = useForm<UserMotivationLetter>({
     initialValues: motivationLetter || INIT_FORM,
     validate: zodResolver(schema),
@@ -39,7 +42,7 @@ export const AboutGuest = () => {
 
     if (!hasErrors) {
       setMotivationLetter(form.values);
-      incrementFormId();
+      history.push('/confirm-booking');
     }
   };
 

@@ -48,17 +48,6 @@ export const MANTINE_THEME: MantineThemeOverride = {
     },
   },
   components: {
-    Title: {
-      styles: {
-        root: {
-          '&:is(h1)': { color: COLORS.PRIMARY_TEXT },
-          '&:is(h2)': { color: COLORS.PRIMARY_TEXT },
-          '&:is(h3)': { color: COLORS.PRIMARY_TEXT },
-          '&:is(h5)': { color: COLORS.PRIMARY_TEXT },
-          '&:is(h6)': { color: COLORS.SECONDARY_TEXT },
-        },
-      },
-    },
     Text: {
       'styles': {
         'root': {

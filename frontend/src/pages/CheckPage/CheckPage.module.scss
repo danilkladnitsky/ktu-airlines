@@ -1,0 +1,37 @@
+@import "styles/mixins.scss";
+@import "styles/colors.scss";
+
+.page {
+    background-color: $primary-background;
+    @include page;
+}
+
+.title {
+    color: $accent-text;
+}
+
+.ticketInfo {
+    max-width: 300px;
+}
+
+.count {
+    text-align: right;
+}
+
+.check {
+    display: flex;
+    gap: 16px;
+}
+
+.payment {
+    display: flex;
+    gap: 24px;
+}
+
+.services {
+    flex: 1;
+}
+
+.bookBtn {
+    align-self: flex-end;
+}

@@ -5,9 +5,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import { HomePage } from 'pages';
-import { BuyTicketPage } from 'pages/BuyTicketPage';
-import { NotFoundPage } from 'pages/NotFoundPage';
+import { BuyTicketPage, CheckPage, HomePage, NotFoundPage } from 'pages';
 
 export const AppRouter = () => {
   return (
@@ -18,6 +16,9 @@ export const AppRouter = () => {
         </Route>
         <Route path="/buy-ticket" exact>
           <BuyTicketPage />
+        </Route>
+        <Route path="/confirm-booking" exact>
+          <CheckPage />
         </Route>
         <Route path="*">
           <NotFoundPage />

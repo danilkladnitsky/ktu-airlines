@@ -14,6 +14,7 @@ export type UserBioData = {
   groupName: GroupName;
   phoneNumber: PhoneNumber;
   vkLink: VKLink;
+  thumbnailUrl: string;
 }
 
 export type UserMotivationLetter = {

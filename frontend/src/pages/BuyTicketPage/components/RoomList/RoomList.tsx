@@ -3,7 +3,7 @@ import { SimpleGrid } from '@mantine/core';
 
 import { ROOMS } from 'domain/room';
 
-import { Room } from './Room';
+import { Room } from 'shared/ui/Room';
 
 export const RoomList = () => {
   return (

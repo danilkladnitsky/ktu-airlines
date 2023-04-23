@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Avatar, Badge, Button, TextInput } from '@mantine/core';
+import React, { useEffect, useState } from 'react';
+import { Avatar, Badge, Button, FileButton, TextInput } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppStore } from 'store';
 import { z } from 'zod';
@@ -15,6 +15,7 @@ const INIT_FORM = {
   phoneNumber: '',
   secondName: '',
   vkLink: '',
+  thumbnailUrl: '',
 };
 
 // eslint-disable-next-line no-useless-escape
@@ -33,6 +34,7 @@ const schema = z.object({
 
 export const PassenderData = () => {
   const { incrementFormId, setUserBio, userBio } = useAppStore();
+  const [avatar, SetAvatar] = useState<string | null>(null);
 
   const form = useForm<UserBioData>({
     initialValues: userBio || INIT_FORM,
@@ -52,14 +54,21 @@ export const PassenderData = () => {
     }
   };
 
+  const uploadFile = (file: File) => {
+    const parsedUrl = URL.createObjectURL(file);
+    SetAvatar(parsedUrl);
+
+    form.setFieldValue('thumbnailUrl', parsedUrl);
+  };
+
   return (
     <div className={styles.passengerData}>
       <div className={styles.form}>
         <div className={styles.uploadPhoto}>
-          <Avatar w={90} h={90} radius="50%">MK</Avatar>
-          <Badge color={'violet'}>
-            Загрузить фото
-          </Badge>
+          <Avatar w={90} h={90} radius="50%" src={avatar}>MK</Avatar>
+          <FileButton onChange={uploadFile}>
+            {(props) => <Badge className={styles.uploadPhotoBtn} color={'violet'} {...props}>Загрузить фото</Badge>}
+          </FileButton>
         </div>
         <div className={styles.fields}>
           <div className={styles.fieldGroup}>

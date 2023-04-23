@@ -1,0 +1,17 @@
+@import "styles/colors.scss";
+
+.tourOperator {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tourAvatar {
+    display: flex;
+    gap: 8px;
+}
+
+.tourName {
+    color: $primary-text  !important;
+    font-family: "Semibold";
+}
