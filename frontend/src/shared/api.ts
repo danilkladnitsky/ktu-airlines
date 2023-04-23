@@ -6,7 +6,7 @@ type FetchRequest = {
 console.log(process.env.NODE_ENV);
 
 const HOST = process.env.NODE_ENV === 'production' ?
-  'http://ktu-tour.ru/api'
+  'https://ktu-tour.ru/api'
   : 'http://localhost:3000/api';
 
 export type FetchResponse<Result> = {
