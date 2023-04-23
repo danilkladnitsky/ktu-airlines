@@ -1,30 +1,37 @@
 import React from 'react';
-import { Button, Card, Group, Image, List, Rating, Space, Stack, Text, Title } from '@mantine/core';
+import { Button, Card, Group, Image, List, Rating, Stack, Text, Title } from '@mantine/core';
 import { useAppStore } from 'store';
 
-export const Hotel = () => {
+import { Hotel as HotelType } from 'domain/hotel';
+
+type Props = {
+  hotel: HotelType;
+}
+
+export const Hotel = ({ hotel }: Props) => {
   const { incrementFormId } = useAppStore();
+
+  const { description, name, stars, thumbnailUrl, active } = hotel;
 
   return (
     <Card shadow={'sm'} padding="xl" radius={'lg'}>
       <Card.Section>
         <Image
-          src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
+          src={thumbnailUrl}
           height={160}
           alt="Norway"
         />
       </Card.Section>
       <Group position="apart" mt="md" mb="xs">
-        <Title order={4}>KTU Resort Hotel 5</Title>
-        <Rating value={4.5} readOnly size={'xs'} />
+        <Title order={4}>{name}</Title>
       </Group>
       <Stack>
+        <Rating value={stars} readOnly size={'xs'} />
         <Text size="sm">
           <Title order={5}>
             Про отель
           </Title>
-        Это идеальное место для тех, кто хочет насладиться природой и отдохнуть от городской суеты.
-        Расположенный на берегу озера, отель предлагает своим гостям комфортабельные домики с прекрасным видом на природу.
+          {description}
         </Text>
         <Title order={5}>
             Удобства и услуги
@@ -34,7 +41,7 @@ export const Hotel = () => {
           <List.Item>Питание</List.Item>
           <List.Item>SPA</List.Item>
         </List>
-        <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={incrementFormId}>
+        <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={incrementFormId} disabled={!active}>
             Выбрать
         </Button>
       </Stack>

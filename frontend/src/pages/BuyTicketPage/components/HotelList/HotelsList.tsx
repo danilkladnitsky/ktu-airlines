@@ -2,6 +2,8 @@ import React from 'react';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { SimpleGrid } from '@mantine/core';
 
+import { HOTELS } from 'domain/hotel';
+
 import { Hotel } from './Hotel';
 
 export const HotelsList = () => {
@@ -12,9 +14,7 @@ export const HotelsList = () => {
       { maxWidth: '62rem', cols: 2, spacing: 'md' },
       { maxWidth: '48rem', cols: 1, spacing: 'md' },
     ]} ref={animationParent}>
-      <Hotel />
-      <Hotel />
-      <Hotel />
+      {HOTELS.map((hotel) => <Hotel hotel={hotel} />)}
     </SimpleGrid>
   );
 };
