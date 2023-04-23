@@ -9,8 +9,6 @@ jobs:
   push-images:
     name: Build and publish images
     runs-on: ubuntu-latest
-    container:
-      options: --user 1000
     env:
       frontend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.frontend
       backend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.backend
