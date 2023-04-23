@@ -1,3 +1,4 @@
+import { S3Module } from 'nestjs-s3';
 import { BotController } from '@controllers/bot.controller';
 import { TicketController } from '@controllers/ticket.controller';
 import { UserController } from '@controllers/user.controller';
@@ -18,6 +19,16 @@ import { AppService } from './app.service';
 
 @Module({
   imports: [
+    S3Module.forRootAsync({
+      useFactory: () => ({
+        config: {
+          accessKeyId: process.env.S3_ACCESS_KEY,
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+          endpoint: process.env.S3_URL,
+          region: "ru-1"
+        },
+      }),
+    }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',

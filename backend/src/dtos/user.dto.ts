@@ -19,6 +19,7 @@ export class UserDto {
   motivationLetter: string;
   @IsString()
   selectedServices: string;
+  thumbnail: string;
 }
 
 export class ShareableUserDto {

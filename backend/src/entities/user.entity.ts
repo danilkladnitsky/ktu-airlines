@@ -8,6 +8,8 @@ export type UserSelectedServices = 'needs_bed_sheets' | 'vegan_menu';
 export class User extends BaseEntity {
   @Column()
   firstName: string;
+  @Column({nullable: true})
+  thumbnail?: string;
   @Column()
   lastName: string;
   @Column()
