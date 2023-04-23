@@ -27,9 +27,9 @@ services:
     restart: always
     volumes:
       - ./nginx/:/etc/nginx/conf.d/
-      - ./nginx/dhparam:/etc/nginx/dhparam
-      - ./certbot/conf/:/etc/nginx/ssl/
-      - ./certbot/data:/usr/share/nginx/html/letsencrypt
+      - /github_actions/nginx/dhparam:/etc/nginx/dhparam
+      - /github_actions/certbot/conf/:/etc/nginx/ssl/
+      - /github_actions/certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - backend
       - frontend
@@ -44,6 +44,6 @@ services:
      image: certbot/certbot:latest
      command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email core2pixel@gmail.com --agree-tos --no-eff-email -d ktu-tour.ru
      volumes:
-       - ./certbot/conf/:/etc/letsencrypt
-       - ./certbot/logs/:/var/log/letsencrypt
-       - ./certbot/data:/usr/share/nginx/html/letsencrypt
+       - /github_actions/certbot/conf/:/etc/letsencrypt
+       - /github_actions/certbot/logs/:/var/log/letsencrypt
+       - /github_actions/certbot/data:/usr/share/nginx/html/letsencrypt
