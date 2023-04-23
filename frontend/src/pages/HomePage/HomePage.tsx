@@ -17,20 +17,23 @@ export const HomePage = () => {
   }, []);
 
   return (
-    <div className={styles.homePage}>
+    <div className={styles.wrapper}>
       <Banner>
         <Header />
       </Banner>
-      {ticketsAreLoading && <LoadingStatus
-        className={styles.loader}
-        title="Ищем авиабилеты..."
-        description="Уже можно собирать чемоданы!"
-      />}
-      {
-        ticketSelected && <Container className={styles.ticketList}>
-          <TicketList tickets={TICKETS} />
-        </Container>
-      }
+      <div className={styles.homePage}>
+        {ticketsAreLoading && <LoadingStatus
+          className={styles.loader}
+          title="Ищем авиабилеты..."
+          description="Уже можно собирать чемоданы!"
+        />}
+        {
+          ticketSelected && <Container className={styles.ticketList}>
+            <TicketList tickets={TICKETS} />
+          </Container>
+        }
+      </div>
+
     </div>
   );
 };

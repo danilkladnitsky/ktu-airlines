@@ -8,7 +8,10 @@ export const HotelsList = () => {
   const [animationParent] = useAutoAnimate();
 
   return (
-    <SimpleGrid cols={3} ref={animationParent}>
+    <SimpleGrid cols={3} breakpoints={[
+      { maxWidth: '62rem', cols: 2, spacing: 'md' },
+      { maxWidth: '48rem', cols: 1, spacing: 'md' },
+    ]} ref={animationParent}>
       <Hotel />
       <Hotel />
       <Hotel />

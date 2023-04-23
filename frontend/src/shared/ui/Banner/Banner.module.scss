@@ -1,11 +1,6 @@
 @import "styles/colors.scss";
 
 .bannerWrapper {
-    padding: 0px;
     background-color: $primary-background;
-}
-
-.banner {
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding: 32px;
 }

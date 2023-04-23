@@ -14,17 +14,19 @@
     color: $accent-text;
 }
 
-.ticketInfo {
-    max-width: 300px;
-}
+.ticketInfo {}
 
 .count {
     text-align: right;
 }
 
 .check {
-    display: flex;
-    gap: 16px;
+    grid-template-columns: 300px 1fr;
+
+    @media (max-width: 991px) {
+        grid-template-columns: auto;
+        grid-template-rows: 1fr 1fr;
+    }
 }
 
 .payment {

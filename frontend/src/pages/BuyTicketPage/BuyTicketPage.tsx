@@ -30,6 +30,7 @@ export const BuyTicketPage = () => {
             color="lime"
             onStepClick={setFormId}
             allowNextStepsSelect={false}
+
           >
             <Stepper.Step>
               <Title order={2} className={styles.title}>

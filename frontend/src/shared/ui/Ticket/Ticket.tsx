@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import { Avatar, Badge, Button, Title } from '@mantine/core';
+import { Avatar, Badge, Button, SimpleGrid, Title } from '@mantine/core';
 
 import { AirTicket } from 'domain/ticket';
 
@@ -19,7 +19,14 @@ export const Ticket = ({ ticket }: Props) => {
   const { active,tourOperator,tripEnd,tripStart } = ticket;
 
   return (
-    <div className={styles.ticket}>
+    <SimpleGrid
+      className={styles.ticket}
+      cols={4}
+      spacing="sm"
+      breakpoints={[
+        { maxWidth: 'md', cols: 1, spacing: 'sm' },
+      ]}
+    >
       <div className={styles.tourOperator}>
         <TicketOperator name={tourOperator} />
         {active ? <Badge variant={'light'} color={'lime'}>
@@ -39,6 +46,6 @@ export const Ticket = ({ ticket }: Props) => {
       <Button disabled={!active} className={styles.ticketBtn} onClick={() => history.push('/buy-ticket')}>
             Выбрать
       </Button>
-    </div>
+    </SimpleGrid>
   );
 };

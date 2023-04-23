@@ -10,9 +10,13 @@
 }
 
 .form {
-    display: flex;
     gap: 42px;
     align-items: center;
+    grid-template-columns: 200px 1fr;
+
+    @media (max-width: 769px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 .fieldGroup {
@@ -29,8 +33,6 @@
 }
 
 .fields {
-    display: flex;
-    flex-direction: column;
     flex: 1;
     gap: 24px;
 }

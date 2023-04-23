@@ -1,6 +1,9 @@
+@import "styles/mixins.scss";
+
 .homePage {
     display: flex;
     flex-direction: column;
+    @include page;
 }
 
 .loader {

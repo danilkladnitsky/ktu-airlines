@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
+import { Stack } from '@mantine/core';
 
 import { AirTicket } from 'domain/ticket';
 
@@ -15,7 +16,7 @@ export const TicketList = ({ tickets }: Props) => {
   const [animationParent] = useAutoAnimate();
 
   return (
-    <div className={styles.list} ref={animationParent}>
+    <Stack className={styles.list} ref={animationParent}>
       {tickets.map((ticket, key) =>
         <Ticket
           ticket={ticket}
@@ -23,6 +24,6 @@ export const TicketList = ({ tickets }: Props) => {
           available={key === 0}
         />,
       )}
-    </div>
+    </Stack>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, SelectItem } from '@mantine/core';
+import { Box, Button, SelectItem, SimpleGrid } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppStore } from 'store';
 import { z } from 'zod';
@@ -70,8 +70,13 @@ export const TicketSearchBar = () => {
   };
 
   return (
-    <Box
-      className={styles.ticketSearchBar}>
+    <SimpleGrid
+      className={styles.ticketSearchBar}
+      cols={5}
+      breakpoints={[
+        { maxWidth: 'md', cols: 1, spacing: 'md' },
+      ]}
+    >
       <DropdownList
         className={styles.destInput} description="Откуда"
         data={DESTINATIONS_FROM}
@@ -98,6 +103,6 @@ export const TicketSearchBar = () => {
       <Button className={styles.searchBtn} onClick={submit}>
         Найти билеты
       </Button>
-    </Box>
+    </SimpleGrid>
   );
 };

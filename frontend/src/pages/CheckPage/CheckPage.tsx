@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import { Button, Card, Center, Checkbox, Container, Space, Stack, Title } from '@mantine/core';
+import { Button, Card, Center, Checkbox, Container, SimpleGrid, Space, Stack, Title } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppStore } from 'store';
 import { z } from 'zod';
@@ -49,7 +49,11 @@ export const CheckPage = () => {
       <Container>
         <HeaderBar />
         <Center>
-          <div className={styles.check} cols={2}>
+          <SimpleGrid className={styles.check} cols={2}
+            breakpoints={[
+              { maxWidth: '62rem', cols: 1, spacing: 'md' },
+            ]}
+          >
             <Stack className={styles.ticketInfo}>
               <Title className={styles.title}>
               Детали<br />бронирования
@@ -118,7 +122,7 @@ export const CheckPage = () => {
                 </div>
               </Stack>
             </Card>
-          </div>
+          </SimpleGrid>
         </Center>
       </Container>
     </div>

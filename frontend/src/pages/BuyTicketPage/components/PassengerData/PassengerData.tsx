@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Badge, Button, FileButton, TextInput } from '@mantine/core';
+import { Avatar, Badge, Button, FileButton, SimpleGrid, TextInput } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppStore } from 'store';
 import { z } from 'zod';
@@ -63,26 +63,29 @@ export const PassenderData = () => {
 
   return (
     <div className={styles.passengerData}>
-      <div className={styles.form}>
+      <SimpleGrid cols={2} breakpoints={[
+        { maxWidth: '48rem', cols: 1, spacing: 'sm' },
+      ]} className={styles.form}>
         <div className={styles.uploadPhoto}>
           <Avatar w={90} h={90} radius="50%" src={avatar}>MK</Avatar>
           <FileButton onChange={uploadFile}>
             {(props) => <Badge className={styles.uploadPhotoBtn} color={'violet'} {...props}>Загрузить фото</Badge>}
           </FileButton>
         </div>
-        <div className={styles.fields}>
-          <div className={styles.fieldGroup}>
-            <TextInput label="Имя" required {...form.getInputProps('firstName')} />
-            <TextInput label="Фамилия" required {...form.getInputProps('secondName')} />
-            <TextInput label="Номер ИСУ"required {...form.getInputProps('isuNumber')} />
-          </div>
-          <div className={styles.fieldGroup}>
-            <TextInput label="Ссылка на ВК" required {...form.getInputProps('vkLink')}/>
-            <TextInput label="Телефон" required {...form.getInputProps('phoneNumber')} />
-            <TextInput label="Номер группы" required {...form.getInputProps('groupName')} />
-          </div>
-        </div>
-      </div>
+        <SimpleGrid cols={3} className={styles.fields}
+          breakpoints={[
+            { maxWidth: '62rem', cols: 2 },
+            { maxWidth: '48rem', cols: 1 },
+          ]}
+        >
+          <TextInput label="Имя" required {...form.getInputProps('firstName')} />
+          <TextInput label="Фамилия" required {...form.getInputProps('secondName')} />
+          <TextInput label="Номер ИСУ"required {...form.getInputProps('isuNumber')} />
+          <TextInput label="Ссылка на ВК" required {...form.getInputProps('vkLink')}/>
+          <TextInput label="Телефон" required {...form.getInputProps('phoneNumber')} />
+          <TextInput label="Номер группы" required {...form.getInputProps('groupName')} />
+        </SimpleGrid>
+      </SimpleGrid>
       <Button onClick={submit}>Далее</Button>
     </div>
   );
