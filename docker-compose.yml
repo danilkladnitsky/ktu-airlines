@@ -32,3 +32,12 @@ services:
       - frontend
     ports:
       - 80:80
+
+  certbot:
+     container_name: certbot
+     image: certbot/certbot:latest
+     command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email core2pixel@gmail.com --agree-tos --no-eff-email -d mbtl.ru
+     volumes:
+       - /github_actions/certbot/conf/:/etc/letsencrypt
+       - /github_actions/certbot/logs/:/var/log/letsencrypt
+       - /github_actions/certbot/data:/usr/share/nginx/html/letsencrypt
