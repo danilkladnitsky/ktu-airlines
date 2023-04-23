@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { RoomWithServices } from 'domain/room';
-import { getPermissions, UserBioData, UserMotivationLetter, UserServices, VKPermissions } from 'domain/user';
+import { getPermissions, signIn, User, UserBioData, UserMotivationLetter, UserServices, VKPermissions } from 'domain/user';
 
 type State = {
   activeFormId: number;
@@ -22,6 +22,7 @@ type State = {
   setMotivationLetter: (letter: UserMotivationLetter) => void;
   selectRoom: (roomId: RoomWithServices) => void;
   checkPermissions: () => void;
+  signIn: () => void;
 }
 
 export const useAppStore = create(persist<State>((set, state) => ({
@@ -62,6 +63,16 @@ export const useAppStore = create(persist<State>((set, state) => ({
     const { result } = await getPermissions(userBio.vkLink);
 
     set({ vkPermissions: result, vkPermissionsLoading: false });
+
+  },
+  signIn: async () => {
+    const { motivationLetter, userBio } = state();
+
+    const user: User = { motivationLetter, ...userBio };
+
+    const req = await signIn(user);
+
+    console.log(req);
 
   },
 }), {

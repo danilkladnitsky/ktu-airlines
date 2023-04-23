@@ -23,6 +23,7 @@ export const CheckPage = () => {
     vkPermissions,
     checkPermissions,
     vkPermissionsLoading,
+    signIn,
   } = useAppStore();
 
   const history = useHistory();
@@ -43,12 +44,16 @@ export const CheckPage = () => {
   const hasVkErrors = !vkPermissions?.canReceiveMessages
     || !vkPermissions.isMember;
 
-  const submit = () => {
+  const submit = async () => {
     const { hasErrors } = form.validate();
 
-    if (!hasErrors) {
-      history.push('/booked');
+    if (hasErrors) {
+      return;
     }
+
+    await signIn();
+    history.push('/booked');
+
   };
 
   return (
@@ -121,10 +126,10 @@ export const CheckPage = () => {
                 </Stack>
                 <Stack className={styles.confirmBtn}>
                   {!vkPermissions?.isMember && <Alert title="Внимание!" color={'red'} radius="md">
-                    Вы не подписаны на группу Актив КТУ
+                    Вы не подписаны на группу <a href="https://vk.com/ktu.crew" target={'_blank'} rel="noreferrer">Актив КТУ</a>
                   </Alert>}
                   {!vkPermissions?.canReceiveMessages && <Alert title="Внимание!" color={'red'} radius="md">
-                    Разрешите сообщения от группы Актив КТУ,
+                    Разрешите сообщения от группы <a href="https://vk.com/ktu.crew" target={'_blank'} rel="noreferrer">Актив КТУ</a>,
                     без этого вы не сможете подтвердить регистрацию!
                   </Alert>}
                   {hasVkErrors && <Button

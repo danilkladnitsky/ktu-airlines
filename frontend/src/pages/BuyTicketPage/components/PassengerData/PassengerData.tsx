@@ -13,7 +13,7 @@ const INIT_FORM = {
   groupName: '',
   isuNumber: '',
   phoneNumber: '',
-  secondName: '',
+  lastName: '',
   vkLink: '',
   thumbnailUrl: '',
 };
@@ -25,7 +25,7 @@ const schema = z.object({
   phoneNumber: z.string().nonempty({ message: 'Номер телефона должен быть указан' })
     .refine((val) => PHONE_REGEX.test(val), { message: 'Телефонный номер некорректный' }),
   firstName: z.string().nonempty({ message: 'Имя должно быть указано' }),
-  secondName: z.string().nonempty({ message: 'Фамилия должна быть указана' }),
+  lastName: z.string().nonempty({ message: 'Фамилия должна быть указана' }),
   isuNumber: z.string().length(6, 'Номер ИСУ должен состоять из шести цифр')
     .max(100000, 'Номер ИСУ должен быть между 100000 и 999999'),
   groupName: z.string().nonempty({ message: 'Учебная группа должна быть указана' }),
@@ -87,7 +87,7 @@ export const PassenderData = () => {
           ]}
         >
           <TextInput label="Имя" required {...form.getInputProps('firstName')} />
-          <TextInput label="Фамилия" required {...form.getInputProps('secondName')} />
+          <TextInput label="Фамилия" required {...form.getInputProps('lastName')} />
           <TextInput label="Номер ИСУ"required {...form.getInputProps('isuNumber')} />
           <TextInput label="Ссылка на ВК" required {...form.getInputProps('vkLink')}/>
           <TextInput label="Телефон" required {...form.getInputProps('phoneNumber')} />

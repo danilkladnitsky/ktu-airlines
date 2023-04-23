@@ -1,22 +1,22 @@
-import { IsInt, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty,  IsString } from 'class-validator';
 
 export class UserDto {
   id: Id;
   @IsNotEmpty()
   firstName: string;
+  @IsNotEmpty()
   lastName: string;
   @IsNotEmpty()
   @IsInt()
   isuNumber: number;
   @IsNotEmpty()
   groupName: StudentGroup;
-  @IsPhoneNumber()
+  @IsNotEmpty()
   phoneNumber: string;
   @IsString()
   vkLink: string;
   @IsString()
   motivationLetter: string;
-  @IsNotEmpty()
   @IsString()
   selectedServices: string;
 }

@@ -75,8 +75,7 @@ export const AboutGuest = () => {
             {...form.getInputProps('about_plane')}
           />
           <Text>
-        * Обязательно подпишитесь на группу Актив КТУ
-        и разрешите отправку сообщений!
+        * Обязательно подпишитесь на группу <a href="https://vk.com/ktu.crew" target={'_blank'} rel="noreferrer">Актив КТУ</a> и разрешите отправку сообщений!
         Иначе вы не сможете подтвердить своё участие :(
           </Text>
           <Button onClick={submit}>
