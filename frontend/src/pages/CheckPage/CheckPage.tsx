@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import { Button, Card, Center, Checkbox, Container, Space, Stack, Title } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useAppStore } from 'store';
@@ -20,6 +21,8 @@ const schema = z.object({
 export const CheckPage = () => {
   const { selectedRoom } = useAppStore();
 
+  const history = useHistory();
+
   const form = useForm({
     initialValues: {
       prepayment: false,
@@ -34,7 +37,11 @@ export const CheckPage = () => {
   const isVegan = selectedRoom?.services.includes('vegan_menu');
 
   const submit = () => {
-    form.validate();
+    const { hasErrors } = form.validate();
+
+    if (!hasErrors) {
+      history.push('/booked');
+    }
   };
 
   return (

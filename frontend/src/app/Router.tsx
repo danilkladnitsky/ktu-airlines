@@ -5,7 +5,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import { BuyTicketPage, CheckPage, HomePage, NotFoundPage } from 'pages';
+import { BookedPage, BuyTicketPage, CheckPage, HomePage, NotFoundPage } from 'pages';
 
 export const AppRouter = () => {
   return (
@@ -19,6 +19,9 @@ export const AppRouter = () => {
         </Route>
         <Route path="/confirm-booking" exact>
           <CheckPage />
+        </Route>
+        <Route path="/booked" exact>
+          <BookedPage />
         </Route>
         <Route path="*">
           <NotFoundPage />

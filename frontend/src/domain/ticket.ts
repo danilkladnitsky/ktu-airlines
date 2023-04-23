@@ -13,7 +13,7 @@ export type AirTicket = {
     }
 }
 
-export const TICKETS: AirTicket = [
+export const TICKETS: AirTicket[] = [
   {
     tourOperator: '[ktu].beda',
     active: true,
