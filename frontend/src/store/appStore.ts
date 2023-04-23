@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { RoomWithServices } from 'domain/room';
-import { getPermissions, signIn, User, UserBioData, UserMotivationLetter, UserServices, VKPermissions } from 'domain/user';
+import { getPermissions, signIn, uploadPhoto, User, UserBioData, UserMotivationLetter, UserServices, VKPermissions } from 'domain/user';
 
 type State = {
   activeFormId: number;
@@ -14,6 +14,7 @@ type State = {
   ticketsAreLoading: boolean;
   vkPermissions: VKPermissions | null;
   vkPermissionsLoading: boolean;
+  uploadedThumbnail: string | null;
   incrementFormId: () => void;
   setFormId: (id: number) => void;
   selectTicket: () => void;
@@ -23,6 +24,7 @@ type State = {
   selectRoom: (roomId: RoomWithServices) => void;
   checkPermissions: () => void;
   signIn: () => void;
+  uploadUserThumbnail: (file: File) => void;
 }
 
 export const useAppStore = create(persist<State>((set, state) => ({
@@ -34,6 +36,7 @@ export const useAppStore = create(persist<State>((set, state) => ({
   ticketsAreLoading: false,
   vkPermissions: null,
   vkPermissionsLoading: false,
+  uploadedThumbnail: null,
   selectedServices: ['bed_sheets'],
   incrementFormId: () => set(state => ({
     activeFormId: state.activeFormId + 1,
@@ -46,6 +49,15 @@ export const useAppStore = create(persist<State>((set, state) => ({
       set(() => ({ ticketSelected: true, ticketsAreLoading: false }));
     }, 2000);
 
+  },
+  uploadUserThumbnail: async (file: File) => {
+    const {result} = await uploadPhoto(file);
+
+    if (!result?.url) {
+      return;
+    }
+
+    set({ uploadedThumbnail: result.url });
   },
   setFormId: (id: number) => set({ activeFormId: id }),
   setUserBio: (userBio) => set({ userBio }),

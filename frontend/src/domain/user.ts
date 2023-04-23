@@ -1,4 +1,4 @@
-import { fetchApi, FetchResponse, GET_VK_PERMISSIONS, SIGN_IN } from 'shared/api';
+import { fetchApi, FetchResponse, GET_VK_PERMISSIONS, SIGN_IN, UPLOAD_FILE } from 'shared/api';
 
 export type UserServices = 'bed_sheets' | 'vegan_menu';
 
@@ -47,4 +47,10 @@ export async function signIn(user: User)
   };
 
   return await fetchApi(SIGN_IN(), JSON.stringify(payload));
+}
+
+export async function uploadPhoto(file: File): Promise<FetchResponse<{url: string}>> {
+  const form = new FormData();
+  form.append("file", file);
+  return await fetchApi(UPLOAD_FILE(), form);
 }

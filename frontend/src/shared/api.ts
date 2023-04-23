@@ -21,8 +21,8 @@ const POST = (path: string): FetchRequest => ({ method: 'POST', path });
 export const USER_IS_SUBSCRIBED = (name: VKId): FetchRequest => GET(`bot/get_user_membership/${name}`);
 export const GET_VK_PERMISSIONS = (link: VKLink): FetchRequest => GET(`bot/permissions/?vk=${link}`);
 export const SIGN_IN = (): FetchRequest => POST('users/sign-in');
-
-export async function fetchApi<T,>(request: FetchRequest, body?: string)
+export const UPLOAD_FILE = (): FetchRequest => POST('users/upload-photo');
+export async function fetchApi<T,>(request: FetchRequest, body?: unknown)
   : Promise<FetchResponse<T>> {
   try {
     const fetchResponse = await fetch(`${HOST}/${request.path}`, {

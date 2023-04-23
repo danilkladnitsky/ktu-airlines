@@ -40,6 +40,8 @@ export const PassenderData = () => {
     setUserBio,
     userBio,
     checkPermissions,
+    uploadUserThumbnail,
+    uploadedThumbnail
   } = useAppStore();
   const [avatar, SetAvatar] = useState<string | null>(null);
 
@@ -63,10 +65,7 @@ export const PassenderData = () => {
   };
 
   const uploadFile = (file: File) => {
-    const parsedUrl = URL.createObjectURL(file);
-    SetAvatar(parsedUrl);
-
-    form.setFieldValue('thumbnailUrl', parsedUrl);
+    uploadUserThumbnail(file);
   };
 
   return (
@@ -75,8 +74,8 @@ export const PassenderData = () => {
         { maxWidth: '48rem', cols: 1, spacing: 'sm' },
       ]} className={styles.form}>
         <div className={styles.uploadPhoto}>
-          <Avatar w={90} h={90} radius="50%" src={avatar}>MK</Avatar>
-          <FileButton onChange={uploadFile}>
+          <Avatar w={90} h={90} radius="50%" src={uploadedThumbnail}>MK</Avatar>
+          <FileButton onChange={uploadFile} accept="image/png,image/jpeg">
             {(props) => <Badge className={styles.uploadPhotoBtn} color={'violet'} {...props}>Загрузить фото</Badge>}
           </FileButton>
         </div>

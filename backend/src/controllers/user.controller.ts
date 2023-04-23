@@ -37,7 +37,7 @@ export class UserController {
     return await this.userRepository.get(id);
   }
 
-  @Post('upload-photo/:isu')
+  @Post('upload-photo')
   @UseInterceptors(FileInterceptor('file'))
   async uploadPhoto( @UploadedFile(
       new ParseFilePipe({
@@ -46,8 +46,7 @@ export class UserController {
         ],
       }),
     )
-    file: Express.Multer.File,
- @Param('isu') isu: number) {
+  file: Express.Multer.File) {
     const { mimetype } = file;
     const extension = mimetype.toLowerCase().split("/")[1];
     const fileName = `isu-${generateRandomIntId()}.${extension}`
