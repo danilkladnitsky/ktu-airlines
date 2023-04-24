@@ -147,8 +147,8 @@ jobs:
 
   build-nginx:
     needs: 
-      - backend
-      - frontend
+      - build-backend
+      - build-frontend
     if: needs.init.outputs.nginx == 'true'
     name: Build and publish nginx
     environment: DEV
