@@ -4,6 +4,8 @@ import { useAppStore } from 'store';
 
 import { Hotel as HotelType } from 'domain/hotel';
 
+import styles from './Hotel.module.scss';
+
 type Props = {
   hotel: HotelType;
 }
@@ -25,7 +27,7 @@ export const Hotel = ({ hotel }: Props) => {
       <Group position="apart" mt="md" mb="xs">
         <Title order={4}>{name}</Title>
       </Group>
-      <Stack>
+      <Stack className={styles.hotelContent}>
         <Rating value={stars} readOnly size={'xs'} />
         <Text size="sm">
           <Title order={5}>
@@ -41,7 +43,7 @@ export const Hotel = ({ hotel }: Props) => {
           <List.Item>Питание</List.Item>
           <List.Item>SPA</List.Item>
         </List>
-        <Button variant="light" color="blue" mt="md" radius="md" onClick={incrementFormId} disabled={!active}>
+        <Button className={styles.selectBtn} variant="light" color="blue" mt="md" radius="md" onClick={incrementFormId} disabled={!active}>
             Выбрать
         </Button>
       </Stack>
