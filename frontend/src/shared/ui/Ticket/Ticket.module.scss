@@ -8,6 +8,26 @@
     min-height: 88px;
     gap: 48px;
     align-items: center;
+    display: flex;
+
+    @media (max-width: 991px) {
+        flex-direction: column;
+        align-items: inherit;
+    }
+}
+
+.tourOperator {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 0 160px;
+
+    @media (max-width: 991px) {
+        flex: 1;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
 
 .ticketInfo {
@@ -17,4 +37,12 @@
 
 .ticketBtn {
     flex: 0 180px;
+
+    @media (max-width: 991px) {
+        flex: 1;
+    }
+}
+
+.badge {
+    width: 120px;
 }

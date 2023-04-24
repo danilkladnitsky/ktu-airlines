@@ -1,4 +1,4 @@
-name: Deploy to staging server
+name: Deploy to production
 
 on:
   push:
@@ -85,7 +85,7 @@ jobs:
   
   create-env-config:
     name: Copy secrets to env
-    environment: DEV
+    environment: PROD
     runs-on: ktu-airlines
     needs: push-to-registry
     steps:

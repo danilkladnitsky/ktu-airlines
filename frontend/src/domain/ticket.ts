@@ -19,9 +19,9 @@ export type AirTicket = {
 export const TICKETS: AirTicket[] = [
   {
     feature: 'Самый быстрый',
-    tourOperator: '[ktu].beda',
+    tourOperator: 'Kturkish Airlines',
     active: true,
-    thumbnail: '/operators/ktubeda.png',
+    thumbnail: '/operators/kturkish.png',
     tripStart: {
       placeFromDate: '07:30',
       placeToDate: '10:00',
@@ -66,10 +66,10 @@ export const TICKETS: AirTicket[] = [
     },
   },
   {
-    feature: 'Бронь через директ',
-    tourOperator: 'kturkish',
+    feature: 'Без пересадок',
+    tourOperator: 'ktubeda',
     active: false,
-    thumbnail: '/operators/kturkish.png',
+    thumbnail: '/operators/ktubeda.png',
     tripStart: {
       placeFromDate: '16:50',
       placeToDate: '18:20',

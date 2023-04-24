@@ -19,20 +19,15 @@ export const Ticket = ({ ticket }: Props) => {
   const { active,tourOperator,tripEnd,tripStart } = ticket;
 
   return (
-    <SimpleGrid
+    <div
       className={styles.ticket}
-      cols={4}
-      spacing="sm"
-      breakpoints={[
-        { maxWidth: 'md', cols: 1, spacing: 'sm' },
-      ]}
     >
-      <Stack className={styles.tourOperator}>
+      <div className={styles.tourOperator}>
         <TicketOperator name={tourOperator} url={ticket.thumbnail} />
-        {active ? <Badge variant={'light'} color={'lime'}>
+        <Badge variant={'light'} color={'lime'} className={styles.badge}>
           {ticket.feature}
-        </Badge> : <Badge variant={'light'} color="red">{ticket.feature}</Badge>}
-      </Stack>
+        </Badge>
+      </div>
       <TicketRoute
         date={tripStart.day}
         endTime={tripStart.placeToDate}
@@ -50,6 +45,6 @@ export const Ticket = ({ ticket }: Props) => {
       <Button disabled={!active} className={styles.ticketBtn} onClick={() => history.push('/buy-ticket')}>
         {active ? 'Выбрать' : 'Мест нет'}
       </Button>
-    </SimpleGrid>
+    </div>
   );
 };
