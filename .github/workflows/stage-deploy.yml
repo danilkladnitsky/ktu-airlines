@@ -1,4 +1,4 @@
-name: Deploy to dev staging
+name: Deploy to staging server
 
 on:
   push:
@@ -6,12 +6,44 @@ on:
       - dev
 
 jobs:
-  push-images:
-    name: Build and publish images
+  init:
+    runs-on: ktu-airlines
+    name: Check changed files
+    outputs:
+      backend: ${{ steps.check_files.outputs.backend }}
+      frontend: ${{ steps.check_files.outputs.frontend }}
+      nginx: ${{ steps.check_files.outputs.nginx }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: check modified files
+        id: check_files
+        run: |
+            git diff --name-only HEAD^ HEAD > files.txt
+            while IFS= read -r file; do
+              echo $file
+              if [[ $file == backend/* ]]; then
+                echo "backend service will be rebuilt"
+                echo "::set-output name=backend::true"
+              elif [[ $file == frontend/* ]]; then
+                echo "frontend service will be rebuilt"
+                echo "::set-output name=frontend::true"
+              elif [[ $file == nginx/* ]]; then
+                echo "nginx will be rebuild"
+                echo "::set-output name=nginx::true"
+              else
+                echo "file does not belong to any service"
+              fi
+            done < files.txt
+
+  push-to-registry:
+    name: Build and publish images to Docker Registry
     runs-on: ubuntu-latest
     env:
-      frontend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.frontend
       backend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.backend
+      frontend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.frontend
     steps:
       -
         name: Checkout
@@ -31,6 +63,7 @@ jobs:
       -
         name: Push backend image
         uses: docker/build-push-action@v4
+        if: needs.init.outputs.backend == 'true'
         with:
           context: backend
           push: true
@@ -41,6 +74,7 @@ jobs:
       -
         name: Push frontend image
         uses: docker/build-push-action@v4
+        if: needs.init.outputs.frontend == 'true'
         with:
           context: frontend
           push: true
@@ -87,6 +121,7 @@ jobs:
           envkey_SWAGGER_PASSWORD: ${{ secrets.SWAGGER_PASSWORD }}
           envkey_BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           envkey_API_HOST: ${{ secrets.API_HOST }}
+          envkey_BOT_CONFIRMATION: ${{ secrets.BOT_CONFIRMATION }}
           file_name: .env
           fail_on_empty: false
       -
@@ -96,8 +131,17 @@ jobs:
         name: Pull last images
         run: docker compose pull
       -
-        name: Stop services
-        run: docker compose --env-file .env down  
+        name: Stop frontend
+        run: docker compose --env-file .env down frontend 
+        if: needs.init.outputs.frontend == 'true'
+      -
+        name: Stop backend
+        run: docker compose --env-file .env down backend 
+        if: needs.init.outputs.backend == 'true'
+      -
+        name: Stop nginx
+        run: docker compose --env-file .env down nginx  
+        if: needs.init.outputs.nginx == 'true'
       -
         name: Build services
         run: docker compose --env-file .env build
