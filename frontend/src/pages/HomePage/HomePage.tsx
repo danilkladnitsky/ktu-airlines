@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
-import { Container } from '@mantine/core';
+import { Center, Container, Title } from '@mantine/core';
 import { useAppStore } from 'store';
 
+import { NEWS } from 'domain/news';
 import { TICKETS } from 'domain/ticket';
 
 import { Banner, Header, TicketList } from 'shared/ui';
 import { LoadingStatus } from 'shared/ui';
+import { NewsList } from 'shared/ui/NewsList';
 
 import styles from './HomePage.module.scss';
 
@@ -27,11 +29,10 @@ export const HomePage = () => {
           title="Ищем авиабилеты..."
           description="Уже можно собирать чемоданы!"
         />}
-        {
-          ticketSelected && <Container className={styles.ticketList}>
-            <TicketList tickets={TICKETS} />
-          </Container>
-        }
+        <Container className={styles.ticketList}>
+          {ticketSelected && <TicketList tickets={TICKETS} />}
+          <NewsList news={NEWS} />
+        </Container>
       </div>
 
     </div>
