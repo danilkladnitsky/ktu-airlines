@@ -40,7 +40,7 @@ export const BookedPage = () => {
                 Данные бронирования
             </Title>
             <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
-              <Card padding={'lg'}>
+              <Card padding={'lg'} radius="lg">
                 <Stack>
                   <TicketOperator
                     name={ticket.tourOperator}
