@@ -1,3 +1,5 @@
-.hotelContent {
-    position: relative;
+.hotel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
