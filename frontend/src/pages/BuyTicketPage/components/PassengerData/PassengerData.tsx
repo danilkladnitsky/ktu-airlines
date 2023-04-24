@@ -23,7 +23,7 @@ const PHONE_REGEX = RegExp('^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{
 
 const schema = z.object({
   phoneNumber: z.string().nonempty({ message: 'Номер телефона должен быть указан' })
-    .refine((val) => PHONE_REGEX.test(val), { message: 'Телефонный номер некорректный' }),
+    .refine((val) => PHONE_REGEX.test(val), { message: 'Номер телефона некорректный' }),
   firstName: z.string().nonempty({ message: 'Имя должно быть указано' }),
   lastName: z.string().nonempty({ message: 'Фамилия должна быть указана' }),
   isuNumber: z.string().length(6, 'Номер ИСУ должен состоять из шести цифр')
@@ -41,7 +41,7 @@ export const PassenderData = () => {
     userBio,
     checkPermissions,
     uploadUserThumbnail,
-    uploadedThumbnail
+    uploadedThumbnail,
   } = useAppStore();
   const [avatar, SetAvatar] = useState<string | null>(null);
 

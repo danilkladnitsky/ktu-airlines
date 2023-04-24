@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import { Avatar, Badge, Button, SimpleGrid, Title } from '@mantine/core';
+import { Avatar, Badge, Button, Group, SimpleGrid, Stack, Title } from '@mantine/core';
 
 import { AirTicket } from 'domain/ticket';
 
@@ -27,28 +27,28 @@ export const Ticket = ({ ticket }: Props) => {
         { maxWidth: 'md', cols: 1, spacing: 'sm' },
       ]}
     >
-      <div className={styles.tourOperator}>
-        <TicketOperator name={tourOperator} />
+      <Stack className={styles.tourOperator}>
+        <TicketOperator name={tourOperator} url={ticket.thumbnail} />
         {active ? <Badge variant={'light'} color={'lime'}>
-              Самый быстрый
-        </Badge> : <Badge variant={'light'} color="red">Мест нет</Badge>}
-      </div>
+          {ticket.feature}
+        </Badge> : <Badge variant={'light'} color="red">{ticket.feature}</Badge>}
+      </Stack>
       <TicketRoute
         date={tripStart.day}
-        endTime={tripStart.placeFromDate}
-        startTime={tripStart.placeToDate}
+        endTime={tripStart.placeToDate}
+        startTime={tripStart.placeFromDate}
         startPlace="GK"
         endPlace="YAG"
       />
       <TicketRoute
         date={tripEnd.day}
-        endTime={tripEnd.placeFromDate}
-        startTime={tripEnd.placeToDate}
+        endTime={tripEnd.placeToDate}
+        startTime={tripEnd.placeFromDate}
         startPlace="YAG"
         endPlace="GK"
       />
       <Button disabled={!active} className={styles.ticketBtn} onClick={() => history.push('/buy-ticket')}>
-            Выбрать
+        {active ? 'Выбрать' : 'Мест нет'}
       </Button>
     </SimpleGrid>
   );

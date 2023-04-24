@@ -21,7 +21,7 @@ export const HeaderBar = ({ theme = 'light' }: Props) => {
         </Link>
       </Title>
       <ActionIcon className={styles.headerLogo} radius={'50%'}>
-        <Avatar radius={'50%'} color={'lime'} size="lg" />
+        <Avatar component={Link} radius={'50%'} color={'lime'} size="lg" to="/login" />
       </ActionIcon>
     </Box>
   );
