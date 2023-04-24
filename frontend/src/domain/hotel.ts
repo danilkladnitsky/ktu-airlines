@@ -3,7 +3,10 @@ export type Hotel = {
     stars: number;
     description: string;
     thumbnailUrl: string;
-    active: boolean;
+  active: boolean;
+  service1: string;
+  service2: string;
+    service3: string;
 }
 
 export const HOTELS: Hotel[] = [
@@ -13,6 +16,9 @@ export const HOTELS: Hotel[] = [
     stars: 5,
     thumbnailUrl: 'hotels/ktu.png',
     active: true,
+    service1: 'Трансфер',
+    service2: 'Питание',
+    service3: 'SPA',
   },
   {
     name: 'Grand Blue Palace',
@@ -20,6 +26,9 @@ export const HOTELS: Hotel[] = [
     stars: 3,
     thumbnailUrl: 'hotels/blue.png',
     active: false,
+    service1: 'Завтрак',
+    service2: 'Камера хранения для багажа',
+    service3: 'Детский клуб',
   },
   {
     name: 'SUNLIGHT Garden Hotel',
@@ -27,5 +36,8 @@ export const HOTELS: Hotel[] = [
     stars: 4,
     thumbnailUrl: 'hotels/garden.png',
     active: false,
+    service1: 'Круглосуточный ресепшен',
+    service2: 'Шведский стол',
+    service3: 'Спортзал на территории',
   },
 ];

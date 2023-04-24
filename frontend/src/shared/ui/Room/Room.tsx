@@ -66,9 +66,6 @@ export const Room = ({ room, minified = false }: Props) => {
       </Group>
       {!minified && <Stack className={styles.info}>
         <Text size="sm">
-          <Title order={5}>
-            Про отель
-          </Title>
           {description}
         </Text>
         {<Text size="sm">
