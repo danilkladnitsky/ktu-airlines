@@ -24,6 +24,7 @@ export const CheckPage = () => {
     checkPermissions,
     vkPermissionsLoading,
     signIn,
+    formIsSending,
   } = useAppStore();
 
   const history = useHistory();
@@ -142,6 +143,7 @@ export const CheckPage = () => {
                   <Button
                     className={styles.bookBtn}
                     onClick={submit}
+                    loading={formIsSending}
                     disabled={!form.values.prepayment}>
                   Забронировать путевку
                   </Button>
