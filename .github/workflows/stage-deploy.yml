@@ -40,7 +40,7 @@ jobs:
 
   push-to-registry:
     name: Build and publish images to Docker Registry
-    runs-on: ubuntu-latest
+    runs-on: ktu-airlines
     needs: init
     env:
       backend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.backend
