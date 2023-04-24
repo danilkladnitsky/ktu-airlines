@@ -17,7 +17,7 @@ export const HeaderBar = ({ theme = 'light' }: Props) => {
         color: theme === 'light' ? COLORS.ACCENT_TEXT : COLORS.PRIMARY_TEXT,
       }}>
         <Link to={'/'} style={{ textDecoration: 'none', color: 'unset' }}>
-          ktu.tours
+          ktu.tour
         </Link>
       </Title>
       <ActionIcon className={styles.headerLogo} radius={'50%'}>

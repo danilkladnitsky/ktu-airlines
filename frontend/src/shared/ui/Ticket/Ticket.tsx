@@ -38,14 +38,14 @@ export const Ticket = ({ ticket }: Props) => {
         endTime={tripStart.placeFromDate}
         startTime={tripStart.placeToDate}
         startPlace="GK"
-        endPlace='YAG'
+        endPlace="YAG"
       />
       <TicketRoute
         date={tripEnd.day}
         endTime={tripEnd.placeFromDate}
         startTime={tripEnd.placeToDate}
         startPlace="YAG"
-        endPlace='GK'
+        endPlace="GK"
       />
       <Button disabled={!active} className={styles.ticketBtn} onClick={() => history.push('/buy-ticket')}>
             Выбрать
