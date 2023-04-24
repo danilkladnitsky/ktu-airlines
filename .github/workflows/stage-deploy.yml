@@ -116,7 +116,7 @@ jobs:
           fail_on_empty: false
 
   build-frontend:
-    needs: push-to-registry
+    needs: create-env-config
     if: needs.init.outputs.frontend == 'true'
     name: Build and publish frontend
     environment: DEV
