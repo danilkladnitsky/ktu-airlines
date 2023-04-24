@@ -61,6 +61,7 @@ export class UserController {
     const vkDisplayName = getVkDisplayName(form.vkLink);
 
     if (!vkDisplayName) {
+      console.warn("sign-in vk invalid", form);
       throw new BadRequestException("Невалидный ВК профиль");
     }
 
@@ -69,17 +70,21 @@ export class UserController {
     const dublicate = await this.userRepository.getBy("isuNumber", form.isuNumber);
 
     if (dublicate) {
+      console.warn("sign-in dublicate", form);
       throw new ConflictException("Этот пользователь уже был зарегистрирован");
     }
 
+    console.info("sign-in", form);
+    
     const result = await this.userRepository.save({ ...form, vkId: profile.id.toString() });
 
     try {
       await this.botService.sendMessage({
         user: profile.id, message: SIGN_IN_TEXT
       })
+      console.info("sign-in send message", form);
     } catch (err) {
-      console.log(err);
+      console.warn(err);
     }
     return result.id;
   }

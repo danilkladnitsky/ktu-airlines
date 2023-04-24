@@ -90,6 +90,7 @@ export class BotController {
     const vkProfile = await this.botService.resolveVkResource(vk);
 
     if (!vkProfile || vkProfile.type !== "user") {
+      console.warn("permissions vk invalid", vk);
       throw new BadRequestException("Ссылка на ВК Профиль невалидна");
     }
 
@@ -103,7 +104,9 @@ export class BotController {
       user_id: profile.id
     });
 
-    return { isMember, canReceiveMessages }
+    console.info("permissions", vk, { isMember, canReceiveMessages });
+
+    return { isMember, canReceiveMessages };
   }
 
   @Post("connect-webhook")
