@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { Avatar, Badge, Button, Group, SimpleGrid, Stack, Title } from '@mantine/core';
 
@@ -14,7 +14,17 @@ type Props = {
 }
 
 export const Ticket = ({ ticket }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const history = useHistory();
+
+  const handleSelect = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      history.push('/buy-ticket');
+    }, 2000);
+  };
 
   const { active,tourOperator,tripEnd,tripStart } = ticket;
 
@@ -42,7 +52,11 @@ export const Ticket = ({ ticket }: Props) => {
         startPlace="YAG"
         endPlace="GK"
       />
-      <Button disabled={!active} className={styles.ticketBtn} onClick={() => history.push('/buy-ticket')}>
+      <Button
+        loading={isLoading}
+        disabled={!active}
+        className={styles.ticketBtn}
+        onClick={handleSelect}>
         {active ? 'Выбрать' : 'Мест нет'}
       </Button>
     </div>

@@ -12,7 +12,7 @@ import { RoomList } from './components/RoomList/RoomList';
 import styles from './BuyTicketPage.module.scss';
 
 export const BuyTicketPage = () => {
-  const { activeFormId, setFormId } = useAppStore();
+  const { activeFormId, setFormId, loadingStep } = useAppStore();
 
   return (
     <Container className={styles.page} >
@@ -31,25 +31,25 @@ export const BuyTicketPage = () => {
             onStepClick={setFormId}
             allowNextStepsSelect={false}
           >
-            <Stepper.Step>
+            <Stepper.Step loading={loadingStep === 0}>
               <Title order={2} className={styles.title}>
                 Данные пассажира
               </Title>
               <PassenderData />
             </Stepper.Step>
-            <Stepper.Step>
+            <Stepper.Step loading={loadingStep === 1}>
               <Title order={2} className={styles.title}>
                 Выбор отеля
               </Title>
               <HotelsList />
             </Stepper.Step>
-            <Stepper.Step>
+            <Stepper.Step loading={loadingStep === 2}>
               <Title order={2} className={styles.title}>
                 Номера на 5 – 6 мая
               </Title>
               <RoomList />
             </Stepper.Step>
-            <Stepper.Step>
+            <Stepper.Step loading={loadingStep === 3}>
               <Title order={2} className={styles.title}>
                 Информация о госте
               </Title>
