@@ -12,7 +12,8 @@
 .form {
     gap: 42px;
     align-items: center;
-    grid-template-columns: 200px 1fr;
+
+    grid-template-columns: 1fr;
 
     @media (max-width: 769px) {
         grid-template-columns: 1fr;

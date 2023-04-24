@@ -73,12 +73,12 @@ export const PassenderData = () => {
       <SimpleGrid cols={2} breakpoints={[
         { maxWidth: '48rem', cols: 1, spacing: 'sm' },
       ]} className={styles.form}>
-        <div className={styles.uploadPhoto}>
+        {/* <div className={styles.uploadPhoto}>
           <Avatar w={90} h={90} radius="50%" src={uploadedThumbnail}>MK</Avatar>
           <FileButton onChange={uploadFile} accept="image/png,image/jpeg">
             {(props) => <Badge className={styles.uploadPhotoBtn} color={'violet'} {...props}>Загрузить фото</Badge>}
           </FileButton>
-        </div>
+        </div> */}
         <SimpleGrid cols={3} className={styles.fields}
           breakpoints={[
             { maxWidth: '62rem', cols: 2 },

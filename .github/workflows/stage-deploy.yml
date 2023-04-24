@@ -132,17 +132,11 @@ jobs:
     runs-on: ktu-airlines
     steps:
       -
-        name: Stop service
-        run: docker compose stop backend
-      -
-        name: Remove service
-        run: docker compose rm -f backend
+        name: Pull service
+        run: docker compose pull
       -
         name: Build service
-        run: docker compose --env-file .env build backend
-      -
-        name: Run service
-        run: docker compose --env-file .env up backend -d
+        run: docker compose --env-file .env up backend -d --force-recreate
       -
         name: Check service
         run: docker ps -a
@@ -157,17 +151,11 @@ jobs:
     runs-on: ktu-airlines
     steps:
       -
-        name: Stop service
-        run: docker compose stop nginx
-      -
-        name: Remove service
-        run: docker compose rm -f nginx
+        name: Pull service
+        run: docker compose pull
       -
         name: Build service
-        run: docker compose --env-file .env build nginx
-      -
-        name: Run service
-        run: docker compose --env-file .env up nginx -d
+        run: docker compose --env-file .env up nginx -d --force-recreate
       -
         name: Check service
         run: docker ps -a
