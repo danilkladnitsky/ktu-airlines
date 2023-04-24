@@ -86,7 +86,7 @@ jobs:
   pull-images:
     name: Pull and run images
     runs-on: ktu-airlines
-    needs: push-images
+    needs: push-to-registry
     env:
       frontend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.frontend
       backend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.backend
