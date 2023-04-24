@@ -7,7 +7,7 @@ on:
 
 jobs:
   init:
-    runs-on: ktu-airlines
+    runs-on: ubuntu-latest
     name: Check changed files
     outputs:
       backend: ${{ steps.check_files.outputs.backend }}
@@ -15,7 +15,7 @@ jobs:
       nginx: ${{ steps.check_files.outputs.nginx }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           fetch-depth: 2
       - name: check modified files
