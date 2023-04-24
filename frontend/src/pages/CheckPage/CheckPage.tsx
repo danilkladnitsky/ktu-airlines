@@ -74,9 +74,9 @@ export const CheckPage = () => {
                 <Stack spacing={'xl'}>
                   <TicketOperator name="[ktu].pobeda" />
                   <TicketRoute date="5 мая" endTime="10:00" startTime="7:30" endPlace="YAG"
-                  startPlace='GK' />
+                    startPlace="GK" />
                   <TicketRoute date="6 мая" endTime="10:30" startTime="12:10" startPlace="YAG"
-                  endPlace='GK' />
+                    endPlace="GK" />
                 </Stack>
               </Card>
               {currentRoom && <Room room={currentRoom} minified />}
@@ -110,7 +110,6 @@ export const CheckPage = () => {
                       <>Оплачу возвратный залог –
                         <b>1000 руб. наличными</b></>
                     }
-                    size={'xs'}
                     radius={'sm'}
                     color={form.values.prepayment ? 'lime' : 'red'}
                   />
@@ -122,7 +121,7 @@ export const CheckPage = () => {
                       label={
                         <>Оплачу постельное белье – <b>300 руб. наличными</b></>
                       }
-                      size={'xs'} radius={'sm'}
+                      radius={'sm'}
                       color="lime"
                     />}
                 </Stack>

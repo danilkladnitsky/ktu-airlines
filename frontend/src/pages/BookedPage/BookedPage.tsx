@@ -23,7 +23,7 @@ export const BookedPage = () => {
       <Container>
         <HeaderBar />
         <Center>
-          <Stack className={styles.popup}>
+          <Stack className={styles.popup} >
             <Title className={styles.title}>
                 Спасибо за регистрацию!
             </Title>

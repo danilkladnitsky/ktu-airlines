@@ -64,7 +64,7 @@ export const Room = ({ room, minified = false }: Props) => {
         <Title order={4}>{name}</Title>
         <Badge variant={'light'} color="violet">{feature}</Badge>
       </Group>
-      {!minified && <Stack justify="flex-end">
+      {!minified && <Stack className={styles.info}>
         <Text size="sm">
           <Title order={5}>
             Про отель

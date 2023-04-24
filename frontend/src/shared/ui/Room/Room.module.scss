@@ -9,4 +9,9 @@
 .room {
     display: flex;
     flex-direction: column;
+    flex: 1;
+}
+
+.info {
+    flex: 1;
 }
