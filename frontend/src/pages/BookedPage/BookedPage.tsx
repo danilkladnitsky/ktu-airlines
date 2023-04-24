@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Center, Container, Stack, Text, Title } from '@mantine/core';
+import { Card, Center, Container, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { useAppStore } from 'store';
 
 import { ROOMS } from 'domain/room';
@@ -7,6 +7,7 @@ import { TICKETS } from 'domain/ticket';
 
 import { Room } from 'shared/ui';
 import { HeaderBar } from 'shared/ui/HeaderBar';
+import { TicketOperator } from 'shared/ui/Ticket/TicketOperator';
 import { TicketRoute } from 'shared/ui/Ticket/TicketRoute';
 
 import styles from './BookedPage.module.scss';
@@ -38,25 +39,31 @@ export const BookedPage = () => {
             <Title className={styles.title} order={3}>
                 Данные бронирования
             </Title>
-            <Card>
-              <Stack>
-                <TicketRoute
-                  date={ticket.tripStart.day}
-                  endTime={ticket.tripStart.placeFromDate}
-                  startTime={ticket.tripStart.placeToDate}
-                  startPlace="GK"
-                  endPlace="YAG"
-                />
-                <TicketRoute
-                  date={ticket.tripStart.day}
-                  endTime={ticket.tripEnd.placeToDate}
-                  startTime={ticket.tripEnd.placeFromDate}
-                  startPlace="YAG"
-                  endPlace="GK"
-                />
-              </Stack>
-            </Card>
-            {room && <Room room={room} minified />}
+            <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
+              <Card padding={'lg'}>
+                <Stack>
+                  <TicketOperator
+                    name={ticket.tourOperator}
+                    url={ticket.thumbnail}
+                  />
+                  <TicketRoute
+                    date={ticket.tripStart.day}
+                    startTime={ticket.tripStart.placeFromDate}
+                    endTime={ticket.tripStart.placeToDate}
+                    startPlace="GK"
+                    endPlace="YAG"
+                  />
+                  <TicketRoute
+                    date={ticket.tripStart.day}
+                    startTime={ticket.tripEnd.placeToDate}
+                    endTime={ticket.tripEnd.placeFromDate}
+                    startPlace="YAG"
+                    endPlace="GK"
+                  />
+                </Stack>
+              </Card>
+              {room && <Room room={room} minified />}
+            </SimpleGrid>
           </Stack>
         </Center>
       </Container>
