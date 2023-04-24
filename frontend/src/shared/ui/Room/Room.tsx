@@ -52,7 +52,7 @@ export const Room = ({ room, minified = false }: Props) => {
   };
 
   return (
-    <Card shadow={'sm'} padding="xl" radius={'lg'}>
+    <Card shadow={'sm'} padding="xl" radius={'lg'} className={styles.room}>
       <Card.Section>
         <Image
           src={pic}
@@ -93,14 +93,14 @@ export const Room = ({ room, minified = false }: Props) => {
             disabled={!available}
           />
           <Space h={'sm'} />
-          <Button
-            onClick={submit}
-            className={styles.bookButton}
-            disabled={!available}
-          >
-            {room.available ? 'Забронировать' : 'Свободных номеров нет'}
-          </Button>
         </Stack>
+        <Button
+          onClick={submit}
+          className={styles.bookButton}
+          disabled={!available}
+        >
+          {room.available ? 'Забронировать' : 'Свободных номеров нет'}
+        </Button>
       </Stack>}
 
     </Card>

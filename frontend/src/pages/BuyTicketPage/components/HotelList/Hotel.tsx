@@ -17,13 +17,14 @@ export const Hotel = ({ hotel }: Props) => {
 
   return (
     <Card shadow={'sm'} padding="xl" radius={'lg'} className={styles.hotel}>
+      <Card.Section className={styles.pic}>
+        <Image
+          src={thumbnailUrl}
+          height={150}
+          alt="Norway"
+        />
+      </Card.Section>
       <Stack>
-        <Card.Section className={styles.pic}>
-          <Image
-            src={thumbnailUrl}
-            alt="Norway"
-          />
-        </Card.Section>
         <Group position="apart" mt="md" mb="xs">
           <Title order={4}>{name}</Title>
         </Group>

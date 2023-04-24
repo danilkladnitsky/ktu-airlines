@@ -1,20 +1,19 @@
 import React from 'react';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import { SimpleGrid } from '@mantine/core';
+import { Flex } from '@mantine/core';
 
 import { HOTELS } from 'domain/hotel';
 
 import { Hotel } from './Hotel';
 
+import styles from './HotelsList.module.scss';
+
 export const HotelsList = () => {
   const [animationParent] = useAutoAnimate();
 
   return (
-    <SimpleGrid cols={3} breakpoints={[
-      { maxWidth: '62rem', cols: 2, spacing: 'md' },
-      { maxWidth: '48rem', cols: 1, spacing: 'md' },
-    ]} ref={animationParent}>
+    <Flex className={styles.list} ref={animationParent}>
       {HOTELS.map((hotel) => <Hotel hotel={hotel} />)}
-    </SimpleGrid>
+    </Flex>
   );
 };
