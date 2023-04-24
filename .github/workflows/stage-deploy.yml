@@ -86,8 +86,8 @@ jobs:
   create-env-config:
     name: Copy secrets to env
     environment: DEV
-    runs-on: push-to-registry
-    needs: pull-images
+    runs-on: ktu-airlines
+    needs: push-to-registry
     steps:
       -
         uses: SpicyPizza/create-envfile@v1.3
