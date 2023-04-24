@@ -146,7 +146,9 @@ jobs:
         run: docker ps -a
 
   build-nginx:
-    needs: create-env-config
+    needs: 
+      - backend
+      - frontend
     if: needs.init.outputs.nginx == 'true'
     name: Build and publish nginx
     environment: DEV
