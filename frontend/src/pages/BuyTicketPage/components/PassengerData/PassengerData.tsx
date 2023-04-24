@@ -85,8 +85,8 @@ export const PassenderData = () => {
             { maxWidth: '48rem', cols: 1 },
           ]}
         >
-          <TextInput label="Имя" required {...form.getInputProps('firstName')} />
           <TextInput label="Фамилия" required {...form.getInputProps('lastName')} />
+          <TextInput label="Имя" required {...form.getInputProps('firstName')} />
           <TextInput label="Номер ИСУ"required {...form.getInputProps('isuNumber')} />
           <TextInput label="Ссылка на ВК" required {...form.getInputProps('vkLink')}/>
           <TextInput label="Телефон" required {...form.getInputProps('phoneNumber')} />

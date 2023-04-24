@@ -75,7 +75,7 @@ export const CheckPage = () => {
                   <TicketOperator url={ticket.thumbnail} name={ticket.tourOperator} />
                   <TicketRoute date={ticket.tripStart.day} endTime="11:00" startTime="09:00" endPlace="YAG"
                     startPlace="GK" />
-                  <TicketRoute date="6 мая" endTime="11:00" startTime="14:10" startPlace="YAG"
+                  <TicketRoute date="6 мая" endTime="14:00" startTime="11:00" startPlace="YAG"
                     endPlace="GK" />
                 </Stack>
               </Card>
@@ -100,7 +100,7 @@ export const CheckPage = () => {
                     <Title order={6}>{isVegan ? 1 : 0}</Title>
                     <Title order={6}>{hasBedSheets ? 1 : 0}</Title>
                     <Space h={'lg'} />
-                    <Title order={2}>350 руб.</Title>
+                    <Title order={2}>450 руб.</Title>
                   </Stack>
                 </div>
                 <Stack spacing={'sm'}>
