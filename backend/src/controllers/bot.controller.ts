@@ -24,6 +24,10 @@ import { Role } from 'guards/roles.enum';
 export class BotController {
   botService: BotService;
 
+   constructor(botService: BotService) {
+    this.botService = botService;
+  }
+
   @Get('vk_profile/:username')
   async getVkProfile(
     @Param('username') username: string | number,
