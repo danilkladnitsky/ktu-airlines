@@ -79,7 +79,7 @@ export const CheckPage = () => {
                     endPlace="GK" />
                 </Stack>
               </Card>
-              {currentRoom && <Room room={currentRoom} minified />}
+              {currentRoom && <Room room={currentRoom} minified className={styles.room} />}
             </Stack>
             <Card padding={'xl'} radius="lg">
               <Stack className={styles.paymentInfo} >
