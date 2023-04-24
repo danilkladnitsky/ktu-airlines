@@ -82,7 +82,15 @@ export class BotController {
 
   @Get("permissions")
   async checkUserVkRights(@Query("vk") vk: string) {
-    const vkProfile = await this.botService.resolveVkResource(vk);
+    console.info("permissions start", vk);
+    let vkProfile;
+    try {
+      vkProfile = await this.botService.resolveVkResource(vk);
+      console.info("permissions vkProfile", vkProfile);
+    } catch (error) {
+      console.info("permissions error", error);
+      return { isMember: false, canReceiveMessages: false };
+    }
 
     if (!vkProfile || vkProfile.type !== "user") {
       console.warn("permissions vk invalid", vk);
