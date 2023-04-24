@@ -129,7 +129,6 @@ jobs:
     name: Build and publish frontend
     environment: DEV
     runs-on: ktu-airlines
-    needs: pull-images
     steps:
       -
         name: Pull image
@@ -153,7 +152,6 @@ jobs:
     name: Build and publish backend
     environment: DEV
     runs-on: ktu-airlines
-    needs: pull-images
     steps:
       -
         name: Pull image
@@ -177,7 +175,6 @@ jobs:
     name: Build and publish nginx
     environment: DEV
     runs-on: ktu-airlines
-    needs: pull-images
     steps:
       -
         name: Pull image
