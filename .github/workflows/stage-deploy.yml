@@ -123,16 +123,10 @@ jobs:
     runs-on: ktu-airlines
     steps:
       -
-        name: Stop service
-        run: docker compose stop frontend
-      -
-        name: Remove service
-        run: docker compose rm -f frontend
+        name: Pull service
+        run: docker compose pull
       -
         name: Build service
-        run: docker compose --env-file .env build frontend
-      -
-        name: Run service
         run: docker compose --env-file .env up frontend -d
       -
         name: Check service

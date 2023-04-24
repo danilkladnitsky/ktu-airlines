@@ -14,6 +14,7 @@ services:
     env_file:
       - .env
     command: npm run start:prod
+    pull_policy: always
   
   frontend:
     container_name: frontend
@@ -21,6 +22,7 @@ services:
     restart: always
     environment:
       - ${API_HOST}:${API_HOST}
+    pull_policy: always
   
   nginx:
     image: nginx:latest
