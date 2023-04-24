@@ -80,12 +80,22 @@ jobs:
           cache-from: type=registry,ref=${{env.frontend_rep}}:latest
           cache-to: type=inline
           platforms: linux/x86_64
+  
+  pull-images:
+    needs: push-to-registry
+    name: Pull images
+    environment: DEV
+    runs-on: ktu-airlines
+    steps:
+      -
+        name: Pull image
+        run: docker compose pull
 
   create-env-config:
     name: Copy secrets to env
     environment: DEV
     runs-on: ktu-airlines
-    needs: push-to-registry
+    needs: pull-images
     steps:
       -
         uses: SpicyPizza/create-envfile@v1.3
@@ -113,8 +123,11 @@ jobs:
     runs-on: ktu-airlines
     steps:
       -
-        name: Pull image
-        run: docker compose pull frontend
+        name: Stop service
+        run: docker compose stop frontend
+      -
+        name: Remove service
+        run: docker compose rm -f frontend
       -
         name: Build service
         run: docker compose --env-file .env build frontend
@@ -133,8 +146,11 @@ jobs:
     runs-on: ktu-airlines
     steps:
       -
-        name: Pull image
-        run: docker compose pull backend
+        name: Stop service
+        run: docker compose stop backend
+      -
+        name: Remove service
+        run: docker compose rm -f backend
       -
         name: Build service
         run: docker compose --env-file .env build backend
@@ -155,8 +171,11 @@ jobs:
     runs-on: ktu-airlines
     steps:
       -
-        name: Pull image
-        run: docker compose pull nginx
+        name: Stop service
+        run: docker compose stop nginx
+      -
+        name: Remove service
+        run: docker compose rm -f nginx
       -
         name: Build service
         run: docker compose --env-file .env build nginx
