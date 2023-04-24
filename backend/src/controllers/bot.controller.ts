@@ -24,10 +24,6 @@ import { Role } from 'guards/roles.enum';
 export class BotController {
   botService: BotService;
 
-  constructor(botService: BotService, private socketGateway: SocketGateway) {
-    this.botService = botService;
-  }
-
   @Get('vk_profile/:username')
   async getVkProfile(
     @Param('username') username: string | number,
@@ -68,7 +64,6 @@ export class BotController {
       message,
       user,
     });
-    this.socketGateway.sendToAll(message);
     return { message_id };
   }
 
