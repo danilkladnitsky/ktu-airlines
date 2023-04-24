@@ -1,5 +1,6 @@
+import { SIGN_IN_TEXT } from '@common/bot.phrases';
 import { UserDto } from '@dtos/user.dto';
-import { BadRequestException, Body, ConflictException, Controller, FileTypeValidator, Get, Inject, MaxFileSizeValidator, Param, ParseFilePipe, Post, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, ConflictException, Controller, Get, Inject, MaxFileSizeValidator, Param, ParseFilePipe, Post,  UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { BotService } from '@services/bot.service';
 import { generateRandomIntId } from '@utils/generateRandomIntId';
@@ -75,7 +76,7 @@ export class UserController {
 
     try {
       await this.botService.sendMessage({
-        user: profile.id, message: "Вы успешно зарегистрировались на выезд!"
+        user: profile.id, message: SIGN_IN_TEXT
       })
     } catch (err) {
       console.log(err);
