@@ -99,8 +99,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       
-  build-app:
-    name: Build and publish services
+  create-env-config:
+    name: Copy secrets to env
     environment: DEV
     runs-on: ktu-airlines
     needs: pull-images
@@ -122,30 +122,75 @@ jobs:
           envkey_BOT_CONFIRMATION: ${{ secrets.BOT_CONFIRMATION }}
           file_name: .env
           fail_on_empty: false
+
+  build-frontend:
+    needs: create-env-config
+    if: needs.init.outputs.frontend == 'true'
+    name: Build and publish frontend
+    environment: DEV
+    runs-on: ktu-airlines
+    needs: pull-images
+    steps:
       -
-        name: Copy env to frontend
-        run: cp .env frontend/.env
+        name: Pull image
+        run: docker compose pull frontend
       -
-        name: Pull last images
-        run: docker compose pull
-      -
-        name: Stop frontend
+        name: Stop service
         run: docker compose --env-file .env down frontend 
-        if: needs.init.outputs.frontend == 'true'
       -
-        name: Stop backend
+        name: Build service
+        run: docker compose --env-file .env build frontend
+      -
+        name: Run service
+        run: docker compose --env-file .env up frontend -d
+      -
+        name: Check service
+        run: docker ps -a
+
+  build-backend:
+    needs: create-env-config
+    if: needs.init.outputs.backend == 'true'
+    name: Build and publish backend
+    environment: DEV
+    runs-on: ktu-airlines
+    needs: pull-images
+    steps:
+      -
+        name: Pull image
+        run: docker compose pull backend
+      -
+        name: Stop service
         run: docker compose --env-file .env down backend 
-        if: needs.init.outputs.backend == 'true'
       -
-        name: Stop nginx
-        run: docker compose --env-file .env down nginx  
-        if: needs.init.outputs.nginx == 'true'
+        name: Build service
+        run: docker compose --env-file .env build backend
       -
-        name: Build services
-        run: docker compose --env-file .env build
+        name: Run service
+        run: docker compose --env-file .env up backend -d
       -
-        name: Run services
-        run: docker compose --env-file .env up -d
+        name: Check service
+        run: docker ps -a
+
+  build-nginx:
+    needs: create-env-config
+    if: needs.init.outputs.nginx == 'true'
+    name: Build and publish nginx
+    environment: DEV
+    runs-on: ktu-airlines
+    needs: pull-images
+    steps:
       -
-        name: Check services
+        name: Pull image
+        run: docker compose pull nginx
+      -
+        name: Stop service
+        run: docker compose --env-file .env down nginx 
+      -
+        name: Build service
+        run: docker compose --env-file .env build nginx
+      -
+        name: Run service
+        run: docker compose --env-file .env up nginx -d
+      -
+        name: Check service
         run: docker ps -a
