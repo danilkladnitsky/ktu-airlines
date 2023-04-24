@@ -51,7 +51,6 @@ import { AppService } from './app.service';
     BotService,
     UserRepository,
     TicketRepository,
-    SocketGateway,
     BotGateway
   ],
 })
