@@ -1,8 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-require('dotenv').config({ path: './.env' }); 
+require('dotenv').config({ path: './.env' });
 
 module.exports = {
   entry: {
@@ -12,10 +13,23 @@ module.exports = {
       path.resolve(__dirname, 'src', 'styles/index.scss'),
     ],
   },
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
+  },
   context: path.join(__dirname, 'src'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name]_[hash:base64:5]_.bundle.js',
     publicPath: '/',
   },
   mode: 'development',
@@ -76,6 +90,11 @@ module.exports = {
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       ENV_VARS: JSON.stringify(process.env),
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: '../public', to: '' }, //to the dist root directory
+      ],
     }),
   ],
   devServer: {

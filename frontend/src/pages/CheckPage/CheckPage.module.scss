@@ -1,0 +1,58 @@
+@import "styles/mixins.scss";
+@import "styles/colors.scss";
+
+.page {
+    background-color: $primary-background;
+    @include page;
+}
+
+.paymentInfo {
+    max-width: 400px;
+}
+
+.title {
+    color: $accent-text;
+}
+
+.count {
+    text-align: right;
+}
+
+.check {
+    display: flex;
+    gap: 24px;
+
+    @media (max-width: 991px) {
+        flex-direction: column;
+    }
+}
+
+.payment {
+    display: flex;
+    gap: 24px;
+}
+
+.services {
+    flex: 1;
+}
+
+.ticketInfo {
+    max-width: 300px;
+
+    @media (max-width: 991px) {
+        max-width: 100%;
+    }
+}
+
+.form {
+    height: 100%;
+}
+
+.confirmBtn {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.bookBtn {}

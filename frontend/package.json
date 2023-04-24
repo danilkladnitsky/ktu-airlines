@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --config webpack.config.js --env env=development",
-    "build": "webpack --config webpack.config.js --env env=production",
+    "build": "webpack --config webpack.prod.js --env env=production",
     "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\""
   },
   "author": "",
@@ -20,6 +20,7 @@
     "@mantine/hooks": "^6.0.7",
     "@mantine/notifications": "^6.0.7",
     "classnames": "2.3.2",
+    "copy-webpack-plugin": "^11.0.0",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "eslint-plugin-simple-import-sort": "^10.0.0",
@@ -29,6 +30,7 @@
     "react-router": "5.2.1",
     "react-router-dom": "5.3.0",
     "sass": "1.58.3",
+    "zod": "^3.21.4",
     "zustand": "4.3.3"
   },
   "devDependencies": {

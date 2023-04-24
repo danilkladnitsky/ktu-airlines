@@ -1,0 +1,25 @@
+@import "styles/colors.scss";
+@import "styles/mixins.scss";
+
+.page {
+    background-color: $primary-background;
+    @include page;
+}
+
+.wrapper {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        font-family: "Bold";
+        font-size: 200px;
+        font-weight: 800;
+    }
+
+    h1,
+    h2 {
+        color: $accent-text;
+    }
+}

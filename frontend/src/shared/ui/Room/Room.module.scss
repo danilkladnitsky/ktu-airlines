@@ -1,0 +1,17 @@
+.wrapper {
+    height: 100%;
+}
+
+.bookButton {
+    align-self: flex-end;
+}
+
+.room {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.info {
+    flex: 1;
+}

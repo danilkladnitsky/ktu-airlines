@@ -14,19 +14,38 @@ services:
     env_file:
       - .env
     command: npm run start:prod
+    pull_policy: always
   
   frontend:
     container_name: frontend
     image: danyakladnitsky/ktu-airlines.frontend:latest
     restart: always
+    environment:
+      - ${API_HOST}:${API_HOST}
+    pull_policy: always
   
   nginx:
     image: nginx:latest
     restart: always
     volumes:
       - ./nginx/:/etc/nginx/conf.d/
+      - /github_actions/nginx/dhparam:/etc/nginx/dhparam
+      - /github_actions/certbot/conf/:/etc/nginx/ssl/
+      - /github_actions/certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - backend
       - frontend
     ports:
       - 80:80
+      - 443:443
+
+  certbot:
+     depends_on: 
+     - nginx
+     container_name: certbot
+     image: certbot/certbot:latest
+     command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email core2pixel@gmail.com --agree-tos --no-eff-email -d ktu-tour.ru
+     volumes:
+       - /github_actions/certbot/conf/:/etc/letsencrypt
+       - /github_actions/certbot/logs/:/var/log/letsencrypt
+       - /github_actions/certbot/data:/usr/share/nginx/html/letsencrypt

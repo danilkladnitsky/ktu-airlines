@@ -1,0 +1,21 @@
+@import "styles/colors.scss";
+@import "styles/mixins.scss";
+
+.page {
+    @include page;
+    background-color: $secondary-background;
+    color: $primary-text;
+}
+
+.content {
+    align-items: center;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.step {
+    padding-top: 36px;
+}

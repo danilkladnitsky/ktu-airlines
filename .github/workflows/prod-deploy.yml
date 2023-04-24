@@ -1,0 +1,159 @@
+name: Deploy to production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    name: Check changed files
+    outputs:
+      backend: ${{ steps.check_files.outputs.backend }}
+      frontend: ${{ steps.check_files.outputs.frontend }}
+      nginx: ${{ steps.check_files.outputs.nginx }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: check modified files
+        id: check_files
+        run: |
+            git diff --name-only HEAD^ HEAD > files.txt
+            while IFS= read -r file; do
+              echo $file
+              if [[ $file == backend/* ]]; then
+                echo "backend service will be rebuilt"
+                echo "::set-output name=backend::true"
+              elif [[ $file == frontend/* ]]; then
+                echo "frontend service will be rebuilt"
+                echo "::set-output name=frontend::true"
+              elif [[ $file == nginx/* ]]; then
+                echo "nginx will be rebuild"
+                echo "::set-output name=nginx::true"
+              else
+                echo "file does not belong to any service"
+              fi
+            done < files.txt
+
+  push-to-registry:
+    name: Build and publish images to Docker Registry
+    runs-on: ubuntu-latest
+    needs: init
+    env:
+      backend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.backend
+      frontend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.frontend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Push backend image
+        uses: docker/build-push-action@v4
+        if: needs.init.outputs.backend == 'true'
+        with:
+          context: backend
+          push: true
+          tags: ${{env.backend_rep}}:latest
+          cache-from: type=registry,ref=${{env.backend_rep}}:latest
+          cache-to: type=inline
+          platforms: linux/x86_64
+      -
+        name: Push frontend image
+        uses: docker/build-push-action@v4
+        if: needs.init.outputs.frontend == 'true'
+        with:
+          context: frontend
+          push: true
+          tags: ${{env.frontend_rep}}:latest
+          cache-from: type=registry,ref=${{env.frontend_rep}}:latest
+          cache-to: type=inline
+          platforms: linux/x86_64
+  
+  create-env-config:
+    name: Copy secrets to env
+    environment: PROD
+    runs-on: ktu-airlines
+    needs: push-to-registry
+    steps:
+      -
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_PG_PORT: ${{ secrets.PG_PORT }}
+          envkey_PG_USER: ${{ secrets.PG_USER }}
+          envkey_PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+          envkey_PG_DB: ${{ secrets.PG_DB }}
+          envkey_PG_HOST: ${{ secrets.PG_HOST }}
+          envkey_APP_PORT: ${{ secrets.APP_PORT }}
+          envkey_JWT_TOKEN: ${{ secrets.JWT_TOKEN }}
+          envkey_SWAGGER_USER: ${{ secrets.SWAGGER_USER }}
+          envkey_SWAGGER_PASSWORD: ${{ secrets.SWAGGER_PASSWORD }}
+          envkey_BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          envkey_API_HOST: ${{ secrets.API_HOST }}
+          envkey_BOT_CONFIRMATION: ${{ secrets.BOT_CONFIRMATION }}
+          file_name: .env
+          fail_on_empty: false
+
+  build-frontend:
+    needs: create-env-config
+    if: needs.init.outputs.frontend == 'true'
+    name: Build and publish frontend
+    runs-on: ktu-airlines
+    steps:
+      -
+        name: Pull service
+        run: docker compose pull
+      -
+        name: Build service
+        run: docker compose --env-file .env up frontend -d --force-recreate
+      -
+        name: Check service
+        run: docker ps -a
+
+  build-backend:
+    needs: create-env-config
+    if: needs.init.outputs.backend == 'true'
+    name: Build and publish backend
+    runs-on: ktu-airlines
+    steps:
+      -
+        name: Pull service
+        run: docker compose pull
+      -
+        name: Build service
+        run: docker compose --env-file .env up backend -d --force-recreate
+      -
+        name: Check service
+        run: docker ps -a
+
+  build-nginx:
+    needs: 
+      - build-backend
+      - build-frontend
+    if: needs.init.outputs.nginx == 'true'
+    name: Build and publish nginx
+    environment: DEV
+    runs-on: ktu-airlines
+    steps:
+      -
+        name: Pull service
+        run: docker compose pull
+      -
+        name: Build service
+        run: docker compose --env-file .env up nginx -d --force-recreate
+      -
+        name: Check service
+        run: docker ps -a

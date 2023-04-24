@@ -48,21 +48,34 @@ export const MANTINE_THEME: MantineThemeOverride = {
     },
   },
   components: {
-    Title: {
-      styles: {
-        root: {
-          '&:is(h1)': { color: COLORS.ACCENT_TEXT },
-          '&:is(h2)': { color: COLORS.PRIMARY_TEXT },
-          '&:is(h3)': { color: COLORS.ACCENT_TEXT },
-          '&:is(h5)': { color: COLORS.PRIMARY_TEXT },
-          '&:is(h6)': { color: COLORS.SECONDARY_TEXT },
+    Text: {
+      'styles': {
+        'root': {
+          fontFamily: 'Regular',
         },
       },
     },
-    Input: {
+    Checkbox: {
+      'styles': {
+        'label': {
+          fontFamily: 'Regular',
+        },
+      },
+    },
+    List: {
+      'styles': {
+        'item': {
+          fontFamily: 'Regular',
+        },
+      },
+    },
+    TextInput: {
       styles: {
-        '&': {
-          borderColor: 'red',
+        root: {
+          width: '100%',
+        },
+        label: {
+          marginBottom: '8px',
         },
       },
     },
@@ -76,6 +89,27 @@ export const MANTINE_THEME: MantineThemeOverride = {
           '&:hover': {
             backgroundColor: COLORS.HOVER_BUTTON,
           },
+        },
+      },
+    },
+    Badge: {
+      styles: {
+        'root': {
+          textTransform: 'unset',
+        },
+      },
+    },
+    Container: {
+      styles: {
+        'root': {
+          maxWidth: '1100px',
+        },
+      },
+    },
+    Textarea: {
+      styles: {
+        'label': {
+          marginBottom: '4px',
         },
       },
     },

@@ -1,22 +1,5 @@
 @import "styles/colors.scss";
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 32px;
-}
-
-.headerTitle {
-    color: $accent-text;
-    font-size: 24px;
-}
-
-.headerLogo {
-    height: 56px;
-    width: 56px;
-}
-
 .slogan {
     display: flex;
     justify-content: center;
@@ -24,6 +7,7 @@
 
 .sloganText {
     font-size: 36px;
+    color: $accent-text  !important;
 }
 
 .searchBar {

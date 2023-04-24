@@ -1,21 +1,22 @@
 import React from 'react';
-import { Loader, Text, Title } from '@mantine/core';
-
-import { COLORS } from 'shared/colors';
+import { Loader, Title } from '@mantine/core';
+import classNames from 'classnames';
 
 import styles from './LoadingStatus.module.scss';
 
 type Props = {
-    title: string;
-    description: string;
+  title: string;
+  description: string;
+  className?: string;
 }
 
 export const LoadingStatus = ({
-  description = 'Уже можно собирать чемоданы',
-  title = 'Ищем авиабилеты...',
+  description,
+  title,
+  className,
 }: Props) => {
   return (
-    <div className={styles.loadingWrapper}>
+    <div className={classNames(styles.loadingWrapper, className)}>
       <Loader size={'lg'} color="lime" />
       <div>
         <Title order={2} className={styles.title}>

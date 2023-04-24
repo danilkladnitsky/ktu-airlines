@@ -1,0 +1,16 @@
+@import "styles/mixins.scss";
+@import "styles/colors.scss";
+
+.page {
+    @include page;
+    background-color: $primary-background;
+}
+
+.title {
+    color: $accent-text;
+    text-align: center;
+}
+
+.popup {
+    max-width: 350px;
+}

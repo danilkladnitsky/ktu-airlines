@@ -1,27 +1,56 @@
-import { fetchApi, FetchResponse, USER_IS_SUBSCRIBED } from 'shared/api';
+import { fetchApi, FetchResponse, GET_VK_PERMISSIONS, SIGN_IN, UPLOAD_FILE } from 'shared/api';
 
 export type UserServices = 'bed_sheets' | 'vegan_menu';
 
-export type User = {
-    firstName: string;
-    secondName: string;
-    isuNumber: ISUNumber;
-    groupName: GroupName;
-    phoneNumber: PhoneNumber;
-    vkLink: VKLink;
-    motivationLetter: {
-        about_baggage: string;
-        about_cocktail: string;
-        about_vacation: string;
-        about_plane: string;
-    };
-    selectedServices: [UserServices];
+export type User = UserBioData & {
+  motivationLetter: UserMotivationLetter;
+  selectedServices: [UserServices];
 }
 
-export function isSubscribed(user: User): Promise<FetchResponse<boolean>> {
-  return fetchApi<boolean>(USER_IS_SUBSCRIBED(user.vkLink));
+export type UserBioData = {
+  firstName: string;
+  lastName: string;
+  isuNumber: ISUNumber;
+  groupName: GroupName;
+  phoneNumber: PhoneNumber;
+  vkLink: VKLink;
+  thumbnailUrl: string;
 }
 
-export function canReceiveMessages(user: User): Promise<boolean> {
-  return new Promise<boolean>((resolve) => resolve(true));
+export type UserMotivationLetter = {
+  about_baggage: string;
+  about_cocktail: string;
+  about_vacation: string;
+  about_plane: string;
+}
+
+export type VKPermissions = {
+  isMember: boolean;
+  canReceiveMessages: boolean;
+}
+
+export async function getPermissions(vkLink: VKLink)
+  : Promise<FetchResponse<VKPermissions>> {
+  return await fetchApi(GET_VK_PERMISSIONS(vkLink));
+}
+
+export async function signIn(user: User)
+  : Promise<FetchResponse<VKPermissions>> {
+
+  const { motivationLetter, isuNumber, selectedServices, ...restProps } = user;
+
+  const payload = {
+    ...restProps,
+    isuNumber: +isuNumber,
+    selectedServices: (selectedServices || []).join(','),
+    motivationLetter: Object.entries(([title, content]: [string, string]) => `${title}: ${content}`).join('\n'),
+  };
+
+  return await fetchApi(SIGN_IN(), JSON.stringify(payload));
+}
+
+export async function uploadPhoto(file: File): Promise<FetchResponse<{url: string}>> {
+  const form = new FormData();
+  form.append("file", file);
+  return await fetchApi(UPLOAD_FILE(), form);
 }
