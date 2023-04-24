@@ -39,9 +39,9 @@ export const Hotel = ({ hotel }: Props) => {
             Удобства и услуги
         </Title>
         <List size={16}>
-          <List.Item>Трансфер</List.Item>
-          <List.Item>Питание</List.Item>
-          <List.Item>SPA</List.Item>
+          <List.Item>{hotel.service1}</List.Item>
+          <List.Item>{hotel.service2}</List.Item>
+          <List.Item>{hotel.service3}</List.Item>
         </List>
       </Stack>
       <Button className={styles.selectBtn} variant="light" color="blue" mt="md" radius="md" onClick={incrementFormId} disabled={!active}>

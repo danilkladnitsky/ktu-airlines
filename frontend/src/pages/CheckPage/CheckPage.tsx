@@ -6,6 +6,7 @@ import { useAppStore } from 'store';
 import { z } from 'zod';
 
 import { ROOMS } from 'domain/room';
+import { TICKETS } from 'domain/ticket';
 
 import { Room } from 'shared/ui';
 import { HeaderBar } from 'shared/ui/HeaderBar';
@@ -57,30 +58,28 @@ export const CheckPage = () => {
 
   };
 
+  const ticket = TICKETS[0];
+
   return (
     <div className={styles.page}>
       <Container>
         <HeaderBar />
         <Center>
-          <div className={styles.check}
-            breakpoints={[
-              { maxWidth: '62rem', cols: 1, spacing: 'md' },
-            ]}
-          >
+          <div className={styles.check}>
             <Stack className={styles.ticketInfo}>
               <Title className={styles.title}>
               Детали<br />бронирования
               </Title>
               <Card padding={'xl'} radius="lg">
                 <Stack spacing={'xl'}>
-                  <TicketOperator name="[ktu].pobeda" />
-                  <TicketRoute date="5 мая" endTime="10:00" startTime="7:30" endPlace="YAG"
+                  <TicketOperator url={ticket.thumbnail} name={ticket.tourOperator} />
+                  <TicketRoute date={ticket.tripStart.day} endTime="11:00" startTime="09:00" endPlace="YAG"
                     startPlace="GK" />
-                  <TicketRoute date="6 мая" endTime="10:30" startTime="12:10" startPlace="YAG"
+                  <TicketRoute date="6 мая" endTime="11:00" startTime="14:10" startPlace="YAG"
                     endPlace="GK" />
                 </Stack>
               </Card>
-              {currentRoom && <Room room={currentRoom} minified />}
+              {currentRoom && <Room room={currentRoom} minified className={styles.room} />}
             </Stack>
             <Card padding={'xl'} radius="lg">
               <Stack className={styles.paymentInfo} >

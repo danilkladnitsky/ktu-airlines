@@ -8,8 +8,8 @@ import styles from './LoginPage.module.scss';
 export const LoginPage = () => {
   return (
     <div className={styles.page}>
-      <HeaderBar theme="dark" />
       <Container>
+        <HeaderBar theme="dark" />
         <Center>
           <Stack>
             <Title>Войти в профиль</Title>

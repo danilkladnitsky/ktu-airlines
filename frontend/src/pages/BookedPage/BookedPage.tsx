@@ -28,18 +28,17 @@ export const BookedPage = () => {
             <Title className={styles.title}>
                 Спасибо за регистрацию!
             </Title>
-            <Card>
+            <Card radius={'lg'}>
               <Text size={'sm'}>
                 Ваша заявка успешно отправлена!
-                <br />
                 Наш менеджер свяжется с вами в ближайшее время для того, чтобы подтвердить бронирование.
                 Мы будем рады увидеть вас в КТУрции и сделаем все возможное, чтобы ваш отдых был незабываемым!
               </Text>
             </Card>
-            <Title className={styles.title} order={3}>
+            {/* <Title className={styles.title} order={3}>
                 Данные бронирования
-            </Title>
-            <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
+            </Title> */}
+            {/* <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
               <Card padding={'lg'} radius="lg">
                 <Stack>
                   <TicketOperator
@@ -63,7 +62,7 @@ export const BookedPage = () => {
                 </Stack>
               </Card>
               {room && <Room room={room} minified />}
-            </SimpleGrid>
+            </SimpleGrid> */}
           </Stack>
         </Center>
       </Container>

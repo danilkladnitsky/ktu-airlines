@@ -1,5 +1,6 @@
 import React from 'react';
 import { Badge, Button, Card, Checkbox, Group, Image, Space, Stack, Text, Title } from '@mantine/core';
+import classNames from 'classnames';
 import { useAppStore } from 'store';
 
 import { Room as RoomType } from 'domain/room';
@@ -10,9 +11,10 @@ import styles from './Room.module.scss';
 type Props = {
   room: RoomType;
   minified?: boolean;
+  className?:string;
 }
 
-export const Room = ({ room, minified = false }: Props) => {
+export const Room = ({ room, className, minified = false }: Props) => {
   const {
     incrementFormId,
     selectRoom,
@@ -52,7 +54,7 @@ export const Room = ({ room, minified = false }: Props) => {
   };
 
   return (
-    <Card shadow={'sm'} padding="xl" radius={'lg'} className={styles.room}>
+    <Card shadow={'sm'} padding="xl" radius={'lg'} className={classNames(styles.room, className)}>
       <Card.Section>
         <Image
           src={pic}
@@ -66,9 +68,6 @@ export const Room = ({ room, minified = false }: Props) => {
       </Group>
       {!minified && <Stack className={styles.info}>
         <Text size="sm">
-          <Title order={5}>
-            Про отель
-          </Title>
           {description}
         </Text>
         {<Text size="sm">

@@ -16,6 +16,7 @@ type State = {
   vkPermissionsLoading: boolean;
   uploadedThumbnail: string | null;
   formIsSending: boolean;
+  loadingStep: number;
   incrementFormId: () => void;
   setFormId: (id: number) => void;
   selectTicket: () => void;
@@ -30,6 +31,7 @@ type State = {
 
 export const useAppStore = create(persist<State>((set, state) => ({
   activeFormId: 0,
+  loadingStep: -1,
   ticketSelected: false,
   userBio: null,
   motivationLetter: null,
@@ -40,9 +42,18 @@ export const useAppStore = create(persist<State>((set, state) => ({
   uploadedThumbnail: null,
   formIsSending: false,
   selectedServices: ['bed_sheets'],
-  incrementFormId: () => set(state => ({
-    activeFormId: state.activeFormId + 1,
-  })),
+  incrementFormId: () => {
+    const step = state().activeFormId;
+
+    set({ loadingStep: step });
+
+    setTimeout(() => {
+      set(state => ({
+        activeFormId: step + 1,
+        loadingStep: -1,
+      }));
+    }, 1500);
+  },
   resetTicket: () => set({ ticketSelected: false }),
   selectTicket: async () => {
     set(() => ({ ticketsAreLoading: true }));

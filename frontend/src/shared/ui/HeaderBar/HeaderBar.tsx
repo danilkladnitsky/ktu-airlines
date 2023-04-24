@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ActionIcon, Avatar, Box, Title } from '@mantine/core';
 
 import { COLORS } from 'shared/colors';
+import { UserIcon } from 'shared/icons/user';
 
 import styles from './HeaderBar.module.scss';
 
@@ -21,7 +22,10 @@ export const HeaderBar = ({ theme = 'light' }: Props) => {
         </Link>
       </Title>
       <ActionIcon className={styles.headerLogo} radius={'50%'}>
-        <Avatar component={Link} radius={'50%'} color={'lime'} size="lg" to="/login" />
+        <Avatar component={Link} radius={'50%'} size="lg" to="/login" classNames={{
+          placeholder: styles.avatar }}>
+          <UserIcon />
+        </Avatar>
       </ActionIcon>
     </Box>
   );

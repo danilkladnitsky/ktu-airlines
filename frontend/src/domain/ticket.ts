@@ -23,18 +23,18 @@ export const TICKETS: AirTicket[] = [
     active: true,
     thumbnail: '/operators/kturkish.png',
     tripStart: {
-      placeFromDate: '07:30',
-      placeToDate: '10:00',
+      placeFromDate: '09:00',
+      placeToDate: '11:00',
       day: '5 мая',
     },
     tripEnd: {
-      placeFromDate: '10:30',
-      placeToDate: '12:10',
+      placeFromDate: '11:00',
+      placeToDate: '14:10',
       day: '6 мая',
     },
   },
   {
-    feature: 'Нужна запись',
+    feature: 'Мест нет',
     tourOperator: 'Барсус',
     active: false,
     thumbnail: '/operators/barsus.png',
@@ -45,12 +45,12 @@ export const TICKETS: AirTicket[] = [
     },
     tripEnd: {
       placeFromDate: '18:40',
-      placeToDate: '02:30',
+      placeToDate: '21:30',
       day: '6 мая',
     },
   },
   {
-    feature: 'Нужна виза',
+    feature: 'Мест нет',
     tourOperator: 'itmavia',
     active: false,
     thumbnail: '/operators/itmavia.png',
@@ -66,7 +66,7 @@ export const TICKETS: AirTicket[] = [
     },
   },
   {
-    feature: 'Без пересадок',
+    feature: 'Мест нет',
     tourOperator: 'ktubeda',
     active: false,
     thumbnail: '/operators/ktubeda.png',
