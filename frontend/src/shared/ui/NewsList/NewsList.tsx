@@ -12,7 +12,7 @@ export const NewsList = ({ news }:{news: NewsItemType[]}) => {
       <Center>
         <Title>Новости</Title>
       </Center>
-      <SimpleGrid className={styles.list} cols={3}>{
+      <SimpleGrid breakpoints={[{ maxWidth: 'sm', cols: 1 }]} className={styles.list} cols={3}>{
         news.map(item => <NewsItem {...item} key={item.title} />)
       }
       </SimpleGrid>
