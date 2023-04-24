@@ -73,7 +73,7 @@ export const CheckPage = () => {
               <Card padding={'xl'} radius="lg">
                 <Stack spacing={'xl'}>
                   <TicketOperator url={ticket.thumbnail} name={ticket.tourOperator} />
-                  <TicketRoute date={ticket.tripStart.day} endTime="11:00" startTime="08:00" endPlace="YAG"
+                  <TicketRoute date={ticket.tripStart.day} endTime="11:00" startTime="09:00" endPlace="YAG"
                     startPlace="GK" />
                   <TicketRoute date="6 мая" endTime="11:00" startTime="14:10" startPlace="YAG"
                     endPlace="GK" />

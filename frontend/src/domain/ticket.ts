@@ -45,7 +45,7 @@ export const TICKETS: AirTicket[] = [
     },
     tripEnd: {
       placeFromDate: '18:40',
-      placeToDate: '02:30',
+      placeToDate: '21:30',
       day: '6 мая',
     },
   },
