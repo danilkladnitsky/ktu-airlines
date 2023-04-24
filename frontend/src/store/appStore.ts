@@ -15,6 +15,7 @@ type State = {
   vkPermissions: VKPermissions | null;
   vkPermissionsLoading: boolean;
   uploadedThumbnail: string | null;
+  formIsSending: boolean;
   incrementFormId: () => void;
   setFormId: (id: number) => void;
   selectTicket: () => void;
@@ -37,6 +38,7 @@ export const useAppStore = create(persist<State>((set, state) => ({
   vkPermissions: null,
   vkPermissionsLoading: false,
   uploadedThumbnail: null,
+  formIsSending: false,
   selectedServices: ['bed_sheets'],
   incrementFormId: () => set(state => ({
     activeFormId: state.activeFormId + 1,
@@ -51,7 +53,7 @@ export const useAppStore = create(persist<State>((set, state) => ({
 
   },
   uploadUserThumbnail: async (file: File) => {
-    const {result} = await uploadPhoto(file);
+    const { result } = await uploadPhoto(file);
 
     if (!result?.url) {
       return;
@@ -78,13 +80,17 @@ export const useAppStore = create(persist<State>((set, state) => ({
 
   },
   signIn: async () => {
-    const { motivationLetter, userBio } = state();
+    set({ formIsSending: true });
+    const { motivationLetter, userBio, selectedRoom } = state();
 
-    const user: User = { motivationLetter, ...userBio };
+    const user: User = {
+      motivationLetter,
+      selectedServices: selectedRoom?.services || {},
+      ...userBio,
+    };
 
-    const req = await signIn(user);
-
-    console.log(req);
+    await signIn(user);
+    set({ formIsSending: false });
 
   },
 }), {

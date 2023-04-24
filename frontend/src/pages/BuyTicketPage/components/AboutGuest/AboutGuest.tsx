@@ -48,7 +48,7 @@ export const AboutGuest = () => {
 
   return (
     <div className={styles.form}>
-      <Card className={styles.wrapper} shadow="sm">
+      <Card className={styles.wrapper} radius="lg" shadow="sm" padding={'lg'}>
         <Stack spacing={'lg'}>
           <Textarea
             label="Какие вещи будут в твоём чемодане?"

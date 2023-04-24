@@ -43,7 +43,7 @@ export async function signIn(user: User)
     ...restProps,
     isuNumber: +isuNumber,
     selectedServices: (selectedServices || []).join(','),
-    motivationLetter: Object.entries(([title, content]: [string, string]) => `${title}: ${content}`).join('\n'),
+    motivationLetter: Object.entries(motivationLetter).map(([title, content]: [string, string]) => `${title}: ${content}`).join('\n'),
   };
 
   return await fetchApi(SIGN_IN(), JSON.stringify(payload));
@@ -51,6 +51,6 @@ export async function signIn(user: User)
 
 export async function uploadPhoto(file: File): Promise<FetchResponse<{url: string}>> {
   const form = new FormData();
-  form.append("file", file);
+  form.append('file', file);
   return await fetchApi(UPLOAD_FILE(), form);
 }
