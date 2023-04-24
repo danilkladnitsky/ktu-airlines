@@ -47,9 +47,6 @@ jobs:
       frontend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.frontend
     steps:
       -
-        name: Checkout
-        uses: actions/checkout@v3
-      -
         name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -84,26 +81,11 @@ jobs:
           cache-to: type=inline
           platforms: linux/x86_64
 
-  pull-images:
-    name: Pull and run images
-    runs-on: ktu-airlines
-    needs: push-to-registry
-    env:
-      frontend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.frontend
-      backend_rep: ${{ secrets.DOCKERHUB_USERNAME }}/ktu-airlines.backend
-    steps:
-      -
-        name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      
   create-env-config:
     name: Copy secrets to env
     environment: DEV
     runs-on: ktu-airlines
-    needs: pull-images
+    needs: push-to-registry
     steps:
       -
         uses: SpicyPizza/create-envfile@v1.3
@@ -124,7 +106,7 @@ jobs:
           fail_on_empty: false
 
   build-frontend:
-    needs: create-env-config
+    needs: push-to-registry
     if: needs.init.outputs.frontend == 'true'
     name: Build and publish frontend
     environment: DEV
@@ -133,9 +115,6 @@ jobs:
       -
         name: Pull image
         run: docker compose pull frontend
-      -
-        name: Stop service
-        run: docker compose --env-file .env down frontend 
       -
         name: Build service
         run: docker compose --env-file .env build frontend
@@ -157,9 +136,6 @@ jobs:
         name: Pull image
         run: docker compose pull backend
       -
-        name: Stop service
-        run: docker compose --env-file .env down backend 
-      -
         name: Build service
         run: docker compose --env-file .env build backend
       -
@@ -179,9 +155,6 @@ jobs:
       -
         name: Pull image
         run: docker compose pull nginx
-      -
-        name: Stop service
-        run: docker compose --env-file .env down nginx 
       -
         name: Build service
         run: docker compose --env-file .env build nginx
