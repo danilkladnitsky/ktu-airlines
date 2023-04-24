@@ -24,7 +24,7 @@ export const Ticket = ({ ticket }: Props) => {
     >
       <div className={styles.tourOperator}>
         <TicketOperator name={tourOperator} url={ticket.thumbnail} />
-        <Badge variant={'light'} color={'lime'} className={styles.badge}>
+        <Badge variant={'light'} color={active ? 'lime' : 'red'} className={styles.badge}>
           {ticket.feature}
         </Badge>
       </div>

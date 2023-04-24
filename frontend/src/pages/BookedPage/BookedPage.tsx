@@ -28,7 +28,7 @@ export const BookedPage = () => {
             <Title className={styles.title}>
                 Спасибо за регистрацию!
             </Title>
-            <Card>
+            <Card radius={'lg'}>
               <Text size={'sm'}>
                 Ваша заявка успешно отправлена!
                 <br />
