@@ -9,12 +9,6 @@ async function runApi() {
 
   // app.useGlobalPipes(new ValidationPipe({ transform: true }))
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.use(bodyParser.json({limit: '10mb'}));
-  app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
-  app.useGlobalInterceptors(
-    new ClassSerializerInterceptor(app.get(Reflector))
-  );
-
   app.setGlobalPrefix("api");
 
   await app.listen(process.env.APP_PORT);
