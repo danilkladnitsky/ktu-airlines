@@ -19,16 +19,6 @@ import { AppService } from './app.service';
 
 @Module({
   imports: [
-    S3Module.forRootAsync({
-      useFactory: () => ({
-        config: {
-          accessKeyId: process.env.S3_ACCESS_KEY,
-          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-          endpoint: process.env.S3_URL,
-          region: "ru-1"
-        },
-      }),
-    }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',

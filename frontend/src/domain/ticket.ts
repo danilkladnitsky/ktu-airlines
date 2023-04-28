@@ -20,7 +20,7 @@ export const TICKETS: AirTicket[] = [
   {
     feature: 'Самый быстрый',
     tourOperator: 'Kturkish Airlines',
-    active: false,
+    active: true,
     thumbnail: '/operators/kturkish.png',
     tripStart: {
       placeFromDate: '09:00',

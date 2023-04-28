@@ -84,7 +84,7 @@ export class BotService {
     return !!result.is_allowed;
   }
 
-  async getVkProfile(payload: UsersGetParams): Promise<VkProfileResponse> {
+  async getVkProfile(payload: UsersGetParams): Promise<VkProfileResponse | undefined> {
     try {
       const result = await this.vkApi.users.get(payload);
 

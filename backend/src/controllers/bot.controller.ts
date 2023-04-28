@@ -81,7 +81,7 @@ export class BotController {
       throw new NotFoundException(`Пользователя ${username} не существует`);
     }
 
-    return await this.botService.userIsMember(profile.id);
+    return await this.botService.userIsMember(profile?.id);
   }
 
   @Get("permissions")
