@@ -29,9 +29,6 @@ export class TicketService {
             await this.ticketRepository.save({ status: "pending", userId: user.id });
         }
 
-        console.log(BotInviteKeyboard);
-
-
-        this.botService.sendMessage({ user: user.vkId, message: INVITE_TEXT, keyboard: BotInviteKeyboard });
+        return this.botService.sendMessage({ user: user.vkId, message: INVITE_TEXT, keyboard: BotInviteKeyboard });
     }
 }

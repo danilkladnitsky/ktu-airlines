@@ -8,7 +8,7 @@ export class RolesGuard implements CanActivate {
     constructor(private reflector: Reflector) { }
     canActivate(context: ExecutionContext): boolean {
         const roles = this.reflector.getAllAndOverride<string[]>('roles', [context.getHandler(), context.getClass()]);
-
+        
         if (!roles) {
             return false;
         }
@@ -22,6 +22,10 @@ export class RolesGuard implements CanActivate {
         }
 
         const jwtPayload = verifyJwt<JwtDto>(jwt);
+
+        if (!jwtPayload) {
+            return false;
+        }
 
         return this.validateRoles(roles, jwtPayload.role);
     }

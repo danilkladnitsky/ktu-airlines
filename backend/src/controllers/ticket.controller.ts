@@ -27,21 +27,25 @@ export class TicketController {
     return this.ticketService.getTicketByUserId(userId);
   }
 
-  @Post("invite-user/:vk_id")
+  @Post("invite-user/:isuNumber")
   @Roles([Role.Admin])
-  async inviteUser(@Param('vk_id') vkId: string) {
-    if (!vkId) {
-      throw new BadRequestException("Не указан vk_id");
+  async inviteUser(@Param('isuNumber') isuNumber: number) {
+    if (!isuNumber) {
+      throw new BadRequestException("Не указан isuNumber");
     }
 
-    const user = await this.userRepository.getBy("vkId", vkId);
+    const user = await this.userRepository.getBy("isuNumber", isuNumber);
 
     if (!user) {
       throw new NotFoundException("Такого пользователя нет");
     }
 
-    this.ticketService.inviteUser(user);
-
+    try {
+    return this.ticketService.inviteUser(user);
+      
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
 
 }
