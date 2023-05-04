@@ -17,8 +17,8 @@ export class BotGateway implements OnModuleInit {
     @Inject(UserService)
     private readonly userService: UserService;
 
-    isSendMessage(message: string) {
-        return message.includes("/send") || message.includes("/test");
+    isSendMessage(message?: string) {
+        return message?.includes("/send") || message?.includes("/test");
     }
 
     async sendNotifications(context: MessageContext<ContextDefaultState>) {
@@ -72,7 +72,7 @@ export class BotGateway implements OnModuleInit {
                 this.botService.onInvitation(messagePayload, context)
             }
 
-            if (this.isSendMessage(text)) {
+            if (text && this.isSendMessage(text)) {
                 this.sendNotifications(context)
             }
         });
