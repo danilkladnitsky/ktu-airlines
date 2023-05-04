@@ -168,6 +168,7 @@ export class BotService {
         await delay(DELAY);
       }
     }
+    
     console.log(resultStatusList);
     
     return resultStatusList;
