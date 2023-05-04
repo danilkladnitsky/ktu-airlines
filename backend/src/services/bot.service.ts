@@ -17,6 +17,7 @@ import { MessagesSendParams, UsersGetParams } from 'vk-io/lib/api/schemas/params
 import { GroupsGroupFull } from 'vk-io/lib/api/schemas/objects';
 import { BotDeclineKeyboard } from '@common/bot.keyboards';
 import { ACCEPT_INVITE_TEXT, DECLINE_TEXT } from '@common/bot.phrases';
+import { User } from '@entities/user.entity';
 
 @Injectable()
 export class BotService {
@@ -140,5 +141,36 @@ export class BotService {
 
     return groupsList[0];
   }
+  
+  async sendNotifications(users: Partial<User>[], message: string, attachment): Promise<{user: string, ok: boolean, error?: string}[]> { 
+    const resultStatusList = [];
+    const DELAY = 100;
 
+    function delay(t) {
+      return new Promise(resolve => setTimeout(resolve, t));
+    }
+
+    console.info("Отправляю сообщение: ", message);
+    console.info("Количество людей: ", users.length);
+
+    for (let user of users) {
+      try {
+        await this.sendMessage({ user: user.vkId, message, attachment });
+        resultStatusList.push({ user: user.vkId, ok: true });
+        console.info(`Отправил сообщение ${user.firstName} ${user.lastName} (${user.vkId})`);
+
+        await delay(DELAY);
+      } catch (error) {
+        console.log(error);
+        console.warn(`Не смог отправить сообщение ${user.firstName} ${user.lastName} (${user.vkId})`);
+        
+        resultStatusList.push({ user: user.vkId, ok: false, error });
+        await delay(DELAY);
+      }
+    }
+
+    console.log(resultStatusList);
+    
+    return resultStatusList;
+  }
 }
