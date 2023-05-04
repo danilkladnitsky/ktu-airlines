@@ -104,6 +104,7 @@ jobs:
           envkey_BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           envkey_API_HOST: ${{ secrets.API_HOST }}
           envkey_BOT_CONFIRMATION: ${{ secrets.BOT_CONFIRMATION }}
+          envkey_ADMINS: ${{ secrets.ADMINS }}
           file_name: .env
           fail_on_empty: false
 
